@@ -1,0 +1,84 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+	<h:outputText value="#{msg['texto.maisVantagens']}"/>
+
+	<p:dataTable var="promo" id="promosAdicionaPrazo"
+		value="#{gerentePedidoMB.listasPromocoes.get(0)}"
+		rendered="#{not empty gerentePedidoMB.listasPromocoes.get(0)}"
+		selection="#{gerentePedidoMB.promocaoSelecionada}"
+		rowKey="#{promo.promocaoPK.numero}"
+		styleClass="tabelaPromocoesCarrinho">
+
+		<p:column selectionMode="single"
+			disabledSelection="#{gerentePedidoMB.valorTotalItens lt promo.faixaValorInicio}" />
+
+		<p:ajax event="rowSelectRadio" global="false"
+			update=":formCarrinho:itens:promosVencimentoFixo, :formCarrinho:itens:promosPrazoFinal, :formCarrinho:itens:promosDescontoMaximo" />
+
+		<p:column headerText="#{msg['texto.promocao.aumentePrazo']}">
+			<h:outputText value="#{propriedade.gerarMensagem(promo)}" />
+		</p:column>
+
+	</p:dataTable>
+
+	<p:dataTable var="promo" id="promosPrazoFinal" style="margin:0"
+		rendered="#{not empty gerentePedidoMB.listasPromocoes.get(1)}"
+		value="#{gerentePedidoMB.listasPromocoes.get(1)}"
+		selection="#{gerentePedidoMB.promocaoSelecionada}"
+		rowKey="#{promo.promocaoPK.numero}">
+
+		<p:column selectionMode="single"
+			disabledSelection="#{gerentePedidoMB.valorTotalItens lt promo.faixaValorInicio}" />
+
+		<p:ajax event="rowSelectRadio" global="false"
+			update=":formCarrinho:itens:promosAdicionaPrazo, :formCarrinho:itens:promosVencimentoFixo, :formCarrinho:itens:promosDescontoMaximo" />
+
+		<p:column headerText="#{msg['texto.promocao.definaPrazoFinal']}">
+			<h:outputText value="#{propriedade.gerarMensagem(promo)}" />
+		</p:column>
+
+	</p:dataTable>
+
+	<p:dataTable var="promo" id="promosVencimentoFixo"
+		rendered="#{not empty gerentePedidoMB.listasPromocoes.get(2)}"
+		value="#{gerentePedidoMB.listasPromocoes.get(2)}"
+		styleClass="tabelaPromocoesCarrinho"
+		selection="#{gerentePedidoMB.promocaoSelecionada}"
+		rowKey="#{promo.promocaoPK.numero}">
+
+		<p:column selectionMode="single"
+			disabledSelection="#{gerentePedidoMB.valorTotalItens lt promo.faixaValorInicio}" />
+
+		<p:ajax event="rowSelectRadio" global="false"
+			update=":formCarrinho:itens:promosAdicionaPrazo, :formCarrinho:itens:promosPrazoFinal, :formCarrinho:itens:promosDescontoMaximo" />
+
+		<p:column headerText="#{msg['texto.promocao.definaVencimento']}">
+			<h:outputText value="#{propriedade.gerarMensagem(promo)}" />
+		</p:column>
+
+	</p:dataTable>
+
+	<p:dataTable var="promo" id="promosDescontoMaximo"
+		rendered="#{not empty gerentePedidoMB.listasPromocoes.get(3) and gerenteLogin.perfilColaborador}"
+		value="#{gerentePedidoMB.listasPromocoes.get(3)}"
+		styleClass="tabelaPromocoesCarrinho"
+		selection="#{gerentePedidoMB.promocaoSelecionada}"
+		rowKey="#{promo.promocaoPK.numero}">
+
+		<p:column selectionMode="single"
+			disabledSelection="#{gerentePedidoMB.valorTotalItens lt promo.faixaValorInicio}" />
+
+		<p:ajax event="rowSelectRadio" global="false"
+			update=":formCarrinho:itens:promosAdicionaPrazo, :formCarrinho:itens:promosPrazoFinal, :formCarrinho:itens:promosVencimentoFixo" />
+
+		<p:column headerText="#{msg['texto.promocao.definaVencimento']}">
+			<h:outputText value="#{propriedade.gerarMensagem(promo)}" />
+		</p:column>
+
+	</p:dataTable>
+</f:view>

@@ -1,0 +1,35 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+	<h:inputText id="textPesqisaProduto"
+		value="#{produtoPesquisaMB.filtroCodigoOuDescricao}"
+		styleClass="inputSearchBox" />
+		
+	<p:watermark value="#{msg['pergunta.procurandoAlgoEspecial']}" for="textPesqisaProduto"/>
+
+	<p:selectOneMenu id="searchCheckboxCategorias"
+		value="#{produtoPesquisaMB.filtroGrupoGrupoClassisificacao}"
+		styleClass="searchCheckboxCategorias" effect="fade" filter="true"
+		filterMatchMode="startsWith">
+
+		<f:selectItem itemLabel="#{msg['texto.todos']}"
+			itemValue="#{codigoGrupoTodos}" />
+
+		<f:selectItems value="#{produtoPesquisaMB.grupoClassificacaoFiltro}"
+			var="grupoClassificacao"
+			itemLabel="#{grupoClassificacao.descricao.toLowerCase()}"
+			itemValue="#{grupoClassificacao.codigo}" />
+	</p:selectOneMenu>
+
+	<p:commandButton id="botaoSearchBox" iconPos="right"
+		icon="ui-icon-search" global="false" styleClass="botaoSearchBox"
+		action="#{produtoPesquisaMB.executarPesquisa()}"
+		onstart="dialogPesquisando.show()" oncomplete="resetTabIndex();"
+		onsuccess="dialogPesquisando.hide();redirecionar('#{rootPath}#{produtoPesquisaMB.urlView}');"
+		onerror="dialogPesquisando.hide()">
+	</p:commandButton>
+</f:view>

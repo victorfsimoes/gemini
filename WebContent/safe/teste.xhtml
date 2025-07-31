@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+<ui:composition template="/templates/layoutInstitucional.xhtml">
+	<ui:define name="content">
+		<p:panel style="height:100%;  text-align: justify !important;"
+			header="Contato">
+
+			<h:panelGrid columns="2" style="width:100%;">
+
+				<h:column>
+					<p>
+						De segunda-feira à sexta-feira de 8h30h às 18h.<br /> Aos sábados
+						das 8h30h às 12h.
+					</p>
+
+					<h:panelGrid columns="3" cellspacing="20">
+						<comp:outputInfo titulo="Telefone" info="(31) 3524-8686" />
+						<comp:outputInfo titulo="SAC" info="(31) 3524-8675" />
+						<comp:outputInfo titulo="Fax" info="(31) 3524-8670" />
+					</h:panelGrid>
+					<comp:outputInfo titulo="E-mail"
+						info=" orcamento@dentalsorria.com.br" />
+					<br />
+					<comp:outputInfo titulo="Endereço"
+						info="Rua Prof Ziller, 321 - Belo Horizonte / Minas Brasil - CEP: 30.730-200" />
+				</h:column>
+
+				<p:graphicImage url="/resources/img/dental/atendimento.jpg"
+					style="float:right;padding-right:30px;" width="313" height="193" />
+
+			</h:panelGrid>
+
+		</p:panel>
+	</ui:define>
+</ui:composition>
+</html>

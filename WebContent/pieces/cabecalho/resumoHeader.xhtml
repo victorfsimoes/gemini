@@ -1,0 +1,63 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+	<p:outputPanel id="containerHeaderCarrinho"
+		rendered="#{identity.loggedIn}">
+
+		<div class="headerBackgroundCarrinho">
+			<h:outputLink value="#{rootPath}#{gerentePedidoMB.urlView}">
+				<h:graphicImage value="/resources/img/carrinhoDireita_preto.png"
+					style="border:none; z-index:9999 !important;"
+					alt="#{msg['texto.icone']} #{msg['titulo.meuCarrinho']}"
+					title="#{perfilCliente?msg['titulo.meuCarrinho']:msg['titulo.pedidoAtual']}" />
+			</h:outputLink>
+		</div>
+
+		<h:outputLink value="#{rootPath}#{gerentePedidoMB.urlView}">
+
+			<p:panel id="panelHeaderCarrinho" styleClass="panelHeaderCarrinho"
+				style="z-index:9999999 !important; clear:both">
+				<div
+					style="display: inline-block; font-size: 0.95em !important; padding-left: 13px;">
+					<h:outputText value="#{msg['texto.numItens']}:"
+						style="font-size:0.95em !important"
+						styleClass="bold qntItensCarrinhoHeader" />
+					<p:spacer width="5" height="5" />
+					<h:outputText value="#{gerentePedidoMB.itensPedido.size()}"
+						style="font-size:0.95em !important"
+						styleClass="qntItensCarrinhoHeader" />
+				</div>
+
+				<h:panelGrid columns="2" styleClass="precoTotalPedidoResumoHeader"
+					style="font-size:1em !important; font-weight: bold;padding-left:10px">
+					<h:outputText value="#{msg['texto.total']}: " />
+					<h:outputText
+						value="#{msg['texto.R$']}#{formatacaoMB.formataPreco(gerentePedidoMB.valorTotalPedido,2)}"
+						style="font-size: 1em !important" />
+
+					<p:overlayPanel id="panelResumoCarrinhoHeader"
+						rendered="#{gerentePedidoMB.itensPedido.size() > 0}"
+						for="panelHeaderCarrinho" showEffect="blind" showEvent="mouseover"
+						hideEvent="focusout" hideEffect="blind" dynamic="true"
+						my="left top" at="left bottom"
+						style="z-index:9998 !important; background:rgb(255,250,240); padding: 0;text-align:left !important">
+						<div class="tituloResumoCarrinho" style="display:none">
+							<h:outputText value="Meu carrinho" rendered="false"
+								style="text-align:center !important" />
+						</div>
+						<ui:include src="/pieces/carrinho/resumoCarrinho.xhtml" />
+					</p:overlayPanel>
+				</h:panelGrid>
+
+				<div class="itensResumoCarrinhoHeader" style="display: none">
+					<ui:include src="/pieces/carrinho/resumoCarrinho.xhtml" />
+				</div>
+			</p:panel>
+		</h:outputLink>
+	</p:outputPanel>
+
+</f:view>

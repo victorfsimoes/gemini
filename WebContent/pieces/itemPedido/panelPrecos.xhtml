@@ -1,0 +1,115 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:param name="exibePrecoVisitante"
+		value="#{produtoDetalheMB.exibePrecoVisitante or produto.exibePrecoVisitante}"/>
+
+		<p:panel id="panelPrecos" styleClass="panelPrecoTotalItemPedido" rendered="#{permiteVenda}">
+
+			<p:outputPanel
+				style="width: 100% !important; vertical-align:middle; text-align:left; display:inline-block;">
+
+				<h:panelGrid columns="1" style="width: 30%; display:inline-block"
+					rendered="#{perfilCliente and exibePrecoVisitante}">
+					<h:outputText value="#{msg['texto.quantidade']}"
+						styleClass="textCadastro" />
+					<p:inputText value="#{itemPedidoMB.quantidade}" immediate="true"
+						size="10" onkeypress="return isNumero(event);">
+						<p:ajax immediate="true" event="change" global="false"
+							update="panelPrecos, precoFinal, :promocoes, labelAlertaPromocao" />
+					</p:inputText>
+				</h:panelGrid>
+
+				<h:panelGrid columns="1"
+					rendered="#{perfilCliente and exibePrecoVisitante}"
+					style="width: 30%;display:inline-block;text-align:center;">
+					<h:outputText value="#{msg['texto.precoVenda']}" styleClass="bold" />
+
+					<h:outputText rendered="#{produto.emOferta}"
+						value="#{msg['texto.de']} #{msg['texto.R$']}  #{formatacaoMB.formataPreco(itemPedidoMB.precoTabelaValor, 2)}"
+						styleClass="textoCinzaClaro textoRiscado" />
+
+					<h:outputText styleClass="bold precoTotalItemPedido"
+						value="#{msg['texto.R$']} #{formatacaoMB.formataPreco(itemPedidoMB.precoVendaValor, 2)}" />
+
+					<h:outputText
+						rendered="#{itemPedidoMB.unidadeSelecionada.quantidade > 1 and not itemPedidoMB.ekit()}"
+						value="#{msg['texto.unitario']} #{msg['texto.R$']} #{formatacaoMB.formataPreco(itemPedidoMB.precoUnitarioValor, 3)}"
+						style="font-size:0.750em;" />
+				</h:panelGrid>
+
+				<h:panelGrid id="panelGridPrecos" columns="1"
+					style="width: 30%; display:inline-block"
+					rendered="#{perfilColaborador and exibePrecoVisitante}">
+					<h:outputText value="#{msg['texto.precoVenda']}" />
+					<h:panelGrid columns="2">
+						<h:outputText value="#{msg['texto.R$']}" />
+						<p:inputText id="precoVenda" onkeypress="return isNumero(event);"
+							disabled="#{itemPedidoMB.desabilitarCampos}"
+							value="#{itemPedidoMB.precoVendaValor}" required="true" size="8"
+							requiredMessage="#{msg['alerta.campoObrigatorio']}"
+							valueChangeListener="#{itemPedidoMB.precoVendaChange}">
+							<p:ajax immediate="true" event="change" global="false"
+								update="panelDescAcresc, precoUnitario, precoFinal, :panelItensKit" />
+						</p:inputText>
+					</h:panelGrid>
+				</h:panelGrid>
+
+				<h:panelGrid columns="1" style="width: 30%; display:inline-block"
+					rendered="#{perfilColaborador and produtoDetalheMB.exibePrecoUnitario and (not itemPedidoMB.ekit())}">
+					<h:outputText value="#{msg['texto.precoUnitario']}"
+						rendered="#{not itemPedidoMB.ekit() and produtoDetalheMB.exibePrecoUnitario}" />
+
+					<h:panelGrid columns="2" style="border:0 !important;"
+						rendered="#{not itemPedidoMB.ekit() and produtoDetalheMB.exibePrecoUnitario}">
+						<h:outputText value="#{msg['texto.R$']}" />
+						<p:inputText id="precoUnitario"
+							disabled="#{itemPedidoMB.desabilitarCampos}"
+							onkeypress="return isNumero(event);"
+							value="#{itemPedidoMB.precoUnitarioValor}" required="true"
+							size="8" requiredMessage="#{msg['alerta.campoObrigatorio']}"
+							valueChangeListener="#{itemPedidoMB.precoUnitarioChange}">
+							<p:ajax immediate="true" event="change" global="false"
+								update="panelDescAcresc, precoVenda, precoFinal, :panelItensKit" />
+						</p:inputText>
+					</h:panelGrid>
+				</h:panelGrid>
+
+				<h:panelGrid columns="1"
+					rendered="#{exibePrecoVisitante}"
+					style="width: 30%;display:inline-block;float:right;">
+					<h:outputText value="#{msg['texto.precoTotal']}"
+						style="font-weight:bold;" />
+					<h:outputText id="precoFinal"
+						value="#{msg['texto.R$']} #{formatacaoMB.formataPreco(itemPedidoMB.precoFinalValor, 2)}"
+						styleClass="precoTotalItemPedido bold" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2"
+					rendered="#{produto.emOferta or produto.emCampanha}"
+					style="width: 15%; display:inline-block">
+
+					<p:graphicImage rendered="#{produto.emOferta}"
+						value="#{imagePath}sale.png" width="40" height="40"
+						title="#{msg['texto.oferta']}" />
+
+					<p:graphicImage
+						rendered="#{produto.emCampanha and gerenteLogin.perfilColaborador}"
+						url="#{imagePath}campanha.png" width="40" height="40"
+						title="#{msg['texto.itemEmCampanha']}" />
+
+
+				</h:panelGrid>
+
+				<div
+					style="text-align: center; vertical-align: top; display: inline-block">
+					<ui:include src="/pieces/geral/facaLoginVerPreco.xhtml" />
+				</div>
+
+			</p:outputPanel>
+		</p:panel>
+</f:view>

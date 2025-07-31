@@ -1,0 +1,54 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="painelPrecoTotal">
+		<span class="precoTotalDestaque">
+			<h:outputText value="#{msg['texto.total']}" style="display:block;" />
+			<h:outputText
+				value="#{msg['texto.R$']} #{formatacaoMB.formataPreco(pedido.valor,2)}" />
+		</span>
+	</div>
+
+	<h3 class="tituloBoxImpressao">#{msg['titulo.valores']}</h3>
+
+	<h:dataTable value="" frame="above" border=""
+		style="width: 100%; text-align:left;">
+		<h:column>
+			<p:outputPanel style="display:block; padding-left:8px"
+				rendered="#{historicoPedidosMB.valorDescontoPedido > 0}">
+				<h:outputText styleClass="bold" value="#{msg['texto.desconto']} " />
+				<h:outputText
+					value="#{msg['texto.R$']}#{formatacaoMB.formataPreco(historicoPedidosMB.valorDescontoPedido,2)}  (#{formatacaoMB.formataPreco(historicoPedidosMB.percentualDescontoPedido,2)}%)" />
+			</p:outputPanel>
+			<p:outputPanel style="display:block; padding-left:8px">
+				<h:outputText styleClass="bold" value="#{msg['texto.frete']} " />
+				<h:outputText
+					value="#{msg['texto.R$']}#{formatacaoMB.formataPreco(pedido.frete,2)}" />
+			</p:outputPanel>
+			<p:outputPanel style="display:block; padding-left:8px">
+				<h:outputText styleClass="bold" value="#{msg['titulo.itens']} " />
+				<h:outputText value="#{msg['texto.R$']}#{formatacaoMB.formataPreco(historicoPedidosMB.valorTotalItem,2)}" />
+			</p:outputPanel>
+
+			<p:outputPanel
+				rendered="#{pedido.valorIpi gt 0 or pedido.valorSubstituicao gt 0}">
+				<fieldset>
+					<legend>#{msg['titulo.impostos']}</legend>
+
+					<strong><h:outputText value="#{msg['texto.ipi']} " /></strong>
+					<h:outputText
+						value="#{msg['texto.R$']}#{formatacaoMB.formataPreco(pedido.valorIpi,2)}" />
+					<br /> <strong><h:outputText value="#{msg['texto.st']} " /></strong>
+					<h:outputText
+						value="#{msg['texto.R$']}#{formatacaoMB.formataPreco(pedido.valorSubstituicao,2)}" />
+				</fieldset>
+			</p:outputPanel>
+
+
+		</h:column>
+
+	</h:dataTable>
+</f:view>

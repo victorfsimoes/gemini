@@ -1,0 +1,94 @@
+<p:dataTable xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes" id="itens"
+	var="item" value="#{gerentePedidoMB.itensPedido}"
+	style="vertical-align:top !important;" styleClass="tabelaItens"
+	emptyMessage="#{msg['mensagem.nenhumProdutoAdicionado']}">
+	<f:facet name="header">#{msg['titulo.itensCarrinho']}</f:facet>
+
+	<p:column headerText="#{msg['texto.produto']}" width="370"
+		styleClass="capitalize" sortBy="#{item.produto.descricao}">
+
+		<p:commandLink styleClass="textDecorationNone"
+			action="#{itemPedidoMB.alterarItem(item)}"
+			onsuccess="redirecionar('#{rootPath}#{itemPedidoMB.urlView}')">
+			<h:panelGrid columns="2" columnClasses="itensCol1, itensCol2 left"
+				style="width:100% !important; border-color: white;">
+
+				<h:graphicImage styleClass="imagemItem bordaSombreada"
+					value="#{formatacaoMB.isURLValida(item.produto.imagemCapa.enderecoMidia)?item.produto.imagemCapa.enderecoMidia:'/resources/img/semfoto.jpg'}" />
+
+				<p:column style="padding-left:10px;">
+					<h:outputText
+						value="#{item.produto.descricaoVisualizacao.toLowerCase()}"
+						title="#{msg['texto.codigo']} #{item.produto.codigo}"
+						style="width:295px;" styleClass="capitalize" id="produto">
+					</h:outputText>
+
+					<br />
+				</p:column>
+			</h:panelGrid>
+		</p:commandLink>
+	</p:column>
+
+	<p:column headerText="#{msg['texto.unidade']}" styleClass="capitalize"
+		sortBy="#{item.unidade}">
+
+		<h:outputText style="padding-left:3px"
+			value="#{item.produtoUnidade.unidadeDescricao}" />
+	</p:column>
+
+	<p:column headerText="#{msg['texto.quantidade']}"
+		styleClass="capitalize" sortBy="#{item.quantidade}">
+		<p:spinner id="quantidade" value="#{item.quantidadeCarrinho}" min="0" 
+			converterMessage="#{msg['alerta.valor.numerico.invalido']}"
+			size="5" style="height:30px" mask="9?999"
+			disabled="#{not item.permiteAlterarQuantidadeNoList or true}"
+			valueChangeListener="#{itemPedidoMB.quantidadeValueChange}">
+			<p:ajax immediate="true" event="change" global="false" />
+			<p:ajax immediate="true" event="keyup" global="false" />
+		</p:spinner>
+
+		<p:commandButton escape="false" value="#{msg['acao.alterar']}"
+			immediate="true" rendered="#{item.permiteAlterarQuantidadeNoList} and false"
+			actionListener="#{itemPedidoMB.alterarQuantidadeCarrinho(item)}"
+			update="@form, :header">
+		</p:commandButton>
+
+		<p:commandButton escape="false" value="#{msg['acao.alterar']}"
+			rendered="#{not item.permiteAlterarQuantidadeNoList} or true"
+			action="#{itemPedidoMB.alterarItem(item)}"
+			onsuccess="redirecionar('#{rootPath}#{itemPedidoMB.urlView}')">
+		</p:commandButton>
+	</p:column>
+
+	<p:column headerText="#{msg['texto.precoUnitario']}"
+		styleClass="capitalize" sortBy="#{item.precoVenda}">
+		<h:outputText
+			style="text-decoration: line-through; color: silver; display: block"
+			rendered="#{(item.ofertaNumero > 0) and (item.produto.precoTabelaVisualizacao > formatacaoMB.formataPreco(item.precoVenda,2))}"
+			value="#{msg['texto.R$']} #{item.produto.precoTabelaVisualizacao}" />
+		<h:outputText style="display: block"
+			value="#{msg['texto.R$']}#{formatacaoMB.formataPreco(item.precoVenda,2)}" />
+	</p:column>
+
+	<p:column headerText="#{msg['texto.valorTotal']}"
+		styleClass="capitalize, carrinhoValorItem"
+		sortBy="#{formatacaoMB.formataPreco(item.precoTotal, 2)}">
+		<h:outputText style="font-weight: bold" id="precoFinal"
+			value="#{msg['texto.R$']} #{formatacaoMB.formataPreco(item.precoTotal, 2)}" />
+	</p:column>
+
+	<p:column headerText="#{msg['acao.excluir']}" styleClass="colAcao">
+		<p:commandLink update="@form, :header, itens" process="@this"
+			action="#{gerentePedidoMB.excluirItem(item)}"
+			onsuccess="redirecionar('#{rootPath}/carrinho')">
+			<h:graphicImage url="#{imagePath}x.png" />
+		</p:commandLink>
+	</p:column>
+
+	<ui:include src="/pieces/carrinho/footer.xhtml" />
+</p:dataTable>

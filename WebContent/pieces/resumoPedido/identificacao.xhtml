@@ -1,0 +1,23 @@
+<f:view xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:dataTable style="width: 100%; text-align: left" value=""
+		frame="none">
+		<h:column>
+			<strong>#{msg['texto.cliente']}</strong>
+			<br />
+						#{historicoPedidosMB.gerentePedido.cliente.codigo} -
+						#{historicoPedidosMB.getClienteNome(historicoPedidosMB.gerentePedido.cliente).toLowerCase()}
+			</h:column>
+
+		<h:column rendered="#{perfilColaborador}">
+			<strong>#{msg['texto.representante']}</strong>
+			<br />
+						#{historicoPedidosMB.gerentePedido.vendedor.colaboradorCodigo} -
+						#{historicoPedidosMB.gerentePedido.vendedor.razaoSocial.toLowerCase()}
+			</h:column>
+	</h:dataTable>
+
+</f:view>

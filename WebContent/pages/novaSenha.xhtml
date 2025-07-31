@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+<ui:composition template="/templates/layoutBasico.xhtml">
+
+	<ui:define name="content">
+
+		<div style="width: 40%; padding: 0 30% 0 30%">
+
+			<p:panel id="panelNovaSenha" header="#{msg['titulo.novaSenha']}"
+				style="text-align:center"
+				rendered="#{novaSenhaMB.usuario != null}">
+
+				<p>#{novaSenhaMB.usuario.emailLoginWeb}</p>
+
+				<comp:inputPassword confirmarSenha="true"
+					tituloConfirmar="#{msg['texto.confirmarNovaSenha']}"
+					titulo="#{msg['texto.novaSenha']}" value="#{novaSenhaMB.novaSenha}"
+					feedback="true" required="true" />
+
+				<p:commandButton value="#{msg['acao.alterarSenha']}"
+					action="#{novaSenhaMB.atualizarNovaSenha()}"
+					style="display: block;" update="panelNovaSenha"
+					process="panelNovaSenha" partialSubmit="true"
+					oncomplete="redirecionar('#{rootPath}#{gerenteLogin.urlView}')" />
+
+			</p:panel>
+
+			<p:panel header="#{msg['titulo.novaSenha']}"
+				rendered="#{novaSenhaMB.usuario == null}">
+				<h:outputText escape="false" value="#{msg['alerta.linkExpirado']}" />
+			</p:panel>
+
+		</div>
+
+	</ui:define>
+
+</ui:composition>
+</html>

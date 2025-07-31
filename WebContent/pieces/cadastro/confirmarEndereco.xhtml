@@ -1,0 +1,84 @@
+<p:fieldset xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	legend="#{msg['titulo.endereco']}" id="end"
+	styleClass="fieldsetConfirmaCadastro">
+
+	<h:panelGrid columns="3">
+		<p:outputLabel value="#{msg['texto.cep']}" styleClass="textCadastro"
+			for="cCep" />
+		<h:outputText value=": " styleClass="doisPontos" />
+		<p:inplace editor="true" disabled="#{visualizacao}">
+			<p:inputMask id="cCep" mask="99.999-999" value="#{clienteImp.cep}"
+				size="20" required="true"
+				title="#{msg['alerta.atencao.apagarDadosCep']}">
+				<p:ajax event="blur" listener="#{clienteImpMB.pesquisarCep}"
+					update="end" />
+			</p:inputMask>
+		</p:inplace>
+	</h:panelGrid>
+
+	<comp:confirmaInputText id="cLogradouro"
+		titulo="#{msg['texto.logradouro']}" value="#{clienteImp.logradouro}"
+		tamCampo="80" maxCaracteres="125" visualizacao="#{visualizacao}" />
+
+	<comp:confirmaInputText id="cNumero" titulo="#{msg['texto.numero']}"
+		value="#{clienteImp.numero}" tamCampo="20" maxCaracteres="10"
+		visualizacao="#{visualizacao}" />
+
+	<comp:confirmaInputText titulo="#{msg['texto.complemento']}"
+		value="#{clienteImp.complemento}" id="cComplemento" tamCampo="30"
+		maxCaracteres="20" visualizacao="#{visualizacao}" />
+
+	<h:panelGrid columns="3">
+		<p:outputLabel value="#{msg['texto.bairro']}"
+			styleClass="textCadastro" for="cBairro" />
+		<h:outputText value=":" styleClass="doisPontos" />
+		<p:inplace editor="true" disabled="#{visualizacao}"
+			label="#{empty clienteImp.descricaoBairro?msg['mensagem.naoInformado']:clienteImp.descricaoBairro}"
+			styleClass="#{empty clienteImp.descricaoBairro?'watermark':''}">
+			<p:autoComplete id="cBairro" value="#{clienteImp.descricaoBairro}"
+				completeMethod="#{enderecoMB.pesquisarBairro}" scrollHeight="260"
+				size="60" maxlength="60" />
+		</p:inplace>
+	</h:panelGrid>
+
+	<h:panelGrid columns="3">
+		<p:outputLabel value="#{msg['texto.cidade']}"
+			styleClass="textCadastro" for="cCidade" />
+		<h:outputText value=":" styleClass="doisPontos" />
+		<p:inplace editor="true" disabled="#{visualizacao}"
+			label="#{empty clienteImp.descricaoCidade?msg['mensagem.naoInformado']:clienteImp.descricaoCidade}"
+			styleClass="#{empty clienteImp.descricaoCidade?'watermark':''}">
+			<p:autoComplete id="cCidade" value="#{clienteImp.descricaoCidade}"
+				completeMethod="#{enderecoMB.pesquisarCidade}" scrollHeight="260"
+				size="60" maxlength="60" />
+		</p:inplace>
+	</h:panelGrid>
+
+	<h:panelGrid columns="3">
+		<p:outputLabel for="cUf" styleClass="textCadastro"
+			value="#{msg['texto.uf']}" />
+		<h:outputText value=":" styleClass="doisPontos" />
+		<p:inplace editor="true" disabled="#{visualizacao}"
+			label="#{empty clienteImp.ufSigla?msg['mensagem.naoInformado']:clienteImp.ufSigla}"
+			styleClass="#{empty clienteImp.ufSigla?'watermark':''}">
+			<p:autoComplete id="cUf" forceSelection="true"
+				completeMethod="#{clienteImpMB.pesquisarInscricaoEstadual}"
+				value="#{clienteImp.ufSigla}"
+				style="text-transform: uppercase !important" var="i"
+				itemValue="#{i.ufSigla}" itemLabel="#{i}"
+				panelStyle="overflow-x: hidden" size="10">
+				<p:column style="border:none !important">  
+                    #{i.ufSigla} (#{i.ufNome})  
+               		</p:column>
+			</p:autoComplete>
+		</p:inplace>
+	</h:panelGrid>
+
+	<comp:confirmaInputText titulo="#{msg['texto.pontoReferencia']}"
+		visualizacao="#{visualizacao}" value="#{clienteImp.pontoreferencia}"
+		id="cPtoRef" tamCampo="80" />
+</p:fieldset>

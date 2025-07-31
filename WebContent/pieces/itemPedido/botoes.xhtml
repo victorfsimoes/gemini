@@ -1,0 +1,28 @@
+<h:panelGrid xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes" columns="1"
+	style="width:25%; float:right; text-align:right;">
+
+	<p:commandButton escape="false"
+		value="#{itemPedidoMB.textoBotaoConfirma}"
+		styleClass="botaoAdicionarItem" image="imagemCarrinho"
+		icon="imagemCarrinho" iconPos="right" immediate="true"
+		actionListener="#{itemPedidoMB.confirmar()}"
+		rendered="#{itemPedidoMB.habilitaBotaoConfirmar}"
+		oncomplete="if (args.validationFailed) {} else {redirecionar('#{rootPath}#{produtoPesquisaMB.urlView}')}">
+	</p:commandButton>
+
+	<p:commandButton styleClass="botaoAdicionarItem"
+		value="#{msg['texto.facalogin']}" rendered="#{not identity.loggedIn}"
+		oncomplete="redirecionar('#{rootPath}#{gerenteLogin.urlView}')">
+	</p:commandButton>
+
+	<!-- 
+	<p:button icon="ui-icon-cancel" value="#{msg['acao.cancelar']}"
+		styleClass="botaoCancelar" href="#{produtoPesquisaMB.urlView}" />
+		 -->
+
+</h:panelGrid>

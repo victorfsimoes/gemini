@@ -1,0 +1,80 @@
+<p:panel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	styleClass="panelLogin" header="#{msg['titulo.autenticacao']}">
+	
+
+	<div class="panelInternoLogin" id="panelLogin">
+	
+		<script type="text/javascript">
+			
+			history.forward(1);
+		</script>
+
+
+		<div class="divGridLabelInput" id="perfil">
+			<h:outputText value="#{msg['texto.perfil']}"
+				styleClass="textCadastro"
+				rendered="#{gerenteLogin.verificarModulosClienteColaborador()}" />
+
+			<p:selectOneButton value="#{gerenteLogin.perfil}"
+				styleClass="selectPerfilLogin divContainerInput"
+				valueChangeListener="#{gerenteLogin.perfilChangeListener}"
+				rendered="#{gerenteLogin.verificarModulosClienteColaborador()}">
+				<f:selectItem itemLabel="Colaborador" itemValue="Colaborador" />
+				<f:selectItem itemLabel="Cliente" itemValue="Cliente" />
+				<p:ajax event="change" immediate="true" update="@form"
+					global="false" />
+
+			</p:selectOneButton>
+
+		</div>
+
+		<div class="divGridLabelInput" id="user">
+			<p:outputLabel value="#{msg['texto.login']}" for="inputText"
+				styleClass="divContainerTitulo" />
+			<p:inputText id="inputText" value="#{credentials.username}"
+				style="margin-bottom:20px; width:90%" styleClass="divContainerInput" />
+		</div>
+
+		<div class="divGridLabelInput">
+			<h:outputText value="#{msg['texto.senha']}"
+				style="font-weight: bold; width:90%" styleClass="block" />
+
+			<p:password id="usrSenha" style="width:90%"
+				value="#{credentials.password}" styleClass="divContainerInput" />
+			<ui:include src="/pieces/login/esqueciSenha.xhtml" />
+
+
+			<h:outputText value="#{gerenteLogin.mensagem}" style="color: red;"
+				styleClass="block" />
+
+		</div>
+
+		<div style="text-align: center; padding-top: 10px">
+			<p:commandButton id="botaoLogin" widgetVar="botaoLogin"
+				icon="#{msg['figura.check']}" ajax="false"
+				value="#{msg['texto.login']}" action="#{identity.login()}">
+			</p:commandButton>
+		</div>
+
+		<p:defaultCommand target="botaoLogin" />
+
+		<br />
+		<p:outputPanel rendered="#{gerenteLogin.desmostracao}">
+			<div
+				style="text-align: center; font-size: large; background: rgb(252, 248, 221); padding: 5px 0px 5px 0px; border-style: solid; border-width: 5px;">
+
+				<h:outputText id="demoSenha" value="Senha" />
+				<br />
+				<h:outputText
+					style="font-size:xx-large; font-weight:bold; color:red;"
+					value="demo" />
+			</div>
+		</p:outputPanel>
+
+	</div>
+</p:panel>

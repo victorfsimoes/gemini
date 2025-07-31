@@ -1,0 +1,28 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+	<h:panelGrid columns="6" styleClass="capitalize"
+		rendered="#{gerentePedidoMB.clienteSelecionado != null}"
+		columnClasses="colDivisoria0, colDivisoria, colDivisoria, colDivisoria, colDivisoria, colDivisoria">
+		<comp:outputInfo titulo="#{msg['texto.pontoReferencia']}"
+			info="#{end.pontoReferencia.trim().toLowerCase()}"
+			rendered="#{not empty end.pontoReferencia.trim()}" />
+		<comp:outputInfo titulo="#{msg['texto.regiao']}"
+			info="#{end.cidade.descricaoCidade} - #{end.ufsigla}"
+			rendered="#{not empty end.cidade.descricaoCidade.trim() and not empty end.ufsigla.trim()}" />
+		<comp:outputInfo titulo="#{msg['titulo.contato']}"
+			info="#{end.contato}" rendered="#{not empty end.contato.trim()}" />
+		<comp:outputInfo titulo="#{msg['texto.telefone']} 1"
+			info="#{end.telefone1}" rendered="#{not empty end.telefone1.trim()}" />
+		<comp:outputInfo titulo="#{msg['texto.telefone']} 2"
+			info="#{end.telefone2}" rendered="#{not empty end.telefone2.trim()}" />
+		<comp:outputInfo titulo="#{msg['texto.celular']}"
+			rendered="#{not empty end.telefoneCelular.trim()}"
+			info="#{end.telefoneCelular}" />
+	</h:panelGrid>
+
+</f:view>

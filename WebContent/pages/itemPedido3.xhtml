@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+
+<ui:composition template="/templates/layoutProdutoItem.xhtml">
+
+
+
+	<ui:param name="MBProdutoDetalhe" value="#{itemPedidoMB}" />
+
+	<ui:param name="permiteVenda"
+		value="#{gerentePedidoMB.isPermiteVenda(itemPedidoMB.caixaProdutoSelecionado)}" />
+
+	<ui:param name="aoCarregar" value="#{itemPedidoMB.aoCarregar()}" />
+
+	<ui:define name="informacaoDireita">
+		<ui:include src="/pieces/itemPedido/principal.xhtml" />
+	</ui:define>
+
+	<ui:define name="boxInformacao">
+
+		<h:panelGrid columns="1" columnClasses="top" id="promocoes"
+			rendered="#{itemPedidoMB.listasPromocoes.size() > 0}"
+			rowClasses=",boxItemConteudo" styleClass="boxItem">
+			<h4 class="boxItemTitulo uppercase">#{msg['titulo.aproveitePromocao']}</h4>
+			<ui:include src="/pieces/itemPedido/promocao.xhtml" />
+		</h:panelGrid>
+
+	</ui:define>
+
+
+</ui:composition>
+</html>

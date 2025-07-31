@@ -1,0 +1,22 @@
+<h:column xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	rendered="#{not empty gerentePedidoMB.itensPedido}">
+	
+	<!-- 
+	<h:commandLink action="localhost:8080/SpaceWebII/pagamento/" styleClass="botaoFinalizarCompra">#{msg['acao.concluirCompra']}</h:commandLink>
+	
+	<a href="#{rootPath}/pagamento/" class="botaoFinalizarCompra">#{msg['acao.concluirCompra']}</a>	
+	 -->
+	
+	<p:commandLink xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" escape="false"
+	value="#{msg['acao.concluirCompra']}"
+	actionListener="#{gerentePedidoMB.validarIrPagamento()}"
+	oncomplete="if (args.validationFailed) {} else {redirecionar('#{rootPath}/pagamento/')}"
+	styleClass="botaoFinalizarCompra" />
+	
+	
+</h:column>

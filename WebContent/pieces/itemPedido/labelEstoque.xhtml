@@ -1,0 +1,43 @@
+<h:panelGrid xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui" columns="1" id="labelEstoque"
+	style="width: 100%; vertical-align:top;"
+	rendered="#{MBProdutoDetalhe.exibeEstoque or (not empty itemPedidoMB.oferta and itemPedidoMB.oferta.quantidadeMaximaCliente > 0)}">
+
+
+	<h:panelGrid columns="2" rendered="#{produtoDetalheMB.exibeEstoque}"
+		style="float:right;vertical-align:top;">
+
+		<h:outputText value="#{msg['texto.quantidadeDisponivel']}: "
+			styleClass="textCadastro" />
+
+		<h:column>
+			<h:outputText
+				value="#{formatacaoMB.formatarQuantidadeEstoque(itemPedidoMB.estoqueItem)}"
+				styleClass="textoCinzaEscuro"
+				rendered="#{not produto.emOferta or empty itemPedidoMB.oferta or itemPedidoMB.oferta.quantidadeOfertada eq 0}" />
+
+			<h:outputText
+				value="#{formatacaoMB.formatarQuantidadeEstoque(itemPedidoMB.saldoOferta)}"
+				styleClass="textoCinzaEscuro"
+				rendered="#{produto.emOferta and not empty itemPedidoMB.oferta and itemPedidoMB.oferta.quantidadeOfertada > 0}" />
+		</h:column>
+	</h:panelGrid>
+
+
+	<h:panelGrid columns="2" style="float:right;"
+		rendered="#{produto.emOferta and not empty itemPedidoMB.oferta and itemPedidoMB.oferta.quantidadeMaximaCliente> 0}">
+
+		<h:outputText value="#{msg['texto.maximoCliente']}: "
+			styleClass="textCadastro" />
+
+		<h:outputText
+			value="#{formatacaoMB.formatarQuantidadeEstoque(itemPedidoMB.quantidadeMaximaClienteOferta)}"
+			styleClass="textoCinzaEscuro" />
+	</h:panelGrid>
+
+
+</h:panelGrid>

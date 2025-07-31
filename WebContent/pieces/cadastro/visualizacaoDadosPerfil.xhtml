@@ -1,0 +1,65 @@
+<p:panel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui" styleClass="left wizardCadastro">
+
+	<p:outputPanel
+		style="width: 50%; display:inline-block; vertical-align: top; border-right: silver dashed 1px">
+
+		<comp:outputInfoLinha titulo="Login" info="#{cliente.emailLoginWeb}" />
+		<br />
+		<comp:outputInfoLinha
+			titulo="#{pessoaJuridica?msg['texto.razaoSocial']:msg['texto.nome']}"
+			info="#{pessoa.razao}" />
+		<br />
+		<comp:outputInfoLinha
+			titulo="#{pessoaJuridica?msg['texto.cnpj']:msg['texto.cpf']}"
+			info="#{pessoa.cnpjCpf}" />
+
+		<p:panel rendered="#{not pessoaJuridica}">
+			<h:outputText value="#{msg['texto.rg']}"
+				style="text-transform: uppercase; font-weight:bold" />
+			<p:separator />
+			<comp:outputInfoLinha titulo="#{msg['texto.numero']}"
+				info="#{pessoa.rg}" />
+			<br />
+			<comp:outputInfoLinha titulo="#{msg['texto.uf']}"
+				info="#{pessoa.ufRg}" />
+			<br />
+			<comp:outputInfoLinha titulo="#{msg['texto.orgaoExpeditor']}"
+				info="#{pessoa.orgaoExpedidorRg}" />
+			<br />
+			<comp:outputInfoLinha titulo="#{msg['texto.dataExpedicao']}"
+				info="#{formatacaoMB.formataData(pessoa.dataExpedicaoRg)}" />
+		</p:panel>
+
+		<p:outputPanel rendered="#{pessoaJuridica}">
+
+			<br />
+			<comp:outputInfoLinha titulo="#{msg['texto.fantasia']}"
+				info="#{pessoa.fantasia}" />
+			<br />
+
+			<comp:outputInfoLinha titulo="#{msg['texto.inscricaoEstadual']}"
+				info="#{pessoa.inscricaoEstadual == null or empty pessoa.inscricaoEstadual? msg['texto.isento'] : pessoa.inscricaoEstadual}" />
+			<br />
+			<comp:outputInfoLinha titulo="#{msg['titulo.inscricaoMunicipal']}"
+				info="#{pessoa.inscricaoMunicipal == null or empty pessoa.inscricaoMunicipal? msg['texto.isento'] : pessoa.inscricaoMunicipal}" />
+
+		</p:outputPanel>
+
+	</p:outputPanel>
+
+	<p:outputPanel
+		style="display:inline-block; width:40%; vertical-align:top; padding: 0 0 5% 5%;">
+
+		<ui:include src="/pieces/cadastro/dadosEndereco.xhtml" />
+
+	</p:outputPanel>
+
+
+	<!-- 
+	<p:commandButton value="#{msg['acao.voltar']}"
+		icon="#{msg['figura.setaVoltar']}" rendered="false" /> -->
+</p:panel>

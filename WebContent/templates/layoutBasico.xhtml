@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui" contentType="text/html">
+<html>
+
+<h:head>
+	<link rel="shortcut icon" href="#{imageApplicationLogo}favicon.ico" />
+	<ui:insert name="parametros"/>
+
+	<title><ui:insert name="title">#{parametros.parametroWeb.siteTitulo}</ui:insert></title>
+	<meta property="fb:admins" content="100000890303749" />
+	<meta property="fb:app_id" content="454148741327539" />
+	<meta property="og:site_name" content="#{parametros.parametroWeb.siteTitulo}" />
+	<ui:insert name="headerMetatags"/>
+	
+	<h:outputStylesheet library="css" name="componentes.css" />
+	<h:outputStylesheet library="css/pages" name="itemPedido.css" />
+	<h:outputStylesheet library="css/pages" name="templateGeral.css" />
+	<h:outputStylesheet library="/resources/themes" name="jquery.ui.all.css" />
+	<h:outputStylesheet library="css" name="geral.css" />
+
+	<h:outputStylesheet library="css/esquemaDeCores"
+		name="#{escolhaTemaMB.arquivoCssCores}" />
+
+	<h:outputScript library="js" name="funcoes.js" />
+
+	<ui:insert name="header" />
+
+	<ui:param name="perfilCliente"
+		value="#{gerenteLogin.isPerfilCliente()}" />
+	<ui:param name="perfilColaborador"
+		value="#{gerenteLogin.isPerfilColaborador()}" />
+
+	<ui:param name="temMiniBanner"
+		value="#{produtoPesquisaMB.exibeMiniBanner}" />
+
+</h:head>
+
+<h:body onload="#{aoCarregar}">
+	<script type="text/javascript">
+		<!-- history.forward(1); -->
+		
+		function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
+
+		$(document).ready(function(){
+		     $(document).on("keydown", disableF5);
+		});
+	
+	</script>
+	
+	<ui:include src="/pieces/geral/configuracaoSocial.xhtml" />
+	
+	<ui:insert name="topBody"/>
+
+	<p:ajaxStatus onstart="dialogCarregando.show();"
+		onsuccess="dialogCarregando.hide();" />
+
+	<p:dialog modal="true" widgetVar="dialogCarregando" draggable="true"
+		closable="false" showHeader="false" resizable="false">
+		<center>
+			<p:graphicImage value="#{imagePath}carregandoImagem.gif" />
+			<br />
+			<p:graphicImage value="#{imagePath}carregandoTexto.gif" />
+		</center>
+	</p:dialog>
+
+	<p:dialog modal="true" widgetVar="dialogPesquisando" draggable="false"
+		closable="false" showHeader="false" resizable="false">
+		<center>
+			<p:graphicImage value="#{imagePath}lupa.gif" />
+			<br />
+			<p:graphicImage value="#{imagePath}pesquisando.gif" />
+		</center>
+	</p:dialog>
+
+	<ui:include src="/pieces/geral/popupFilial.xhtml" />
+	<ui:include src="/pieces/geral/popupAutorizacao.xhtml" />
+
+	<ui:include src="/pieces/cabecalho/headerLojaVirtual.xhtml" />
+
+	<div class="panelContainer">
+
+		<ui:include src="/pieces/pesquisa/pesquisaPessoa.xhtml" />
+
+		<p:growl autoUpdate="true" life="18000" showDetail="true"
+			showSummary="true" escape="false" />
+
+		<p:idleMonitor timeout="1800000" onidle="idleDialog.show()"
+			onactive="idleDialog.hide()" />
+
+		<p:dialog header="#{msg['titulo.timeout']}" resizable="false"
+			widgetVar="idleDialog" modal="true" width="400"
+			onHide="location.href='#{rootPath}/login/'">
+			<h:outputText value="#{msg['alerta.timeout']}" />
+			<br />
+			<h:outputText value="#{msg['alerta.redirecionarLogin']}" />
+		</p:dialog>
+
+		<ui:insert name="contentTop" />
+
+		<ui:insert name="contentLeft" />
+
+		<div
+			class="panelContainerCenter lateraisAfastadas #{temMiniBanner?NULL:'panelContainerSemMiniBanner'}">
+			<ui:insert name="content" />
+		</div>
+
+		<ui:insert name="contentRight" />
+	</div>
+
+	<div id="footer" class="footer">
+		<ui:include src="/pieces/rodape/rodape.xhtml" />
+	</div>
+</h:body>
+
+	</html>
+</f:view>

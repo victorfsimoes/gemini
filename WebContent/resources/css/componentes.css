@@ -1,0 +1,244 @@
+@CHARSET "ISO-8859-1";
+
+.accordionMeusPedidos td {
+	width: 40px !important;
+}
+
+.tabelaMeusPedidos thead {
+	text-align: left !important;
+}
+
+#panelPesquisaPadrao_content.ui-panel-content.ui-widget-content {
+	margin: 0px !important;
+	text-align: left;
+}
+
+.ui-dt-c {
+	width: auto !important;
+}
+
+.ui-datatable .ui-datatable-data td,.ui-datatable .ui-datatable-data-empty td
+	{
+	border: none;
+}
+
+.bordaSombreada{
+	-webkit-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.7);
+	box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.7);
+}
+
+.headerSocial {
+	width: 400px;
+	height: 40px;
+	-webkit-border-radius: 0px 0px 500px 500px;
+	border-radius: 0px 0px 500px 500px;
+	border-top: none !important;
+	border-style: solid;
+	border-width: 1px;
+	margin-top: -2px;
+	float: right;
+	margin-right: 150px;
+	z-index: 1;
+}
+
+.panelPesquisaPadrao {
+	height: 100%;
+	width: 100%;
+	border: none;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.panelPesquisaPadraoCor {
+	background: rgb(250, 250, 250);
+}
+
+.panelPesquisaPadrao .ui-panel-titlebar {
+	padding-top: 15px !important;
+	padding-bottom: 5px !important;
+	margin: 0 !important;
+	border-radius: 0px;
+}
+
+.panelFiltros {
+	margin-bottom: 10px;
+	text-align:left;
+}
+
+.panelFiltros.ui-panel-titlebar {
+	padding: 0 !important;
+}
+
+/* MENU */
+.mainMenu {
+	margin-left: 10% !important;
+	margin-right: 10% !important;
+	width: 80% !important;
+	margin-top: -2px;
+	margin-bottom: 1px;
+	margin-top: -2px;
+}
+
+
+/* PANEL */
+#panelContainerPedido_content.ui-panel-content.ui-widget-content {
+	padding: 0 !important;
+}
+
+.fieldsetPromocao .ui-fieldset-legend {
+	width: 40%;
+	height: 15px;
+	vertical-align: text-top;
+}
+
+.fieldsetTabPrecos {
+	margin-rigt: 30px;
+	height: 100% !important;
+	width: 90%;
+	position: relative;
+	top: 0px;
+	vertical-align: top !important;
+}
+
+.tabelaPromocao {
+	width: 100%;
+}
+
+.rowPromocaoDisponivel {
+	background-color: rgb(144, 238, 144) !important;
+}
+
+input[type=text][disabled] {
+	color: black !important;
+}
+
+.detalheProduto1 {
+	width: 40%;
+	padding-right: 30px;
+}
+
+.linhaItemPedido {
+	width: 100%;
+	margin: 0;
+}
+
+.bordasItemPedido {
+	border-bottom: 2px black solid !important;
+}
+
+.linhaItemPedidoDetalhes {
+	
+}
+
+.linhaItemPedidoSocial {
+	
+}
+
+.panelPromocao {
+	width: 98%;
+	margin: 0;
+	padding: 0;
+	background: transparent !important;
+	border-color: transparent !important;
+}
+
+.colTop {
+	vertical-align: top;
+}
+
+.panelPagina {
+	border-width: 3px;
+	border-color: black;
+	border-style: solid;
+	width: 100%;
+	padding: 0;
+}
+
+.colAcao {
+	width: 5%;
+	text-align: center;
+}
+
+.gridCampos {
+	width: 100%;
+}
+
+.gridCampos td {
+	min-width: 20%;
+}
+
+.divCadastro {
+	text-align: left !important;
+	width: 100%;
+}
+
+.panelCadastro {
+	background: rgb(240, 240, 241);
+	border: none;
+}
+
+.panelCamposCadastro {
+	margin-bottom: 10px;
+}
+
+.fieldsetConfirmaCadastro {
+	text-align: left;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.gridInfo1 {
+	padding-right: 20px;
+}
+
+.gridInfo2 {
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
+.gridInfo3 {
+	padding-left: 20px;
+}
+
+.colData {
+	padding-right: 50px;
+}
+
+.colDivisoria0,.colDivisoria {
+	padding-right: 10px;
+}
+
+.colDivisoria {
+	padding-left: 10px;
+	border-left-width: 2px;
+	border-left-style: dotted;
+}
+
+/** TEXT **/
+.watermark {
+	color: silver !important;
+}
+
+.textCadastro {
+	font-weight: bold;
+	text-align: left;
+}
+
+.required,.error {
+	color: red;
+}
+
+.doisPontos {
+	font-weight: bold;
+	padding-right: 5px;
+}
+
+.descricaoCadastro {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.precoCortadoOferta {
+	text-decoration: line-through;
+	color: silver;
+}

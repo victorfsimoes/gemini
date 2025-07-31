@@ -1,0 +1,44 @@
+<p:panel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	id="autenticacao" styleClass="left wizardCadastro">
+
+	<comp:inputText titulo="#{msg['texto.email']}"
+		value="#{cliente.emailLoginWeb}" id="login" tamCampo="100"
+		requerido="true" maxCaracteres="60" />
+
+	<h:panelGrid columns="1">
+		<p:outputLabel value="#{msg['texto.senha']}" for="senha1"
+			styleClass="textCadastro" />
+		<p:password id="senha1" size="50" maxlength="15" match="senha2"
+			value="#{cliente.senhaWeb}"
+			requiredMessage="#{msg['alerta.campoObrigatorio']}:#{msg['texto.senha']}"
+			feedback="true" promptLabel="#{msg['texto.senha.label']}"
+			weakLabel="#{msg['texto.senha.fraco']}"
+			goodLabel="#{msg['texto.senha.bom']}"
+			strongLabel="#{msg['texto.senha.forte']}"
+			validatorMessage="#{msg['alerta.senhasdiferentes']}" required="true"
+			alt="Campo #{msg['texto.senha']}" />
+			
+		<p:column colspan="2">
+			<p:message for="senha1" />
+		</p:column>
+	</h:panelGrid>
+
+	<h:panelGrid columns="1">
+		<p:outputLabel value="#{msg['texto.confirmarSenha']}"
+			styleClass="textCadastro" for="senha2" />
+		<p:password id="senha2" size="50" maxlength="15"
+			requiredMessage="#{msg['alerta.campoObrigatorio']}:#{msg['texto.confirmarSenha']}"
+			alt="Campo #{msg['texto.confirmarSenha']}" required="true" />
+		<p:message for="senha2" />
+	</h:panelGrid>
+
+
+
+
+
+</p:panel>

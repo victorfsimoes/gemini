@@ -1,0 +1,26 @@
+
+<!-- Mapeamento de: D:\Projetos\javaspace\CFSw\SpaceWebII\src\br\com\space\spacewebII\modelo\dominio -->
+
+<!-- Mapeamento de: D:\Projetos\javaspace\CFSw\SpaceWebII\src\br\com\space\spacewebII\modelo\dominio\chavecomposta -->
+
+<!-- Mapeamento de: D:\Projetos\javaspace\CFSw\SpaceWebII\src\br\com\space\spacewebII\modelo\dominio\cliente -->
+<mapping class="br.com.space.spacewebII.modelo.dominio.cliente.Atividade" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.cliente.Cliente" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.cliente.ClienteImp" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.cliente.LimiteAdicional" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.cliente.SocioCliente" />
+
+<!-- Mapeamento de: D:\Projetos\javaspace\CFSw\SpaceWebII\src\br\com\space\spacewebII\modelo\dominio\endereco -->
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.Bairro" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.Cidade" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.ClassificaEndereco" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.Enderecos" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogBairro" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogCep" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogCpc" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogGrandeUsuario" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogLocalidade" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogLogradouro" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogUnidOper" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.Regiao" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.Uf" />

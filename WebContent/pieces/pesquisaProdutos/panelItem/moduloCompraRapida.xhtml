@@ -1,0 +1,29 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+	<p:outputPanel id="panelCompraRapida"
+		style="display: inline-block; width: #{panelTipoLista?'10%':'100%'}"
+		rendered="#{habilitaModuloCompraRapida and permiteVenda and produtoDetalheMB.exibePrecoVisitante}">
+
+		<p:spinner size="#{panelTipoLista?7:5}"
+			converterMessage="#{msg['alerta.valor.numerico.invalido']}"
+			value="#{produto.quantidadeCompraRapida}" min="1"
+			style="display: inline-block" onkeydown="return keyPressEnter(event)" 
+			type="number" onclick="this.setSelectionRange(0, this.value.length)"
+			pattern="\d*" inputmode="numeric"/>
+
+		<p:commandButton value="#{msg['acao.comprar']}"
+			style="display: inline-block"
+			action="#{itemPedidoMB.compraRapida(produto)}"
+			update=":header, :headerScroll, panelCompraRapida"
+			title="#{msg['texto.adicionarCarrinho']}" />
+
+	</p:outputPanel>
+
+</f:view>
+
+

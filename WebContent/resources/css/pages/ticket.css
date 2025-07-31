@@ -1,0 +1,15 @@
+.panelRespostaClienteNaoLido {
+	background: rgb(255, 250, 205);
+}
+
+.panelRespostaClienteLido {
+	background: rgb(255, 255, 240);
+}
+
+.panelRespostaUsuarioLido {
+	background: rgb(248, 248, 255);
+}
+
+.panelRespostaUsuarioNaoLido {
+	background: rgb(250, 250, 250);
+}

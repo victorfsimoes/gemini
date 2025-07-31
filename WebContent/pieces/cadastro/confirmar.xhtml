@@ -1,0 +1,21 @@
+<p:panel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" styleClass="left wizardCadastro">
+
+	<h:outputText value="#{msg['mensagem.descricaoCadastro']}"
+		styleClass="descricaoCadastro" rendered="#{not visualizacao}" />
+	<br />
+	<h:outputText value="* " styleClass="required" />
+	<h:outputText value="#{msg['mensagem.camposObrigatorios']}"
+		styleClass="descricaoCadastro" />
+
+	<ui:include src="/pieces/cadastro/confirmarDadosPessoais.xhtml" />
+<!-- 
+	<ui:include src="/pieces/cadastro/confirmarEndereco.xhtml" />
+
+	<ui:include src="/pieces/cadastro/confirmarContato.xhtml" />
+ -->
+	<p:commandButton value="#{msg['acao.voltar']}"
+		icon="#{msg['figura.setaVoltar']}" rendered="false" />
+</p:panel>

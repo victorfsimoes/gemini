@@ -1,0 +1,61 @@
+
+<!-- Mapeamento de: D:\Projetos\javaspace\CFSw\SpaceWebII\src\br\com\space\spacewebII\modelo\dominio -->
+
+<!-- Mapeamento de: D:\Projetos\javaspace\CFSw\SpaceWebII\src\br\com\space\spacewebII\modelo\dominio\chavecomposta -->
+
+<!-- Mapeamento de: D:\Projetos\javaspace\CFSw\SpaceWebII\src\br\com\space\spacewebII\modelo\dominio\cliente -->
+<mapping class="br.com.space.spacewebII.modelo.dominio.cliente.Atividade" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.cliente.Cliente" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.cliente.ClienteImp" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.cliente.LimiteAdicional" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.cliente.SocioCliente" />
+
+<!-- Mapeamento de: D:\Projetos\javaspace\CFSw\SpaceWebII\src\br\com\space\spacewebII\modelo\dominio\endereco -->
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.Bairro" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.Cidade" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.ClassificaEndereco" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.Enderecos" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogBairro" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogCep" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogCpc" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogGrandeUsuario" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogLocalidade" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogLogradouro" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogUnidOper" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.Regiao" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.Uf" />
+
+<!-- Mapeamento de: D:\Projetos\javaspace\CFSw\SpaceWebII\src\br\com\space\spacewebII\modelo\dominio\estoque -->
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.CategoriaProduto" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.CodigoBarrasProduto" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.GrupoProduto" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.Kardex" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.LinhaProduto" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.LocalEstoque" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.LocalFilial" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.LocalProduto" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.NaturezaOperacao" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.NaturezaOperacaoFilial" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.PrecoBase" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.Produto" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.ProdutoFilial" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.ProdutoLote" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.ProdutoPreco" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.ProdutoUnidade" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.SeparacaoEstoque" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.SimilarProduto" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.SubCategoriaProduto" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.SubGrupoProduto" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.TipoMovimentoEstoque" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.estoque.Unidade" />
+
+<!-- Mapeamento de: D:\Projetos\javaspace\CFSw\SpaceWebII\src\br\com\space\spacewebII\modelo\dominio\pessoa -->
+<mapping class="br.com.space.spacewebII.modelo.dominio.pessoa.Cargo" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.pessoa.CarteiraCliente" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.pessoa.CarteiraVendedor" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.pessoa.Colaborador" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.pessoa.CondicaoPagamentoPessoa" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.pessoa.FormaPagamentoPessoa" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.pessoa.GrupoVendaNaoPermitidoCliente" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.pessoa.Pessoa" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.pessoa.Referencia" />

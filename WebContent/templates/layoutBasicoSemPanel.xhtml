@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui" contentType="text/html"
+	styleClass="panelPesquisaPadraoCor">
+
+
+	<html>
+
+<h:head>
+	<ui:include src="/pieces/geral/tituloPagina.xhtml"/>
+
+	<h:outputStylesheet library="css" name="componentes.css" />
+	<h:outputStylesheet library="css" name="geral.css" />
+	<h:outputStylesheet library="css/esquemaDeCores"
+		name="#{escolhaTemaMB.temaEscolhido.arquivoCss}" />
+
+	<h:outputScript library="js" name="funcoes.js" />
+
+	<ui:param name="cliente" value="#{gerenteLogin.perfil == 'Cliente'}" />
+	<ui:param name="colaborador"
+		value="#{gerenteLogin.perfil == 'Colaborador'}" />
+</h:head>
+
+<h:body style="padding:0 !important; margin:0 !important; text-align:left"
+	styleClass="panelPesquisaPadraoCor">
+
+	<div class="zoomOut"
+		style="padding: 0 !important; margin: 0 !important;">
+		<p:idleMonitor timeout="1800000" onidle="idleDialog.show()"
+			onactive="idleDialog.hide()" />
+		<p:dialog header="#{msg['titulo.timeout']}" resizable="false"
+			widgetVar="idleDialog" modal="true" width="400"
+			onHide="location.href='#{rootPath}/login/'">
+			<h:outputText value="#{msg['alerta.timeout']}" />
+			<br />
+			<h:outputText value="#{msg['alerta.redirecionarLogin']}" />
+		</p:dialog>
+
+		<p:growl autoUpdate="true" life="18000" showDetail="true"
+			showSummary="true" escape="false" />
+
+		<center>
+			<ui:insert name="content" />
+		</center>
+	</div>
+
+
+</h:body>
+
+	</html>
+</f:view>

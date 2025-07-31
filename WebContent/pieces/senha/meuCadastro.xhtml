@@ -1,0 +1,27 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+	<p:dialog id="panelAlterarSenha" header="#{msg['acao.alterarSenha']}"
+		modal="true" widgetVar="alterarSenha"
+		style="display: block; width:30% !important; text-align:left">
+
+			<comp:inputPassword titulo="#{msg['texto.senhaAtual']}"
+				value="#{alterarSenhaMB.senhaAtual}" required="true" />
+
+			<comp:inputPassword confirmarSenha="true"
+				tituloConfirmar="#{msg['texto.confirmarNovaSenha']}"
+				titulo="#{msg['texto.novaSenha']}"
+				value="#{alterarSenhaMB.novaSenha}" feedback="true" required="true" />
+
+			<p:commandButton value="#{msg['acao.alterarSenha']}"
+				action="#{alterarSenhaMB.alterarSenha()}" style="display: block;"
+				update="panelAlterarSenha" partialSubmit="true"
+				process="panelAlterarSenha" />
+
+	</p:dialog>
+
+</f:view>

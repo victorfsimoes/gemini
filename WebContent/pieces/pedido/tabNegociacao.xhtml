@@ -1,0 +1,94 @@
+<p:tab xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	title="#{msg['titulo.negociacao']}" id="tabPedido1">
+
+	<div class="divCadastro">
+
+		<h:panelGrid columns="2" columnClasses="top, top" id="gridNegociacao">
+
+			<h:column>
+				<comp:inputCodNome
+					valueCodigo="#{gerentePedidoMB.tabelaPrecoCodigo}"
+					valueNome="#{gerentePedidoMB.tabelaPrecoSelecionada.descricao}"
+					titulo="#{msg['texto.tabelaPrecos']}" id="pesquisaTabelaPrecos"
+					desabilitarCodigo="#{gerentePedidoMB.desabilitarDigitacaoTabela()}"
+					metodoPesquisa="#{pesquisaMB.pesquisa('tabelapreco', gerentePedidoMB.urlView)}"
+					tamNome="40" listaCamposAtualizacao="@form, :header" />
+
+				<comp:inputText titulo="#{msg['texto.prazoEspecial']}"
+					value="#{pedido.prazoEspecial}" id="prazoEspecial" tamCampo="10"
+					disabled="true" />
+
+				<comp:inputCodNome
+					valueCodigo="#{gerentePedidoMB.formaPagamentoCodigo}"
+					valueNome="#{gerentePedidoMB.formaPagamentoSelecionada.descricao}"
+					tamNome="40" titulo="#{msg['texto.formaPagamento']}"
+					id="pesquisaFormaPagamento"
+					metodoPesquisa="#{pesquisaMB.pesquisa('formapagamento', gerentePedidoMB.urlView)}" />
+
+				<comp:inputCodNome
+					valueCodigo="#{gerentePedidoMB.condicaoPagamentoCodigo}"
+					valueNome="#{gerentePedidoMB.condicaoPagamentoSelecionada.descricao}"
+					titulo="#{msg['texto.condicaoPagamento']}"
+					id="pesquisaCondicaoPagamento" tamNome="40"
+					metodoPesquisa="#{pesquisaMB.pesquisa('condicaopagamento', gerentePedidoMB.urlView)}"
+					listaCamposAtualizacao="@form, :header" />
+
+				<comp:inputCodNome
+					valueCodigo="#{gerentePedidoMB.opcaoEspecialCodigo}"
+					valueNome="#{gerentePedidoMB.opcaoEspecialSelecionada.descricao}"
+					titulo="#{msg['texto.opcaoEspecial']}" id="pesquisaOpcaoEspecial"
+					metodoPesquisa="#{pesquisaMB.pesquisa('opcaoespecial', gerentePedidoMB.urlView)}"
+					tamNome="40" />
+
+			</h:column>
+
+			<p:fieldset legend="#{msg['titulo.dadosPagamento']}"
+				rendered="#{gerentePedidoMB.condicaoPagamentoSelecionada != null}"
+				style="margin-left:30px; height:100%; width:90%; position: relative; top:0px; vertical-align:top !important;">
+
+				<h:panelGrid columns="2" style="width:100%" columnClasses="top, top">
+					<h:panelGrid width="80%">
+						<comp:outputInfo titulo="#{msg['texto.numeroParcelas']}"
+							info="#{gerentePedidoMB.condicaoPagamentoSelecionada.numeroParcelas}" />
+						<br />
+						<comp:outputInfo titulo="#{msg['texto.dias1parcela']}"
+							info="#{gerentePedidoMB.condicaoPagamentoSelecionada.diasEntrada}" />
+						<br />
+						<comp:outputInfo titulo="#{msg['texto.diasEntreParcelas']}"
+							rendered="#{gerentePedidoMB.condicaoPagamentoSelecionada.numeroParcelas > 1}"
+							info="#{gerentePedidoMB.condicaoPagamentoSelecionada.intervaloEntreParcelas} #{msg['texto.dias']}" />
+					</h:panelGrid>
+
+					<p:dataTable id="tabelaPagamento" var="pagamento"
+						value="#{gerentePedidoMB.parcelasCondicaoPagamento}"
+						style="vertical-align:top !important;"
+						emptyMessage="#{msg['mensagem.naoHaInformacoes']}"
+						rendered="#{pedido.valor > 0}">
+						<f:facet name="header">#{msg['titulo.detalhesPagamento']}</f:facet>
+
+						<p:column headerText="#{msg['texto.parcela']}">
+							#{pagamento.descParcela}
+						</p:column>
+
+						<p:column headerText="#{msg['texto.valor']}">
+							#{msg['texto.R$']}#{formatacaoMB.formataPreco(pagamento.preco,2)}
+						</p:column>
+
+						<p:column headerText="#{msg['texto.vencimento']}">
+							#{formatacaoMB.formataData(pagamento.vencimento)}
+						</p:column>
+					</p:dataTable>
+
+
+				</h:panelGrid>
+			</p:fieldset>
+
+		</h:panelGrid>
+
+	</div>
+</p:tab>

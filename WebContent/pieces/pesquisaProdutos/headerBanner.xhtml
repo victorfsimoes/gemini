@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" contentType="text/html">
+
+	<h:outputScript library="js" name="jquery.carouFredSel-6.2.0-packed.js" />
+	<h:outputStylesheet library="css" name="banner.css" />
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			updateBanners();				
+		});
+	</script>
+
+	<script type="text/javascript">
+	function updateBanners(){
+		updateBannerMaxi();
+		updateBannerCentral();
+	}
+
+	function updateBannerMaxi(){
+		$('#bannerMaxi').carouFredSel({
+			responsive: true,
+			items: 1, 
+			scroll: {
+				fx: 'fade',
+				pauseOnHover: false
+			},
+			auto: {
+				delay: 1000,
+				duration: 1000,
+			},
+			pagination: {
+				container: '#pagerMaxi'						
+			}
+		});
+	}
+
+	function updateBannerCentral(){
+		$('#bannerCentral').carouFredSel({
+			responsive: true,
+			items: 1, 
+			scroll: {
+				fx: 'fade',
+				pauseOnHover: true
+			},
+			auto: {
+				delay: 1000,
+				duration: 1000,
+			},
+			pagination: {
+				container: '#pagerCentral'						
+			}
+		});
+	}
+	</script>
+
+</f:view>

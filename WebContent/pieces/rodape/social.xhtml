@@ -1,0 +1,27 @@
+<h:panelGrid xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" columns="1"
+	style="text-align:left"
+	rendered="#{parametroWebMB.exibeRedeSocial and (parametroWebMB.exibeFacebookPlugin or parametroWebMB.exibeTwitter)}">
+
+	<h3 class="footerFormasPagamentoTitulo">#{msg['titulo.redesSociais']}</h3>
+
+	<h:panelGrid columns="2">
+		<h:column rendered="#{parametroWebMB.exibeFacebookPlugin}">
+			<div class="fb-like-box"
+				data-href="http://www.facebook.com/#{rodapeMB.parametroWeb.usuarioFacebook}"
+				data-width="220" data-height="80" data-show-faces="false"
+				data-stream="false" data-border-color="rgba(0,0,0,0.7)"
+				data-header="false" />
+		</h:column>
+		<h:column rendered="#{parametroWebMB.exibeTwitter}">
+			<a href="https://twitter.com/#{rodapeMB.parametroWeb.usuarioTwitter}"
+				class="twitter-follow-button" data-show-count="false" data-lang="pt"
+				style="margin-bottom: 2px;" data-size="large">#{msg['texto.seguir']}
+				#{rodapeMB.parametroWeb.usuarioTwitter}</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</h:column>
+	</h:panelGrid>
+</h:panelGrid>

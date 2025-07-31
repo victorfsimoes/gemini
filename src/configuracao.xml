@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<atributoConfiguracao>
+	<filialPadraoCodigo>1</filialPadraoCodigo>
+	<intervaloVerificacaoTransacaoCartaoMinutos>60</intervaloVerificacaoTransacaoCartaoMinutos>
+	<intervaloVerificacaoAvisoEstoqueMinutos>180</intervaloVerificacaoAvisoEstoqueMinutos>
+	<realizaAvisoEstoque>0</realizaAvisoEstoque>
+	<realizaVerificacaoPagamentoCartao>0</realizaVerificacaoPagamentoCartao>
+	<demostracao>false</demostracao>
+</atributoConfiguracao>

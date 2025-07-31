@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui" xmlns:og="http://ogp.me/ns#"
+	xmlns:fb="http://www.facebook.com/2008/fbml">
+
+<ui:composition template="/templates/layoutBasico.xhtml">
+
+
+
+	<ui:define name="title">#{itemPedidoMB.caixaProdutoSelecionado.descricaoVisualizacao}</ui:define>
+
+	<ui:define name="parametros">
+		<ui:param name="produto"
+			value="#{MBProdutoDetalhe.caixaProdutoSelecionado}" />
+		<ui:param name="temMultimidia"
+			value="#{MBProdutoDetalhe.exibeImagemProduto}" />
+		<ui:param name="layoutPromocao"
+			value="#{MBProdutoDetalhe.caixaProdutoSelecionado.emPromocao}" />
+	</ui:define>
+
+	<ui:define name="headerMetatags">
+		<meta property="og:type" content="Product" />
+		<ui:repeat var="imagem" value="#{itemPedidoMB.produtoImagens}">
+			<meta property="og:image" content="#{formatacaoMB.isURLValida(imagem.enderecoMidia)?imagem.enderecoMidia:'/resources/img/semfoto.jpg'}" />
+		</ui:repeat>
+		<meta property="og:description"
+			content="Confira este e outros produtos em #{parametroWebMB.parametroWeb.siteTitulo}!" />
+
+	</ui:define>
+
+	<ui:define name="content">
+		<img alt="fb" src="#{formatacaoMB.isURLValida(produto.imagemCapa.enderecoMidia)?produto.imagemCapa.enderecoMidia:'/resources/img/semfoto.jpg'}"
+			style="visibility: hidden; position: absolute; z-index: -99" />
+
+		<div style="width: 100%; margin: 0; display: block">
+			<h:form>
+
+				<p:breadCrumb id="caminhoProduto">
+
+					<p:menuitem value="#{msg['titulo.paginaInicial']}"
+						url="#{produtoPesquisaMB.urlView}" />
+
+					<p:menuitem value="#{produto.grupoWidget.descricao.toUpperCase()}"
+						style="text-transform: capitalize !important"
+						rendered="#{not empty produto.grupoWidget}"
+						url="#{MBProdutoDetalhe.urlProdutoPesquisaInformandoGrupo}"
+						title="Categoria" />
+
+					<p:menuitem
+						value="#{produto.subGrupoWidget.descricao.toLowerCase()}"
+						style="text-transform: capitalize !important"
+						rendered="#{not empty produto.subGrupoWidget}"
+						url="#{MBProdutoDetalhe.urlPesquisaProdutoInformandoGrupoESubGrupo}"
+						title="Sub-Categoria" />
+
+					<!-- 
+					<p:menuitem
+						value="#{produtoDetalheMB.marca.descricao.toLowerCase()}"
+						style="text-transform: capitalize !important"
+						action="#{produtoDetalheMB.visualizarDetalhes(produto)}"
+						immediate="true" title="#{msg['texto.marca']}"
+						rendered="#{not empty produtoDetalheMB.marca}"
+						oncomplete="redirecionar('#{rootPath}#{itemPedidoMB.urlView}')" />
+
+					<p:menuitem value="#{produto.descricao.toLowerCase()}"
+						style="text-transform: capitalize !important" immediate="true"
+						title="Detalhes" />
+ 					-->
+				</p:breadCrumb>
+			</h:form>
+		</div>
+
+		<div style="width: 100% !important; display: block">
+
+			<div class="panelPagina" style="border: none !important">
+
+				<center>
+					<h1 style="margin: 10px; margin-bottom: 0px !important"
+						class="capitalize">#{produto.descricaoVisualizacao.toLowerCase()}</h1>
+
+					<div class="textoCinzaClaro"
+						style="width: 100%; padding-bottom: 20px; float: left; border: 1">
+						<center>
+							<h:outputText value="#{msg['texto.codigo']}: " />
+							<h:outputText value="#{produto.codigo}" />
+						</center>
+					</div>
+				</center>
+
+
+				<h:panelGrid columns="1" style="margin:0;width:100%;">
+
+					<h:panelGrid columns="2" columnClasses="top, top" width="100%">
+						<ui:include src="/pieces/itemPedido/multimidiaProduto.xhtml" />
+
+						<h:column>
+							<ui:insert name="informacaoDireita" />
+						</h:column>
+					</h:panelGrid>
+
+					<h:panelGrid id="panelItensKit"
+						style="width:100%; margin-top:5px !important">
+						<ui:include src="/pieces/itemPedido/itensKit.xhtml" />
+					</h:panelGrid>
+
+
+
+					<ui:insert name="boxInformacao" />
+
+					<h:form>
+
+						<p:outputPanel
+							rendered="#{MBProdutoDetalhe.exibeInformacaoAdcional}"
+							style="width:100%;">
+
+							<ui:repeat var="infoAdicional"
+								value="#{MBProdutoDetalhe.produtoInformacaoAdcionalWidgets}">
+
+								<p:dataGrid var="infoVertical" columns="1" emptyMessage=""
+									value="#{infoAdicional.informacoesAdcionaisVerticalWidget}">
+
+									<h:panelGrid columns="1" columnClasses="top"
+										styleClass="boxItem"
+										rendered="#{not empty MBProdutoDetalhe.produtoInformacaoAdcionalWidgets}">
+
+										<h4 class="boxItemTitulo uppercase">#{infoVertical.titulo}</h4>
+										<h:panelGrid
+											style="padding:0px 30px 0px 30px; text-align:justify; width:100%;">
+											<h:outputText value="#{infoVertical.informacoesAdicionais}"
+												escape="false" />
+
+										</h:panelGrid>
+
+										<p:tabView styleClass="boxItemTab" var="infoTab"
+											style="width:100% !important;"
+											value="#{infoVertical.informacoesEmTab}"
+											rendered="#{not empty infoVertical.informacoesEmTab}">
+
+
+											<p:tab title="#{infoTab.titulo}"
+												titleStyleClass="boxItemTabTitulo">
+
+												<h:outputText value="#{infoTab.informacoesAdicionais}"
+													escape="false" />
+											</p:tab>
+										</p:tabView>
+									</h:panelGrid>
+								</p:dataGrid>
+							</ui:repeat>
+						</p:outputPanel>
+
+
+						<h:panelGrid columns="1" columnClasses="top" styleClass="boxItem"
+							rendered="#{not empty MBProdutoDetalhe.produtosSemelhantes}">
+							<h4 class="boxItemTitulo uppercase">#{msg['titulo.itensSemelhantes']}</h4>
+							<ui:include src="/pieces/itemPedido/itensSemelhantes.xhtml" />
+						</h:panelGrid>
+
+						<h:panelGrid columns="1" columnClasses="top" styleClass="boxItem"
+							style="margin-top: 20px;"
+							rendered="#{parametroWebMB.exibeRedeSocial}">
+							<h4 class="boxItemTitulo uppercase">#{msg['titulo.compartilhe']}</h4>
+
+							<h:panelGrid columns="4" style="padding:15px" width="100%"
+								columnClasses="top, top, top, top">
+								<ui:include src="/pieces/social/facebook.xhtml" />
+								<ui:include src="/pieces/social/twitter.xhtml" />
+								<ui:include src="/pieces/social/googlemais.xhtml" />
+							</h:panelGrid>
+						</h:panelGrid>
+
+						<h:panelGrid columns="1" columnClasses="top" styleClass="boxItem"
+							rendered="#{parametroWebMB.exibeRedeSocial and parametroWebMB.exibeFacebookComentario}">
+							<h4 class="boxItemTitulo uppercase">#{msg['titulo.comenteFacebook']}</h4>
+							<ui:include src="/pieces/social/facebookComentarios.xhtml" />
+						</h:panelGrid>
+					</h:form>
+				</h:panelGrid>
+
+			</div>
+
+		</div>
+
+
+	</ui:define>
+</ui:composition>
+
+</html>

@@ -1,0 +1,236 @@
+@CHARSET "ISO-8859-1";
+
+/* GERAL */
+.panelHeader,.panelFooter,.panelHeaderBarraCores {
+	background: rgb(66, 69, 62);
+}
+
+.barraPesquisaFlutuante,.fixar {
+	background: rgba(66, 69, 62, 0.9) !important;
+}
+
+.ui-fieldset,.ui-panel {
+	border-color: rgb(104, 114, 123);
+}
+
+/* HEADER */
+.panelHeader2 {
+	background-color: rgb(201, 201, 201);
+	border-color: #636B78 !important;
+}
+
+.panelHeaderClientePedido {
+	background: rgb(246, 255, 252);
+}
+
+.panelHeaderCarrinho {
+	background: hsl(213, 55%, 62%);
+	border-color: #c4d7ee;
+	color: white !important;
+}
+
+.headerBackgroundCarrinho {
+	border-color: hsl(213, 55%, 62%);
+	background: #c4d7ee;
+	color: white !important;
+}
+
+.precoTotalPedidoResumoHeader {
+	font-weight: bold;
+	color: white;
+}
+
+.qntItensCarrinhoHeader {
+	color: hsl(0, 0%, 90%);
+}
+
+/* FOOTER */
+.headerFilial,.panelFooter {
+	color: white;
+}
+
+.footerFormasPagamento {
+	background: rgb(200, 200, 200);
+}
+
+.footerFormasPagamentoTitulo {
+	color: rgb(45, 45, 45);
+}
+
+.linkSpace {
+	color: rgb(108, 0, 0);
+}
+
+.footerSeguranca {
+	background: hsl(0, 0%, 95%);
+}
+
+.footerTituloSeguranca {
+	color: hsl(235, 40%, 33%);
+}
+
+.panelFooterSpace {
+	background-color: rgb(240, 240, 240);
+}
+
+/* MEUS PEDIDOS */
+.panelDetalhesPedido {
+	background: white;
+	border: 1px solid #5B6E8E;
+}
+
+/* PESQUISA PRODUTOS */
+.tituloPanelItem {
+	color: #0000b1;
+}
+
+.miniBanner {
+	border-color: #527297;
+}
+
+/* ITEM PEDIDO */
+.precoTotalItemPedido {
+	color: rgb(255, 69, 0);
+}
+
+.boxItemTitulo,.boxItemTab .ui-tabs-nav {
+	background: #617592;
+}
+
+.boxItem {
+	border-color: silver;
+	background: rgb(245, 245, 245);
+}
+
+.multimidiaItemProduto {
+	border-color: #4A6082 !important;
+	background: #9199A5 !important;
+}
+
+.multimidiaItemProduto .ui-tabs-nav {
+	border-color: #4A6082;
+}
+
+.itemSemelhante:HOVER,.itemSemelhante:FOCUS,.linkItemSemelhante:HOVER {
+	background: #f3f9ff !important;
+}
+
+.panelItemSemelhantePrecoVenda {
+	color: #345393;
+}
+
+.labelEstoque,.corLabelPromocao {
+	background: #F0F8FF;
+}
+
+/* CARRINHO */
+.precoTotalCarrinho {
+	color: rgb(166, 201, 226);
+}
+
+.textoPrecoTotalCarrinho {
+	color: #7B95BA;
+}
+
+.panelPrecoTotal {
+	border-color: #424548;
+	background: #F2F1F1;
+}
+
+.botaoFinalizarCompra {
+	border: 1px solid #d02718;
+	-moz-box-shadow: inset 0px 1px 0px 0px #f2a39e;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #f2a39e;
+	box-shadow: inset 0px 1px 0px 0px #f2a39e;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f24537
+		), color-stop(1, #c62d1f));
+	background: -moz-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background: -webkit-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background: -o-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background: -ms-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background: linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24537',
+		endColorstr='#c62d1f', GradientType=0);
+	background: #f24537;
+}
+
+.botaoFinalizarCompra:HOVER {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c62d1f
+		), color-stop(1, #f24537));
+	background: -moz-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background: -webkit-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background: -o-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background: -ms-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background: linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f',
+		endColorstr='#f24537', GradientType=0);
+	background-color: #c62d1f;
+}
+
+/* TONS DE CINZA */
+.subcategoriaProdutos {
+	
+}
+
+.subcategoriaProdutosTexto {
+	
+}
+
+.subcategoriaProdutosSelecionada {
+	font-weight: bold;
+}
+
+.tituloDescricaoPromocao {
+	color: rgb(74, 110, 158);
+}
+
+.panelPrecoTotalItemPedido {
+	background: rgb(240, 248, 255);
+}
+
+.panelItem {
+	/*background: rgb(245, 253, 255);*/
+	
+}
+
+.panelItem1 {
+	background: none;
+	border: none;
+}
+
+.fieldsetPromocao {
+	margin-top: 30px;
+	background: rgb(240, 248, 255);
+	border-color: rgb(104, 114, 123);
+}
+
+.fieldsetTabPrecos {
+	border-color: rgb(104, 114, 123);
+	background: rgb(250, 250, 250);
+}
+
+.panelInternoLogin {
+	border-color: rgb(87, 96, 107);
+	/*background: rgb(242, 245, 247);*/
+	background: rgb(250, 250, 250);
+	color: rgb(87, 96, 107);
+}
+
+.panelLogin {
+	/*background: rgb(222, 237, 247);*/
+	
+}
+
+/* COR NEUTRA: TONS DE CINZA */
+.panelDetalhes .ui-panel-titlebar-icon {
+	background: rgb(240, 240, 240);
+	/*background: rgb(169,169,169);*/
+}
+
+.popupTabPrecos {
+	background: rgb(230, 230, 230);
+}
+
+.wizardCadastro {
+	background: rgb(250, 250, 250);
+}

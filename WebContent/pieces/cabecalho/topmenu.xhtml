@@ -1,0 +1,46 @@
+
+<p:menubar xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" id="topmenu" styleClass="mainMenu"
+	autoDisplay="true">
+
+	<!-- 
+	<p:menuitem value="#{msg['titulo.produtos']}" icon="ui-icon-cart"
+		rendered="#{produtoPesquisaMB.temPermissao()}"
+		url="#{pagePath}#{produtoPesquisaMB.urlView}" />  -->
+
+	<p:menuitem value="#{msg['titulo.pedido']}" icon="ui-icon-document"
+		rendered="#{identity.loggedIn and gerentePedidoMB.temPermissao() and gerenteLogin.perfilColaborador}"
+		url="#{pagePath}#{gerentePedidoMB.urlView}" />
+
+	<p:menuitem value="#{msg['titulo.meusPedidos']}"
+		icon="ui-icon-document"
+		rendered="#{identity.loggedIn and historicoPedidosMB.temPermissao()}"
+		url="#{pagePath}#{historicoPedidosMB.urlView}" />
+
+	<p:menuitem value="#{msg['titulo.cadastro']}"
+		icon="ui-icon-person" rendered="#{not identity.loggedIn}"
+		action="#{gerenteClienteMB.carregarNovo()}"
+		url="#{rootPath}cliente/" />
+
+
+	<f:facet name="options">
+
+		<p:commandButton value="#{msg['acao.entrar']}"
+			style="height:35px !important;"
+			onclick="redirecionar('#{gerenteLogin.urlView}')"
+			rendered="#{not identity.loggedIn}" icon="ui-icon ui-icon-arrow-1-e" />
+
+		<p:commandButton value="#{msg['acao.sair']}"
+			style="height:35px !important;" rendered="#{identity.loggedIn}"
+			icon="ui-icon-extlink"
+			oncomplete="redirecionar('#{produtoPesquisaMB.urlView}')"
+			actionListener="#{gerenteLogin.logout()}">
+
+		</p:commandButton>
+
+	</f:facet>
+
+</p:menubar>

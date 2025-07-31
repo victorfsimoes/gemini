@@ -1,0 +1,183 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+	<style>
+.dataGridFormaPag {
+	width: 60% !important;
+	display: inline-block;
+}
+
+.tabelaTipoPag {
+	width: 100%;
+}
+
+.tabelaTipoPag td {
+	width: auto;
+	background: rgb(220, 234, 235);
+	text-align: center;
+	color: #555555;
+	font-weight: bold;
+	background: rgb(220, 234, 235);
+	text-decoration: none !important;
+}
+
+.tipoPagtoSelecionado {
+	background: #33575a !important;
+}
+
+.tabelaTipoPag td:HOVER {
+	background: #497c7f;
+}
+
+.tipoPagtoSelecionado,.tabelaTipoPag td:HOVER {
+	color: white !important;
+	box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+</style>
+
+	<div
+		style="color: black; width: 100% !important; text-align: left !important">
+
+		<h2
+			style="display: inline-block; padding-right: 10px; margin-bottom: 0">Valor
+			total:</h2>
+		<h:outputText styleClass="textoPrecoTotalCarrinho"
+			style="display:inline-block; color: rgb(255, 69, 0) !important"
+			value=" #{msg['texto.R$']} #{formatacaoMB.formataPreco(gerentePedidoMB.valorTotalPedido,2)}" />
+			
+		<p:outputPanel rendered="false">
+			<h2 style="margin-bottom: 0">#{msg['titulo.entrega']}</h2>
+			<p:outputPanel id="panelContainerCheckout">
+				<div style="border: solid black 2px;">
+					<h:panelGrid columns="4"
+						style="padding: 5px !important; width:100% !important;"
+						columnClasses="colDivisoria0 , colDivisoria, colDivisoria, colDivisoria">
+						
+						
+						<ui:include src="/pieces/pedido/comboTipoEntrega.xhtml" />
+
+						<h:panelGrid columns="2" style="padding: 5px !important;"
+							rendered="#{gerentePedidoMB.clienteSelecionado != null}">
+							<comp:comboBox titulo="#{msg['texto.enderecoEntrega']}"
+								requerido="true" lista="#{gerentePedidoMB.enderecos}"
+								var="endereco" itemLabel="#{endereco}"
+								itemValue="#{endereco.codigo}"
+								value="#{pedido.enderecoEntregaCodigo}" id="enderecoEntrega" />
+						</h:panelGrid>
+
+						<comp:outputInfo titulo="#{msg['texto.peso']}"
+							info="#{pedido.pesoBruto}#{msg['texto.kg']}"
+							rendered="#{not empty pedido.pesoBruto}" />
+
+						<comp:outputInfo titulo="#{msg['texto.volume']}"
+							info="#{pedido.metrosCubicos}#{msg['texto.m3']}"
+							rendered="#{not empty pedido.metrosCubicos}" />
+
+						<comp:outputInfo titulo="#{msg['texto.valorFrete']}"
+							info="#{msg['texto.R$']} #{formatacaoMB.formataPreco(pedido.frete,2)}" />
+					</h:panelGrid>
+				</div>
+			</p:outputPanel>
+
+			<h2 style="margin-bottom: 0">#{msg['titulo.pagamento']}</h2>
+		</p:outputPanel>
+
+		<div style="border: solid black 2px;">
+			<table id="tabelaTipoPagto" class="tabelaTipoPag">
+				<tr>
+					<ui:repeat
+						value="#{gerentePedidoMB.gerentePedido.classificacoesDocumentoPermitidas}"
+						var="tipoPag">
+
+						<td
+							class="#{tipoPag.codigo == gerentePedidoMB.codClassificacaoPagtoSelecionada?'tipoPagtoSelecionado':NULL}">
+							<p:commandLink style="text-decoration:none; color: inherit;"
+								action="#{gerentePedidoMB.classificarFormasPagto(tipoPag.codigo)}"
+								update="@form" immediate="true">
+								<div style="padding: 5%;">
+									<div style="height: 50px" />
+									<h:outputText value="#{tipoPag.descricao}" />
+								</div>
+							</p:commandLink>
+						</td>
+
+					</ui:repeat>
+				</tr>
+			</table>
+
+			<p:selectOneRadio id="radioFormas" layout="custom"
+				value="#{gerentePedidoMB.formaPagamentoCodigo}"
+				style="width:60% !important; display: inline-block">
+				<f:selectItems value="#{gerentePedidoMB.formasPagtoCassificadas}"
+					var="forma" itemLabel="#{forma.descricao}"
+					itemValue="#{forma.codigo}" />
+				<p:ajax global="false"
+					update=":formPagamentoCarrinho:informacaoFormaPagto,
+				:formPagamentoCarrinho:ponelCondicoesPagamento" />
+			</p:selectOneRadio>
+
+			<div style="padding: 2%">
+
+
+				<p:dataGrid value="#{gerentePedidoMB.formasPagtoCassificadas}"
+					var="forma" columns="2" id="datax" styleClass="dataGridFormaPag"
+					style="width:60% !important; display:inline-block" rowIndexVar="i">
+					<h:panelGrid columns="3" styleClass="center">
+						<p:radioButton id="opt" for=":formPagamentoCarrinho:radioFormas"
+							itemIndex="#{i}" />
+						<h:graphicImage width="30" height="30"
+							value="#{arquivo.getImageFormaPagamento(forma)}" />
+						<p:outputLabel value="#{forma.descricao}" for="opt"
+							style="cursor:pointer" />
+					</h:panelGrid>
+				</p:dataGrid>
+
+
+
+				<p:panel
+					style="width:35%; display:inline-block; vertical-align: top">
+					<h:outputText id="informacaoFormaPagto"
+						value="#{gerentePedidoMB.formaPagamentoSelecionada.informacaoAdicionalWeb}"
+						escape="false" />
+				</p:panel>
+
+			</div>
+
+			<p:outputPanel id="ponelCondicoesPagamento">
+				<div
+					style="width: 98%; background: rgb(240, 240, 240); border-top: dashed gray 1px; margin-top: 10px; padding: 1%">
+
+					<div style="width: 60%; display: inline-block">
+						<h:outputText value="#{msg['texto.condicaoPagamento']}"
+							style="font-weight: bold; display: block" />
+						<p:selectOneMenu id="condPagto"
+							value="#{gerentePedidoMB.condicaoPagamentoCodigo}">
+
+							<f:selectItems
+								value="#{gerentePedidoMB.condicoesPagamentoPermitidas}"
+								var="condicao" itemValue="#{condicao.codigo}"
+								itemLabel="#{condicao.descricaoCartao}" />
+
+							<p:ajax update="condPagto, @form, :header" global="false" />
+
+						</p:selectOneMenu>
+					</div>
+
+					<div style="display: inline-block; width: 38%;">
+						<h:outputText value="Pagamento Selecionado"
+							style="font-weight: bold; display:block" />
+						<h:outputText
+							value="#{gerentePedidoMB.gerentePedido.formaPagamento.descricao}" />
+					</div>
+				</div>
+			</p:outputPanel>
+
+		</div>
+
+
+	</div>
+
+</f:view>

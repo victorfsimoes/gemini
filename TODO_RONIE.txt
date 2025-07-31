@@ -1,0 +1,52 @@
+* ---------------------------------------------------------------------------------------------------------
+* CARTAO DE CRÉDITO
+* ---------------------------------------------------------------------------------------------------------
+* Verificar as transações que foram autorizadas/confirmadas e que não possuem financeiro lançado.
+	Toda transação deve possuir um ou mais documentos anexados ao financeiro.
+
+* Não cancelar pedidos em inclusão que possuem transações autorizadas/confirmadas.
+	Nesse caso talvez seja necessário cancelar todas as transações autorizadas/confirmadas e logo em seguida 
+	cancelar o pedido.
+
+* Verificar o travamento do pedido ao retornar da tela de pagamento com cartão.
+
+* ---------------------------------------------------------------------------------------------------------
+* SUGESTÕES FUTURAS
+* ---------------------------------------------------------------------------------------------------------
+* Formas de pagamento permitidas para o Produto. ???
+
+* ---------------------------------------------------------------------------------------------------------
+* VENDA WEB
+* ---------------------------------------------------------------------------------------------------------
+
+* ---------------------------------------------------------------------------------------------------------
+* FRETE
+* ---------------------------------------------------------------------------------------------------------
+* Exibir somente os tipos de entrega disponiveis no grupo de entrega da Região/UF.
+* Calcular o Frete por Volume. Processar todos os itens e agrupar por Classificação e gerar embalagens para as MIUDEZAS.
+* Integração com o WebService do CORREIOS.
+
+* ---------------------------------------------------------------------------------------------------------
+* CONSUMIDOR FINAL
+* ---------------------------------------------------------------------------------------------------------
+* Campos PED_PREPAGO e CLI_PREPAGO ja criados.
+* Ao Cadastrar um novo pedido copiar o flag do cliente para o pedido. Status do Pedido "9-AGUARDANDO PAGAMENTO"
+* O Calculo do frete está sendo feito todas as vezes que um item é adicionado ou alterado ou quando mudamos de aba no pedido;
+	Pensar se irá alterar a performance e calcular o frete somente quando alterar o endereco/tipo de entrega no fechamento do pedido.
+
+* ---------------------------------------------------------------------------------------------------------
+* PERSONALIZACAO
+* ---------------------------------------------------------------------------------------------------------
+* Definir em qual página o banner deve ser exibido: na tela inicial, em todas as telas, no grupo (já possui).
+	Permitir que um banner seja exibido abaixo de outro (ex: qdo possuir alguma informação de frete grátis, etc.)
+	Definir a sequencia de exibição entre os banners que serão exibidos na mesma página. Podem ser exibidos vários banners ao mesmo tempo.
+
+* Definir vários leiautes de cabeçalho e permitir que o cliente escolha o que for melhor para ele.
+
+* Permitir visualizar as categorias no cabeçalho, definir quais categorias terão destaque. Exibir as subcategorias qdo passar o mouse;
+
+* ---------------------------------------------------------------------------------------------------------
+* GUARDIAN
+* ---------------------------------------------------------------------------------------------------------
+* Exibir as informações das transações de cartão de crédito na tela de pedido/financeiro.
+* Como proceder com o cancelamento de pedidos que possuem transação de cartão ?

@@ -1,0 +1,130 @@
+<p:fieldset xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	legend="#{msg['titulo.dadosPessoais']}"
+	styleClass="fieldsetConfirmaCadastro" id="panelConfirmarDadosPessoais">
+
+	<h:panelGrid columns="3">
+		<p:outputLabel value="#{msg['texto.tipoDePessoa']}" for="cTipoPessoa"
+			styleClass="textCadastro" />
+		<h:outputText value=":" styleClass="doisPontos" />
+		
+		<p:inplace
+			label="#{'J'==pessoa.tipoPessoa?msg['texto.juridica']:msg['texto.fisica']}"
+			editor="false" disabled="#{visualizacao}">
+			<p:selectOneButton value="#{cliente.tipoPessoa}" id="cTipoPessoa"
+				required="true"
+				valueChangeListener="#{pessoa.cpfCnpjChangeListener}">
+				<f:selectItem itemLabel="#{msg['texto.fisica']}" itemValue="F" />
+				<f:selectItem itemLabel="#{msg['texto.juridica']}" itemValue="J" />
+				<p:ajax for="cTipoPessoa" event="change"
+					update="alteraTipoPessoaConfirmacao" />
+			</p:selectOneButton>
+		</p:inplace>
+	</h:panelGrid>
+
+	<h:panelGrid columns="1" id="alteraTipoPessoaConfirmacao">
+		<p:tooltip for="cTipoPessoa" style="max-width:400px"
+			value="#{'J'==pessoa.tipoPessoa?msg['alerta.atencao.apagarDadosPessoaJuridica']:msg['alerta.atencao.apagarDadosPessoaFisica']}" />
+
+		<comp:confirmaInputText
+			titulo="#{'J'==clienteImp.tipoPessoa?msg['texto.razaoSocial']:msg['texto.nome']}"
+			value="#{pessoa.razao}" id="cRazaoSocial" requerido="true"
+			maxCaracteres="45" visualizacao="#{visualizacao}" />
+
+		<comp:confirmaInputMask
+			titulo="#{'J'==clienteImp.tipoPessoa?msg['texto.cnpj']:msg['texto.cpf']}"
+			value="#{clienteImp.cnpjCpf}" id="cCnpjCpf" requerido="true"
+			visualizacao="#{visualizacao}"
+			mask="#{'J'==clienteImp.tipoPessoa?msg['mascara.cnpf']:msg['mascara.cpf']}" />
+
+		<comp:confirmaInputText titulo="#{msg['texto.fantasia']}"
+			value="#{clienteImp.nomeFantasia}" id="cFantasia"
+			visualizacao="#{visualizacao}"
+			rendered="#{'J'==clienteImp.tipoPessoa}" maxCaracteres="45" />
+
+		<comp:confirmaInputText titulo="#{msg['texto.rg']}"
+			value="#{clienteImp.rg}" id="cRg" requerido="true"
+			visualizacao="#{visualizacao}"
+			rendered="#{'F'==clienteImp.tipoPessoa}" />
+
+		<h:panelGrid columns="5" rendered="#{'J'==clienteImp.tipoPessoa}"
+			id="cPanelInscricaoEstadual">
+
+			<h:outputText value="#{msg['texto.inscricaoEstadual']}"
+				styleClass="#{clienteImpMB.inscricaoEstadualIsenta?'textCadastro':'textMaiusculo bold'}" />
+			<h:outputText value=":" styleClass="doisPontos" />
+
+			<p:inplace disabled="#{visualizacao}"
+				label="#{clienteImpMB.inscricaoEstadualIsenta?msg['texto.isento']:msg['texto.naoIsento']}">
+				<p:selectBooleanCheckbox
+					value="#{clienteImpMB.inscricaoEstadualIsenta}">
+					<p:ajax event="change" update="cPanelInscricaoEstadual" />
+				</p:selectBooleanCheckbox>
+				<h:outputText value="#{msg['texto.isento']}" />
+			</p:inplace>
+
+			<h:panelGrid columns="3"
+				rendered="#{not clienteImpMB.inscricaoEstadualIsenta}">
+				<p:outputLabel for="cUfInscricaoEstadual" styleClass="textCadastro"
+					value="#{msg['texto.uf']}" />
+				<h:outputText value=":" styleClass="doisPontos" />
+				<p:inplace editor="true" disabled="#{visualizacao}"
+					label="#{empty clienteImpMB.ufInscricaoEstadual?msg['mensagem.naoInformado']:clienteImpMB.ufInscricaoEstadual}"
+					styleClass="#{empty clienteImpMB.ufInscricaoEstadual?'watermark':''}">
+					<p:autoComplete id="cUfInscricaoEstadual" forceSelection="true"
+						required="true"
+						requiredMessage="#{msg['alerta.campoObrigatorio']}"
+						completeMethod="#{clienteImpMB.pesquisarInscricaoEstadual}"
+						value="#{clienteImpMB.ufInscricaoEstadual}"
+						style="text-transform: uppercase !important" var="i"
+						itemValue="#{i.ufSigla}" itemLabel="#{i}"
+						panelStyle="overflow-x: hidden" size="22">
+						<p:column style="border:none !important">  
+                    			#{i.ufSigla} (#{i.ufNome})  
+               				</p:column>
+						<f:facet name="itemtip">
+							<h:outputText value="Formato:" />
+							<br />
+							<h:outputText value="#{i.mascara}" />
+						</f:facet>
+						<p:ajax event="itemSelect" update="cPanelInscricaoEstadual" />
+					</p:autoComplete>
+				</p:inplace>
+			</h:panelGrid>
+
+			<comp:confirmaInputMask titulo="#{msg['texto.numero']}"
+				value="#{clienteImp.inscricaoEstadual}" id="cInscricaoEstadual"
+				requerido="true" visualizacao="#{visualizacao}"
+				rendered="#{not empty clienteImpMB.ufInscricaoEstadual and 'J'==clienteImp.tipoPessoa and not clienteImpMB.inscricaoEstadualIsenta}"
+				mask="#{clienteImpMB.recuperaInscricaoPorUf(clienteImpMB.ufInscricaoEstadual).mascara}" />
+		</h:panelGrid>
+
+
+	</h:panelGrid>
+
+	<h:panelGrid columns="3">
+		<p:outputLabel for="cAtividade" styleClass="textCadastro"
+			value="#{msg['texto.atividade']}" />
+		<h:outputText value=":" styleClass="doisPontos" />
+		<p:inplace editor="true" disabled="#{visualizacao}"
+			label="#{empty clienteImp.descricaoAtividade?msg['mensagem.naoInformado']:clienteImp.descricaoAtividade}"
+			styleClass="#{empty clienteImp.descricaoAtividade?'watermark':'textCapitalize'}">
+			<p:selectOneMenu id="cAtividade"
+				value="#{clienteImp.descricaoAtividade}" height="300" size="80"
+				editable="true" required="true"
+				requiredMessage="#{msg['alerta.campoObrigatorio']}">
+				<f:selectItems value="#{clienteImpMB.getTodasAtividades()}" var="a"
+					itemLabel="#{a}" itemValue="#{a}" />
+			</p:selectOneMenu>
+		</p:inplace>
+	</h:panelGrid>
+
+	<comp:confirmaInputText titulo="#{msg['texto.referenciaComercial']}"
+		value="#{clienteImp.referenciaComercial}"
+		visualizacao="#{visualizacao}" id="cReferenciaComercial"
+		maxCaracteres="100" tamCampo="80" />
+</p:fieldset>

@@ -1,0 +1,73 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+	<style type="">
+.cronoLinha {
+	border: black 1px solid;
+	display: inline-block;
+	width: 20%;
+	margin-bottom: 30px;
+}
+
+.cronoLinha2 {
+	font-weight: bold !important;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 15px;
+	font-size: x-small;
+	font-family: lucida console;
+	color: #34291c;
+}
+
+.cronoContainer {
+	display: inline-block;
+	text-align: center !important;
+}
+
+.cronoContainerDesabilitado {
+	opacity: .35;
+}
+
+.cronoLabel {
+	font-weight: lighter;
+	color: #4c2e0a;
+	font-size: small;
+}
+
+.cronoNum {
+	text-align: center !important;
+	display: block;
+	border-radius: 50px;
+	border: #67543a solid 2px;
+	padding: 5px;
+	width: 25px;
+	height: 25px;
+	background: #f2ede7;
+}
+
+.cronoNumSelec {
+	border-style: dashed;
+}
+
+.cronoLabelSelec {
+	text-transform: uppercase;
+}
+</style>
+
+	<h:form style="padding-top:20px" rendered="#{perfilCliente and not pedidoHistorico}">
+		<comp:pagCronologica linkPag="#{rootPath}#{gerentePedidoMB.urlView}"
+			tituloPag="#{msg['titulo.carrinho']}" numPag="1"
+			numPagSelec="#{pagNumCrono}" numUltimaPag="3" />
+
+		<comp:pagCronologica linkPag="#{rootPath}/pagamento/" numUltimaPag="3"
+			tituloPag="#{msg['titulo.pagamento']}" numPag="2"
+			numPagSelec="#{pagNumCrono}" />
+
+		<comp:pagCronologica tituloPag="#{msg['titulo.confirmacao']}"
+			numPag="3" numPagSelec="#{pagNumCrono}" numUltimaPag="3" />
+	</h:form>
+</f:view>

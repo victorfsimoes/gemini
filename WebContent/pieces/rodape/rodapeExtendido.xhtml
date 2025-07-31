@@ -1,0 +1,41 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<div class="divContainerGrids">
+		<ui:repeat var="grupoLink" value="#{rodapeMB.grupoLinks}">
+			<div class="divFooterGrids">
+
+				<h3>#{grupoLink.descricao}</h3>
+
+				<ul class="rodapeLinks">
+					<ui:repeat value="#{grupoLink.links}" var="link">
+						<li><a href="#{link.link}"
+							target="#{link.codigoPagina == 0?'_blank':'_self'}"
+							class="rodapeLink"> <h:outputText escape="false"
+									value="#{link.titulo}" styleClass="rodapeLinks" />
+						</a></li>
+					</ui:repeat>
+				</ul>
+			</div>
+		</ui:repeat>
+	</div>
+
+
+	<h:panelGrid columns="2"
+		styleClass="footerFormasPagamento lateraisVazias"
+		style="width:100% !important;" columnClasses="top, top floatRight">
+		<ui:include src="/pieces/rodape/formasPagamento.xhtml" />
+		<ui:include src="/pieces/rodape/social.xhtml" />
+	</h:panelGrid>
+	
+	<ui:include src="/pieces/rodape/seguranca.xhtml" />
+	
+	<div id="rodapeDinamico" class="footerRodape lateraisVazias">
+		<h:outputText
+			value="#{rodapeMB.parametroWeb.siteRodape}" escape="false" />
+	</div>
+
+</f:view>

@@ -1,0 +1,153 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:outputPanel id="header">
+
+		<div class="panelTransparente layoutTopo">
+			<div class="panelHeader">
+				<div class="headerFilial header1Left">
+
+					<p:commandLink
+						actionListener="#{produtoPesquisaMB.montarVisualizacaoHome()}"
+						onsuccess="redirecionar('#{rootPath}#{produtoPesquisaMB.urlView}')"
+						global="false">
+						<h:graphicImage alt="logotipo"
+							value="#{imageApplicationLogo}#{escolhaTemaMB.temaEscolhido.imagemLogo}"
+							style="border:none; width: 95%; height:90%;" />
+					</p:commandLink>
+				</div>
+
+				<div class="header1Center">
+
+					<div class="panelLabelHeader">
+
+						<h:outputLink value="#{rootPath}#{gerenteLogin.urlView}"
+							styleClass="labelHeader labelAcaoHeader"
+							rendered="#{not identity.loggedIn}">
+							#{msg['texto.facalogin']}
+						</h:outputLink>
+
+						<h:outputText value="#{msg['texto.ou']}"
+							rendered="#{not identity.loggedIn and parametros.parametroWeb.flagPermiteConsumidorFinal==1}" styleClass="labelHeader"
+							style="margin-left: 5px; margin-right: 5px;" />
+
+						<p:commandLink rendered="#{not identity.loggedIn and parametros.parametroWeb.flagPermiteConsumidorFinal==1}"
+							value="#{msg['acao.cadastrese']}"
+							styleClass="labelAcaoHeader labelHeader"
+							style="margin-left: 2px;"
+							oncomplete="redirecionar('#{rootPath}/cliente/')"
+							actionListener="#{gerenteClienteMB.carregarNovo()}" />
+
+
+						<h:outputText
+							value="#{msg['mensagem.bemvindo']}, #{formatacaoMB.getPrimeiroNome(gerenteLogin.usuarioLogado.nome)}!"
+							styleClass="labelHeader capitalize"
+							rendered="#{identity.loggedIn}" />
+
+						<p:commandLink rendered="#{identity.loggedIn}"
+							value="(#{msg['acao.sair']})"
+							styleClass="labelAcaoHeader labelHeader capitalize"
+							style="margin-left: 2px;"
+							oncomplete="redirecionar('#{rootPath}#{produtoPesquisaMB.urlView}')"
+							actionListener="#{gerenteLogin.logout()}" />
+
+
+						<h:outputText value="|" rendered="#{identity.loggedIn}"
+							styleClass="labelHeader"
+							style="margin-left: 5px; margin-right: 5px;" />
+
+						<div style="display: #{identity.loggedIn?'inline-block':'none'}">
+
+							<h:graphicImage value="/resources/img/cart.png"
+								style="display:inline-block; margin-bottom:-3px" />
+
+							<h:outputLink styleClass="labelAcaoHeader labelHeader"
+								rendered="#{identity.loggedIn}"
+								value="#{rootPath}#{gerentePedidoMB.urlView}">
+							#{perfilCliente?msg['titulo.meuCarrinho']:msg['titulo.pedidoAtual']}
+							</h:outputLink>
+						</div>
+
+						<h:outputText value="|" rendered="#{identity.loggedIn}"
+							styleClass="labelHeader"
+							style="margin-left: 5px; margin-right: 5px;" />
+
+						<div style="display: #{identity.loggedIn?'inline-block':'none'}">
+							<h:graphicImage value="/resources/img/plane.png"
+								style="display:inline-block; margin-bottom:-3px" />
+
+							<h:outputLink rendered="#{identity.loggedIn}"
+								styleClass="labelAcaoHeader labelHeader"
+								value="#{rootPath}#{historicoPedidosMB.urlView}">
+							#{msg['titulo.meusPedidos']}
+							</h:outputLink>
+						</div>
+
+						<h:outputText value="|"
+							rendered="#{identity.loggedIn and perfilCliente}"
+							styleClass="labelHeader"
+							style="margin-left: 5px; margin-right: 5px;" />
+
+						<div
+							style="display: #{identity.loggedIn and perfilCliente?'inline-block':'none'}">
+							<h:graphicImage value="/resources/img/person.png"
+								style="display:inline-block; margin-bottom:-3px" width="16"
+								height="16" />
+
+							<p:commandLink value="#{msg['titulo.meuPerfil']}"
+								styleClass="labelAcaoHeader labelHeader"
+								style="margin-left: 2px;"
+								oncomplete="redirecionar('#{rootPath}/meuPerfil/')"
+								actionListener="#{gerenteClienteMB.carregarPessoaLogada()}" />
+						</div>
+
+						<h:outputText value="|" rendered="#{identity.loggedIn and perfilCliente}"
+							styleClass="labelHeader"
+							style="margin-left: 5px; margin-right: 5px;" />
+
+						<div style="display: #{identity.loggedIn and perfilCliente?'inline-block':'none'}">
+
+							<p:commandLink value="#{msg['titulo.atendimento']}"
+								styleClass="labelAcaoHeader labelHeader"
+								style="margin-left: 2px;"
+								oncomplete="redirecionar('#{rootPath}/atendimento/')" />
+						</div>
+
+
+
+						<!-- <div style="display: #{identity.loggedIn?'inline-block':'none'}">
+							<h:graphicImage value="/resources/img/key.png"
+								style="display:inline-block; margin-bottom:-3px" />
+
+							<p:commandLink rendered="#{identity.loggedIn}"
+								styleClass="labelAcaoHeader labelHeader"
+								onclick="alterarSenha.show();">
+								Alterar senha
+							</p:commandLink>
+						</div> -->
+					</div>
+
+					<ui:include src="/pieces/cabecalho/searchBox.xhtml" />
+				</div>
+
+				<div class="header1Right">
+
+					<p:panel
+						rendered="#{identity.loggedIn and perfilColaborador and gerentePedidoMB.clienteNome != null}"
+						styleClass="panelHeaderClientePedido">
+						<h:outputText value="#{gerentePedidoMB.clienteNome}"
+							styleClass="top textoLabelClienteHeader"
+							title="#{msg['texto.cliente']}" />
+					</p:panel>
+
+					<ui:include src="/pieces/cabecalho/resumoHeader.xhtml" />
+				</div>
+			</div>
+			<div class="panelHeader2"></div>
+		</div>
+	</p:outputPanel>
+</f:view>

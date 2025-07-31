@@ -1,0 +1,138 @@
+@CHARSET "ISO-8859-1";
+
+table td {
+	border: none !important;
+	margin: 0;
+	padding: 0;
+}
+
+.ui-datatable .ui-datatable-data td,.ui-datatable .ui-datatable-data-empty td{
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* TÍTULO */
+.tituloPaginaCarrinho {
+	margin-top: -5px !important;
+	margin-left: -10%;
+	margin-right: -10%;
+	height: 36px;
+	border-bottom: silver 1px dotted;
+}
+
+.textoTituloPaginaCarrinho {
+	color: white;
+	text-shadow: 2px 2px 1px #000 !important;
+	filter: dropshadow(color =   #fff, offx =   1, offy =   1);
+}
+
+/* ITENS */
+.imagemItem {
+	width: 70px;
+	height: 70px;
+}
+
+.tabelaItens tfoot td {
+	text-align: left !important;
+	white-space: normal !important;
+}
+
+.tabelaItens tfoot td,.tabelaItens tfoot tr {
+	white-space: normal !important;
+	padding-top: 10px !important;
+	/*padding-bottom:10px !important;*/
+}
+
+.tabelaItens .ui-datatable-footer {
+	padding: 0 !important;
+	text-align: left !important;
+	border-radius: 0 0 0 0;
+}
+
+.textoPrecoTotalCarrinho {
+	font-size: 20px;
+	text-shadow: -1px 1px 0px #051057 !important;
+	filter: dropshadow(color =     #051057, offx =     -1, offy =     1);
+	font-weight: bold;
+}
+
+.itensCol1 {
+	width: 70px;
+}
+
+.itensCol2 {
+	width: 300px;
+}
+
+.divisaoDetalheProduto {
+	border-left: dotted 2px gray !important;
+	padding-left: 5px;
+	margin-left: 5px;
+}
+
+/* PROMOÇÕES */
+.tabelaPromocoesCarrinho {
+	margin: 0px !important;
+	padding: 0px !important;
+	border: none !important;
+	background: white !important;
+}
+
+.tabelaPromocoesCarrinho td {
+	border: none !important;
+}
+
+.tabelaPromocoesCarrinho thead {
+	border: none !important;
+	text-align: left;
+}
+
+/* FRETE */
+.footerCarrinhoFrete {
+	text-align: left;
+	border-top-style: 1px solid rgb(197, 219, 236) !important;
+}
+
+/* BOTÕES */
+.botaoFinalizarCompra {
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	display: inline-block;
+	color: #ffffff !important;
+	font-family: arial;
+	font-size: 18px;
+	font-weight: bold;
+	padding: 9px 21px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #810e05;
+}
+
+.containerBotoesInferiores {
+	width: 100%;
+	margin-top: 10px;
+	text-align: center;
+}
+
+.botaoFinalizarCompra:active {
+	position: relative;
+	top: 1px;
+}
+
+/* LABEL PREÇO TOTAL */
+.containerPrecoTotal {
+	float: inherit;
+	margin-top: -3px;
+	margin-right: -2px;
+}
+
+.panelPrecoTotal {
+	text-align: center;
+	font-size: 21px;
+	border-style: solid;
+	border-width: 1px;
+	float: right;
+	border-radius: 0px 0px 30px 30px !important;
+	webkit-border-radius: 20px 20px 0px 0px;
+}

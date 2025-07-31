@@ -1,0 +1,62 @@
+<h:panelGrid xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	styleClass="left wizardCadastro" rendered="#{not pessoaJuridica}">
+
+
+	<h:outputText value="#{msg['texto.sexo']}" styleClass="textCadastro" />
+	<p:selectOneMenu value="#{pessoa.sexo}">
+		<f:selectItem itemLabel="#{msg['texto.masculino']}" itemValue="M" />
+		<f:selectItem itemLabel="#{msg['texto.feminino']}" itemValue="F" />
+	</p:selectOneMenu>
+
+	<p:panel style="margin-bottom:10px;" id="panelRG">
+
+
+		<h:outputText value="#{msg['texto.rg']}"
+			style="text-transform: uppercase; font-weight:bold" />
+		<p:separator />
+
+		<h:panelGrid columns="4">
+
+			<comp:inputText titulo="#{msg['texto.numero']}" value="#{pessoa.rg}"
+				id="rg" maxCaracteres="15" requerido="true" />
+
+			<h:panelGrid columns="1">
+				<p:outputLabel for="ufRG" styleClass="textCadastro"
+					value="#{msg['texto.uf']}" />
+
+				<p:autoComplete forceSelection="true" id="ufRG"
+					completeMethod="#{gerenteClienteMB.pesquisarInscricaoEstadual}"
+					value="#{pessoa.ufRg}" style="text-transform: uppercase !important"
+					var="i" itemValue="#{i.ufSigla}" itemLabel="#{i}"
+					panelStyle="overflow-x: hidden" size="26" required="fale">
+
+					<p:column style="border:none !important">  
+                    #{i.ufSigla} (#{i.ufNome})  
+               		</p:column>
+
+				</p:autoComplete>
+			</h:panelGrid>
+
+			<comp:inputText titulo="#{msg['texto.orgaoExpeditor']}"
+				value="#{pessoa.orgaoExpedidorRg}" maxCaracteres="5"
+				requerido="false" />
+
+			<comp:inputCalendar titulo="#{msg['texto.dataExpedicao']}"
+				value="#{pessoa.dataExpedicaoRg}" requerido="false"
+				yearRange="c-100:c+0" />
+
+		</h:panelGrid>
+
+	</p:panel>
+
+
+
+
+
+
+</h:panelGrid>

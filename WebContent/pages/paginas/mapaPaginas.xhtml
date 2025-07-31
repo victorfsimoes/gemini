@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	template="/templates/layoutBasico.xhtml">
+
+	<ui:define name="content">
+
+		<h1>#{['texto.mapaSite']}</h1>
+
+		<div style="text-align: left">
+			<ul class="linksMapaSite">
+				<li><a href="#{rootPath}/produtos/inicio" target="_blank">
+						<h:outputText value="#{msg['texto.inicio']}" />
+				</a></li>
+				
+				<li><a href="#{rootPath}/login" target="_blank">
+						<h:outputText value="#{msg['texto.login']}" />
+				</a></li>
+				
+				<li><a href="#{rootPath}/produtos/" target="_blank">
+						<h:outputText value="#{msg['texto.produtos']}" />
+				</a></li>
+				
+				<li><a href="#{rootPath}/pedido/" target="_blank">
+						<h:outputText value="#{msg['texto.carrinho']}" />
+				</a></li>
+				
+				<li><a href="#{rootPath}/meusPedidos/" target="_blank">
+						<h:outputText value="#{msg['texto.meusPedidos']}" />
+				</a></li>
+
+			</ul>
+
+			<ui:repeat var="grupoLink" value="#{rodapeMB.grupoLinks}">
+				<ul>
+					<li>#{grupoLink.descricao}
+
+						<ul>
+							<ui:repeat value="#{grupoLink.links}" var="link">
+								<li><a href="#{link.link}" target="_blank"> <h:outputText
+											escape="false" value="#{link.titulo}" />
+								</a></li>
+							</ui:repeat>
+						</ul>
+
+					</li>
+				</ul>
+			</ui:repeat>
+
+		</div>
+	</ui:define>
+
+</ui:composition>

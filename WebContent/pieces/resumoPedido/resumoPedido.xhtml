@@ -1,0 +1,49 @@
+<f:view xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:outputPanel id="resumoPedidoImpressao"
+		style="width:100%; text-transform: capitalize">
+
+		<h:outputStylesheet library="css/pages" name="resumoPedido.css" />
+		<ui:param name="pedido"
+			value="#{historicoPedidosMB.gerentePedido.pedido}" />
+
+		<div style="display: block; width: 100%;">
+			<ui:include src="/pieces/resumoPedido/cabecalho.xhtml" />
+
+			<div style="display: inline-block; width: 80%; float: left;">
+				<ui:include src="/pieces/resumoPedido/identificacao.xhtml" />
+				<ui:include src="/pieces/resumoPedido/negociacao.xhtml" />
+				<p:outputPanel rendered="#{pedido.valorIpi gt 0 or pedido.valorSubstituicao gt 0}">
+					<ui:include src="/pieces/resumoPedido/entrega.xhtml" />
+				</p:outputPanel>
+			</div>
+			<div
+				style="display: inline-block; width: 18%; border-left: solid 1px gray; padding: 3px;">
+				<ui:include src="/pieces/resumoPedido/pagamento.xhtml" />
+			</div>
+
+		</div>
+		<p:outputPanel style="clear:both; display:block; margin-top:-10px !important"
+			rendered="#{pedido.valorIpi == 0 and pedido.valorSubstituicao == 0}">
+			<ui:include src="/pieces/resumoPedido/entrega.xhtml" />
+		</p:outputPanel>
+
+		<p:outputPanel style="clear:both; display:block;">
+
+			<ui:include src="/pieces/resumoPedido/colaboradores.xhtml" />
+			<ui:include src="/pieces/resumoPedido/itens.xhtml" />
+			<ui:include src="/pieces/resumoPedido/observacao.xhtml" />
+
+			<h:outputText value="#{historicoPedidosMB.notaRodape}"
+				rendered="#{historicoPedidosMB.notaRodape != null}"
+				styleClass="notaRodapeImpressao" />
+
+		</p:outputPanel>
+
+
+	</p:outputPanel>
+
+</f:view>

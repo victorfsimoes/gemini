@@ -1,0 +1,139 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:param name="modelo1"
+		value="#{historicoPedidosMB.modeloImpressaoKit == 1}" />
+	<ui:param name="modelo2"
+		value="#{historicoPedidosMB.modeloImpressaoKit == 2}" />
+	<ui:param name="modelo3"
+		value="#{historicoPedidosMB.modeloImpressaoKit == 3}" />
+
+	<div style="width: 100%; display: block; text-align: left; clear: both">
+		<div style="margin-bottom: -3px">
+			<h3
+				style="display: inline; font-size: small; margin-top: -4px !important;">#{msg['titulo.itens']}</h3>
+			<h:outputText
+				value=" - #{msg['texto.quantidade']}: #{historicoPedidosMB.gerentePedido.itensPedido.size()}"
+				style="font-size:x-small; display: inline" />
+		</div>
+
+		<div id="headerTabelaItens" class="tabI"
+			style="font-weight: bold; border-top: solid gray 1px; padding-top: 2px; text-transform: uppercase !important">
+			<div class="displayInlineBlock"
+				style="display: inline-block; width: 4.5%;" />
+			<div
+				class="#{historicoPedidosMB.estiloDescricao}">#{msg['texto.produto']}</div>
+			<h:outputText value="#{msg['texto.abreviacao.quant']}"
+				styleClass="displayInlineBlock tabIColQnt" />
+			<h:outputText value="#{msg['texto.abreviacao.unid']}"
+				styleClass="displayInlineBlock tabIColUni" />
+			<h:outputText value="#{msg['texto.unitario']} (#{msg['texto.R$']})"
+				class="displayInlineBlock tabIColPrecoUni" />
+			<h:outputText value="#{msg['texto.total']} (#{msg['texto.R$']})"
+				class="displayInlineBlock tabIColPrecoTotal" />
+			<h:outputText rendered="#{historicoPedidosMB.flagPrecoRevenda}"
+				value="#{msg['texto.revenda']} (#{msg['texto.R$']})"
+				class="displayInlineBlock tabIColPrecoUni" />
+		</div>
+
+		<ui:repeat var="item"
+			value="#{historicoPedidosMB.gerentePedido.itensPedido}">
+			<p:outputPanel styleClass="tabI"
+				rendered="#{modelo3 or ((modelo1 or modelo2) and item.kitCodigo == 0)}">
+
+				<h:outputText value="#{item.produto.codigo}"
+					styleClass="tabIColCod displayInlineBlock" />
+
+				<h:outputText
+					styleClass="#{historicoPedidosMB.estiloDescricao}"
+					style="text-transform: capitalize; text-align:left !important"
+					value="#{item.produto.descricaoVisualizacao.toLowerCase()}" />
+
+				<h:outputText value="#{item.quantidade}"
+					styleClass="displayInlineBlock tabIColQnt" />
+
+				<h:outputText value="#{item.unidade}/#{item.quantidadeUnidade}"
+					styleClass="displayInlineBlock tabIColUni" />
+
+				<h:outputText
+					value="#{formatacaoMB.formataPreco(item.precoVenda,2)}"
+					style="width:11%" styleClass="displayInlineBlock tabIColPrecoUni" />
+
+				<h:outputText
+					value="#{formatacaoMB.formataPreco(item.precoTotal, 2)}"
+					style="width:13%" styleClass="displayInlineBlock tabIColPrecoTotal" />
+
+				<h:outputText rendered="#{historicoPedidosMB.flagPrecoRevenda}"
+					value="#{formatacaoMB.formataPreco(item.precoRevenda, 2)}"
+					styleClass="displayInlineBlock tabIColPrecoRevenda" />
+			</p:outputPanel>
+		</ui:repeat>
+
+		<p:outputPanel
+			rendered="#{not empty historicoPedidosMB.gerentePedido.kitsPedido and (modelo1 or modelo2)}">
+			<ui:repeat value="#{historicoPedidosMB.gerentePedido.kitsPedido}"
+				var="kit">
+				<div class="tabI">
+
+					<h:outputText value="#{kit.kit.codigo}"
+						styleClass="tabIColCod displayInlineBlock" />
+
+					<h:outputText
+						styleClass="tabIColDesc displayInlineBlock #{modelo1?'bold':NULL}"
+						style="text-transform: capitalize; text-align:left !important"
+						value="#{kit.kit.descricao.toLowerCase()}" />
+
+					<h:outputText value="#{kit.quantidade}" style="width:15%"
+						styleClass="displayInlineBlock" />
+
+					<h:outputText value="#{formatacaoMB.formataPreco(kit.kit.valor,2)}"
+						style="width:11%" styleClass="displayInlineBlock alignRight" />
+
+					<h:outputText value="#{formatacaoMB.formataPreco(kit.preco, 2)}"
+						style="width:13%" styleClass="displayInlineBlock alignRight" />
+				</div>
+				<p:outputPanel rendered="#{not modelo2}">
+					<ui:repeat value="#{kit.kit.itemKits}" var="itemKit">
+						<div class="tabI">
+							<div class="tabIColCod displayInlineBlock" />
+
+							<h:outputText styleClass="tabIColDesc displayInlineBlock"
+								style="text-transform: capitalize; text-align:left !important"
+								value="- #{itemKit.produto.descricao.toLowerCase()} (#{itemKit.produto.codigo})" />
+
+							<h:outputText value="#{itemKit.quantidade}"
+								styleClass="displayInlineBlock tabIColQnt" />
+
+							<h:outputText
+								value="#{itemKit.unidade}/#{itemKit.quantidadeUnidade}"
+								styleClass="displayInlineBlock tabIColUni" />
+						</div>
+					</ui:repeat>
+				</p:outputPanel>
+			</ui:repeat>
+		</p:outputPanel>
+
+		<h:column rendered="false">
+			<br />
+			<p style="margin-bottom: -1px">
+				<strong>#{msg['titulo.itensBonificados']}</strong>
+			</p>
+			<table class="tabelaDados" cellpadding="5" cellspacing="0"
+				style="width: 100%;">
+				<thead>
+					<tr>
+						<td style="width: 10%">#{msg['texto.item']}</td>
+						<td style="width: 50%">#{msg['texto.produto']}</td>
+						<td style="width: 20%">#{msg['texto.quantidade']}</td>
+						<td style="width: 20%">#{msg['texto.unidade']}</td>
+					</tr>
+				</thead>
+			</table>
+		</h:column>
+
+	</div>
+
+</f:view>

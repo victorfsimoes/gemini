@@ -1,0 +1,84 @@
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	class="panelDetalhesPedido capitalize" id="detalhesPedido">
+
+	<p:panel style="text-align:left; display: compact"
+		styleClass="capitalize">
+		<div
+			style="margin-bottom: 5px; margin-top: 5px; width: 45%; display: inline-block">
+			<h:outputText value="#{msg['texto.status']}"
+				styleClass="textCadastro" style="display:block" />
+			<h:outputText value="#{ped.statusPedido.descricao.toLowerCase()}"
+				style="display:block" />
+		</div>
+		<div
+			style="margin-bottom: 5px; margin-top: 5px; width: 50%; display: inline-block">
+			<h:outputText value="#{msg['texto.cliente']}"
+				styleClass="textCadastro" style="display:block" />
+			<h:outputText
+				value="#{historicoPedidosMB.getClienteNome(historicoPedidosMB.clientePedidoSelecionado).toLowerCase()}"
+				style="display:block" />
+		</div>
+
+	</p:panel>
+
+	<br />
+	<p:dataTable id="itens" var="item"
+		value="#{historicoPedidosMB.itensPedidoSelecionado}"
+		style="vertical-align:top !important;" rowIndexVar="i"
+		emptyMessage="#{msg['mensagem.nenhumProdutoAdicionado']}"
+		styleClass="capitalize">
+
+		<f:facet name="header">#{msg['titulo.itensPedido']}</f:facet>
+
+		<p:column headerText="#{msg['texto.produto']}" styleClass="capitalize"
+			width="45%">
+			#{historicoPedidosMB.produtosItensPedidoSelecionado.get(i).codigo} - #{historicoPedidosMB.produtosItensPedidoSelecionado.get(i).descricaoVisualizacao.toLowerCase()}
+		</p:column>
+
+		<p:column headerText="#{msg['texto.quantidade']}" width="10%">
+			#{item.quantidade}
+		</p:column>
+
+		<p:column headerText="#{msg['texto.unidade']}" width="15%">
+			#{item.unidade}/#{item.quantidadeUnidade}
+		</p:column>
+
+		<p:column headerText="#{msg['texto.precoVenda']}" width="15%">
+			#{msg['texto.R$']} #{formatacaoMB.formataPreco(item.precoVenda, 2)}
+		</p:column>
+
+		<p:column headerText="#{msg['texto.valorTotal']}" width="15%">
+			#{msg['texto.R$']} #{formatacaoMB.formataPreco(item.quantidade*item.precoVenda, 2)}
+		</p:column>
+
+	</p:dataTable>
+
+	<br />
+	<h:outputText value="#{msg['titulo.acampanhamentoPedido']}"
+		style="font-weight:bold; text-align:left; font-size:20px" />
+	<p:dataTable var="logPedido" style="text-transform: capitalize;"
+		value="#{historicoPedidosMB.logPedidoSelecionado}"
+		id="tabelaLogPedido" rowIndexVar="i">
+		<p:column width="5%">
+
+		</p:column>
+
+		<p:column width="25%">
+			#{formatacaoMB.formataData(logPedido.data)} #{logPedido.hora}
+		</p:column>
+
+		<p:column width="30%">
+			<strong>#{historicoPedidosMB.logStatusString.get(i).toLowerCase()}</strong>
+		</p:column>
+
+		<p:column width="40%">
+			#{logPedido.observacao.toLowerCase()}
+		</p:column>
+
+	</p:dataTable>
+
+</div>

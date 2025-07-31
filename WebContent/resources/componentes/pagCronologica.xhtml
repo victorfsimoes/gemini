@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	
+	<composite:interface>
+		<composite:attribute name="numPag" required="true" />
+		<composite:attribute name="numPagSelec" required="true" />
+		<composite:attribute name="tituloPag" required="true" />
+		<composite:attribute name="linkPag" required="false" />
+		<composite:attribute name="numUltimaPag" required="true" />
+	</composite:interface>
+
+
+	<composite:implementation>
+
+		<h:outputText value="/////////////////////////////////"
+			rendered="#{cc.attrs.numPag gt 1}"
+			styleClass="cronoLinha2 #{cc.attrs.numPag gt cc.attrs.numPagSelec?'cronoContainerDesabilitado':NULL}" />
+
+		<h:outputLink
+			styleClass="cronoContainer #{cc.attrs.numPag gt cc.attrs.numPagSelec?'cronoContainerDesabilitado':NULL}"
+			value="#{cc.attrs.linkPag}"
+			disabled="#{(cc.attrs.numPag ge cc.attrs.numPagSelec) or (cc.attrs.numPagSelec == cc.attrs.numUltimaPag)}"
+			style="text-decoration:none;">
+			<center>
+				<div
+					class="cronoNum #{cc.attrs.numPag == cc.attrs.numPagSelec?'cronoNumSelec':NULL}">#{cc.attrs.numPag}</div>
+			</center>
+			<div
+				class="cronoLabel #{cc.attrs.numPag == cc.attrs.numPagSelec?'cronoLabelSelec':NULL}">#{cc.attrs.tituloPag}</div>
+		</h:outputLink>
+
+	</composite:implementation>
+
+</h:body>
+</html>

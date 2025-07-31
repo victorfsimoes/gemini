@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+<ui:composition template="/templates/layoutPesquisaProdutos2.xhtml">
+
+	<ui:param name="aoCarregar" value="#{produtoPesquisaMB.aoCarregar()}" />	
+
+	<ui:define name="contentTop">
+		<div class="panelContainerTop">
+			<h:form id="formBannerMaxi">
+				<ui:include src="/pieces/pesquisaProdutos/bannerMaxi.xhtml" />
+			</h:form>
+		</div>
+	</ui:define>
+
+	<ui:define name="pesquisaProdutos">
+
+
+		<ui:param name="panelTipoGrade"
+			value="#{produtoPesquisaMB.listaOuGridProduto == 0}" />
+
+		<ui:param name="panelTipoLista"
+			value="#{produtoPesquisaMB.listaOuGridProduto == 1}" />
+
+		<ui:param name="layoutProduto1"
+			value="#{produtoPesquisaMB.layoutListaProduto == 1}" />
+
+		<ui:include src="/pieces/pesquisaProdutos/bannerCentral.xhtml" />
+
+		<!-- 
+		<script type="text/javascript">
+			function keyPressEnter() {
+				if (event.keyCode == '13')
+					return false;
+			}
+		</script>  --> 
+
+		<p:panel style="display: inline-block; width:99%">
+			<h:outputText style="text-align:left !important"
+				value="#{msg['texto.aproveiteOfertasPromocoes']}"
+				rendered="#{produtoPesquisaMB.mensagemPesquisa == null}" />
+			<h:outputText value="#{produtoPesquisaMB.mensagemPesquisa}"
+				rendered="#{produtoPesquisaMB.mensagemPesquisa != null}" />
+
+			<div style="float: right">
+				<h:commandLink
+					action="#{produtoPesquisaMB.setListaOuGridProduto(0)}"
+					style="margin-right: 10px; text-align:right">
+					<h:graphicImage value="/resources/img/grid.png"
+						alt="#{msg['texto.icone']} #{msg['acao.visualizarEmGrade']}"
+						title="#{msg['acao.visualizarEmGrade']}" />
+				</h:commandLink>
+
+				<h:commandLink
+					action="#{produtoPesquisaMB.setListaOuGridProduto(1)}">
+					<h:graphicImage value="/resources/img/list.png"
+						alt="#{msg['texto.icone']} #{msg['acao.visualizarEmLista']}"
+						title="#{msg['acao.visualizarEmLista']}" />
+				</h:commandLink>
+			</div>
+		</p:panel>
+
+		<p:spacer height="5"
+			rendered="#{produtoPesquisaMB.mensagemPesquisa != null and not empty produtoPesquisaMB.imagensBannerResultado}" />
+
+		<p:dataGrid id="dataGridProdutos"
+			rows="#{produtoPesquisaMB.numeroLinha}"
+			columns="#{produtoPesquisaMB.listaOuGridProduto eq 1?1:4}"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
+			rowsPerPageTemplate="4,8,12,16,20,24" paginator="true"
+			paginatorPosition="bottom" paginatorAlwaysVisible="false"
+			styleClass="#{panelTipoGrade?'dataGridProdutosGrade':'dataGridProdutosLista'}"
+			columnClasses="#{produtoPesquisaMB.listaOuGridProduto eq 1?'top,top,top,top':'top'}"
+			value="#{produtoPesquisaMB.listaResultados}" var="produto"
+			emptyMessage="#{msg['mensagem.nenhumProdutoEncontrado']}"
+			widgetVar="dataGridProduto" rowIndexVar="i" lazy="true"
+			currentPageReportTemplate="({startRecord} ao {endRecord})">
+			<ui:include src="/pieces/pesquisaProdutos/panelItem.xhtml" />
+
+		</p:dataGrid>
+	</ui:define>
+</ui:composition>
+
+</html>

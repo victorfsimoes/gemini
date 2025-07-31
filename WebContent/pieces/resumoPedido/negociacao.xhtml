@@ -1,0 +1,85 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:param name="parcelado"
+		value="#{historicoPedidosMB.gerentePedido.condicaoPagamento.numeroParcelas gt 1}" />
+
+	<h3 class="tituloBoxImpressao">#{msg['titulo.negociacao']}</h3>
+
+	<h:dataTable value="" frame="above"
+		style="width:100%; text-align:center;">
+		<h:column rendered="#{historicoPedidosMB.exibirTabelaPrecos and perfilColaborador}">
+			<h:outputText styleClass="tituloResumo"
+				value="#{msg['texto.tabela']}" />
+			<h:outputText styleClass="campoResumo"
+				value="#{historicoPedidosMB.gerentePedido.tabelaPreco.descricao.toLowerCase()}" />
+		</h:column>
+		<h:column>
+		<span class="col15">
+			<h:outputText styleClass="tituloResumo"
+				value="#{msg['texto.forma']}" />
+			<h:outputText styleClass="campoResumo"
+				value="#{historicoPedidosMB.gerentePedido.formaPagamento.descricao.toLowerCase()}" />
+		</span>
+		</h:column>
+		<h:column><span class="col15">
+			<h:outputText styleClass="tituloResumo"
+				value="#{msg['texto.condicao']}" />
+			<h:outputText styleClass="campoResumo"
+				value="#{historicoPedidosMB.gerentePedido.condicaoPagamento.descricao.toLowerCase()}" />
+		</span></h:column>
+		
+		<h:column rendered="#{pedido.prazoEspecial > 0}">
+			<h:outputText styleClass="tituloResumo"
+				value="#{msg['texto.prazoEspecial']}" />
+			<h:outputText styleClass="campoResumo"
+				value="#{pedido.prazoEspecial} #{msg['texto.dias']}" />
+		</h:column>
+
+		<h:column rendered="false">
+			<h:outputText styleClass="tituloResumo"
+				value="#{msg['texto.tipoVenda']}" />
+			<h:outputText styleClass="campoResumo" value="Web" />
+		</h:column>
+
+		<h:column>
+
+			<fieldset style="text-align: left;">
+				<legend>#{msg['titulo.dadosPagamento']}</legend>
+
+				<h:dataTable value="" style="text-alig:center; width:100%">
+					<h:column>
+						<h:outputText class="tituloResumo"
+							value="#{parcelado?msg['texto.parcelas']:msg['texto.valor']}" />
+						<span class="campoResumo"> <h:outputText
+								value="#{historicoPedidosMB.gerentePedido.condicaoPagamento.numeroParcelas}x "
+								rendered="#{parcelado}" /> <h:outputText
+								value="#{msg['texto.R$']}#{formatacaoMB.formataPreco(historicoPedidosMB.parcelasCondicaoPagamento.get(0).preco, 2)}" />
+
+						</span>
+					</h:column>
+
+					<h:column>
+						<span class="tituloResumo"> <h:outputText value="#{msg['texto.1o']} "
+								rendered="#{parcelado}" /> <h:outputText value="#{msg['texto.vencimento']}" />
+						</span>
+						<h:outputText styleClass="campoResumo"
+							value="#{formatacaoMB.formataData(historicoPedidosMB.parcelasCondicaoPagamento.get(0).vencimento)}" />
+					</h:column>
+
+					<h:column rendered="#{parcelado}">
+						<h:outputText styleClass="tituloResumo"
+							value="#{msg['texto.intervalo']} #{msg['texto.parcelas']}" />
+						<h:outputText styleClass="campoResumo"
+							value="#{historicoPedidosMB.gerentePedido.condicaoPagamento.intervaloEntreParcelas} #{msg['texto.dias']}" />
+					</h:column>
+				</h:dataTable>
+
+			</fieldset>
+		</h:column>
+	</h:dataTable>
+
+</f:view>

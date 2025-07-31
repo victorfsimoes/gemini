@@ -1,0 +1,65 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes" id="panelItem">
+
+	<ui:param name="habilitaModuloCompraRapida"
+		value="#{produtoPesquisaMB.habilitarCompraRapida()}" />
+
+	<p:panel
+		styleClass="#{panelTipoGrade?'panelItemGrade':'panelItemLista'} 
+	#{layoutProduto1?'panelItem1':'panelItem'}"
+		style="height:100%">
+
+		<ui:include
+			src="/pieces/pesquisaProdutos/panelItem/headerPanelsItem.xhtml" />
+
+		<h:outputLink value="#{rootPath}#{itemPedidoMB.getUrlView(produto)}"
+			onclick="dialogCarregando.show();" styleClass="selecaoPanelItem"
+			style="width:100%" title="#{msg['texto.verDetalhes']}">
+
+			<ui:param name="permiteVenda"
+				value="#{gerentePedidoMB.isPermiteVenda(produto)}" />
+
+			<ui:include
+				src="/pieces/pesquisaProdutos/panelItem/capaPanelItem.xhtml" />
+
+			<p:outputPanel rendered="#{panelTipoGrade}">
+				<ui:include
+					src="/pieces/pesquisaProdutos/panelItem/labelPromocao.xhtml" />
+			</p:outputPanel>
+
+
+
+			<p:outputPanel rendered="#{layoutProduto1}">
+				<ui:include
+					src="/pieces/pesquisaProdutos/panelItem/descricaoPanelItem.xhtml" />
+			</p:outputPanel>
+
+		</h:outputLink>
+
+		<div
+			class="#{panelTipoGrade?'containerPanelItemGrade':'containerPanelItemLista'} #{identity.loggedIn and not panelTipoGrade?'containerPanelItemListaComCompraRapida':'containerPanelItemListaComCompraRapida'}">
+			
+			<p:outputPanel rendered="#{panelTipoGrade}"
+				styleClass="labelCodigoProduto">
+				<h:outputText value="#{msg['texto.codigo']}: " />
+				<h:outputText value="#{produto.codigo}" />
+			</p:outputPanel>
+
+			<ui:include
+				src="/pieces/pesquisaProdutos/panelItem/labelInformacoes.xhtml" />
+
+			<ui:include
+				src="/pieces/pesquisaProdutos/panelItem/precoProduto.xhtml" />
+		</div>
+
+
+
+		<ui:include
+			src="/pieces/pesquisaProdutos/panelItem/moduloCompraRapida.xhtml" />
+
+	</p:panel>
+</f:view>

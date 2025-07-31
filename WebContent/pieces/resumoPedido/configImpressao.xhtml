@@ -1,0 +1,47 @@
+<p:outputPanel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" styleClass="panelConfig"
+	rendered="#{perfilColaborador}">
+
+	<h3 class="tituloPanelConfig">
+		<h:graphicImage value="/resources/img/gears.png" width="22"
+			height="16"></h:graphicImage>
+		#{msg['titulo.configuracoes']}
+	</h3>
+
+	<!-- negociacao -->
+	<h:outputText styleClass="tituloConfig"
+		value="#{msg['titulo.negociacao']}" />
+	<p:selectBooleanCheckbox styleClass="checkConfig"
+		value="#{historicoPedidosMB.exibirTabelaPrecos}"
+		itemLabel="#{msg['texto.exibir']} #{msg['texto.tabelaPrecos']}"
+		widgetVar="mostrarTabelaPrecos">
+		<p:ajax update="resumoPedidoImpressao" />
+	</p:selectBooleanCheckbox>
+
+	<!-- colaboradores -->
+	<p:outputPanel rendered="#{not empty gerentePedidoMB.colaboradores}">
+		<h:outputText styleClass="tituloConfig"
+			value="#{msg['titulo.colaboradores']}" />
+		<p:selectBooleanCheckbox styleClass="checkConfig"
+			value="#{historicoPedidosMB.exibirColaboradores}"
+			itemLabel="#{msg['texto.exibir']} #{msg['titulo.colaboradores']}">
+			<p:ajax update="resumoPedidoImpressao" />
+		</p:selectBooleanCheckbox>
+	</p:outputPanel>
+
+	<!-- modelo kit -->
+	<p:outputPanel rendered="#{true or not empty historicoPedidosMB.gerentePedido.kitsPedido}">
+	<h:outputText styleClass="tituloConfig" value="Kit" />
+	<p:selectOneRadio id="options" value="#{historicoPedidosMB.modeloImpressaoKit}"
+		layout="pageDirection">
+		<f:selectItem itemLabel="#{msg['texto.exibirKitModelo1']}" itemValue="1" />
+		<f:selectItem itemLabel="#{msg['texto.exibirKitModelo2']}" itemValue="2" />
+		<f:selectItem itemLabel="#{msg['texto.exibirKitModelo3']}" itemValue="3" />
+		<p:ajax update="resumoPedidoImpressao" />
+	</p:selectOneRadio>
+	</p:outputPanel>
+
+</p:outputPanel>

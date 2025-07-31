@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui" contentType="text/html">
+
+
+	<html>
+
+<h:head>
+	<title>#{msg['texto.resumoPedido']}</title>
+
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+	<h:outputStylesheet library="css/pages" name="resumoPedido.css" />
+</h:head>
+
+<h:body onload="window.print('pagina.php')">
+	<ui:include src="/pieces/resumoPedido/resumoPedido.xhtml" />
+</h:body>
+
+	</html>
+</f:view>

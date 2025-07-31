@@ -1,0 +1,42 @@
+<h:panelGrid xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	columns="#{(produto.emCampanha or produto.emOferta)?2:1}"
+	styleClass="#{panelTipoGrade?'rodapePanelItemGrade':'rodapePanelItemLista'}">
+	
+	<ui:param name="exibePrecoVisitante"
+		value="#{produtoDetalheMB.exibePrecoVisitante or produto.exibePrecoVisitante}"/>
+
+	<h:column style="text-align: center;">
+		
+		<ui:include
+				src="/pieces/pesquisaProdutos/panelItem/panelEsgotado.xhtml" />
+
+		<p:outputPanel
+			rendered="#{exibePrecoVisitante and permiteVenda}"
+			style="text-align:center">
+
+			<h:outputText rendered="#{produto.emOferta}"
+				style="text-decoration:line-through !important; font-size:small; display:block"
+				value="#{msg['texto.R$']}#{produto.precoTabelaVisualizacao}" />
+			<h:outputText
+				value="#{msg['texto.R$']}#{produto.precoVendaVisualizacao}"
+				styleClass="precoDestaque"
+				style="font-size: 1em !important; display:block" />
+			<h:outputText styleClass="precoUnitario" style=" display:block"
+				rendered="#{produto.exibirPrecoUnitario() and produtoDetalheMB.exibePrecoUnitario and (produto.estoque > 0 or (not gerentePedidoMB.naturezaOperacaoConsisteEstoque or produto.permiteVenderSemEstoque))}"
+				value="#{msg['texto.unitario']}: #{msg['texto.R$']}#{produto.precoUnitarioVisualizacao}" />
+
+		</p:outputPanel>
+
+		<ui:include src="/pieces/geral/facaLoginVerPreco.xhtml" />
+
+	</h:column>
+
+	<h:column>
+		<ui:include
+			src="/pieces/pesquisaProdutos/panelItem/labelsCampanhaOferta.xhtml" />
+	</h:column>
+</h:panelGrid>

@@ -1,0 +1,28 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+	
+	<div id="esqueciSenha">
+
+		<p:commandLink value="#{msg['acao.esqueciMinhaSenha']}"
+			style="margin-bottom:20px; padding-left:5px" onclick="confirmation.show()"
+			rendered="#{gerenteLogin.perfil == 'Cliente'}" />
+
+	</div>
+
+	<p:confirmDialog id="confirmDialog"
+		message="#{msg['alerta.desejaEnviarSolicitacaoSenhaEmail']}"
+		header="#{msg['acao.esqueciMinhaSenha']}" widgetVar="confirmation">
+
+		<p:commandButton id="confirm" value="#{msg['acao.enviar']}"
+			action="#{novaSenhaMB.gerarRequisicaoNovaSenha()}"
+			oncomplete="confirmation.hide()" />
+		<p:commandButton id="decline" value="#{msg['acao.nao']}"
+			onclick="confirmation.hide()" type="button" />
+			
+	</p:confirmDialog>
+
+</f:view>

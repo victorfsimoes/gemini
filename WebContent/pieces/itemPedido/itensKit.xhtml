@@ -1,0 +1,45 @@
+<h:panelGrid rendered="#{MBProdutoDetalhe.ekit()}" columnClasses="top"
+	rowClasses=",boxItemConteudo" styleClass="boxItem"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui" columns="1">
+
+	<h4 class="boxItemTitulo uppercase">#{msg['titulo.produtosKit']}</h4>
+
+	<p:dataTable value="#{MBProdutoDetalhe.kitSelecionado.itemKits}"
+		var="itemKit">
+
+		<p:column headerText="#{msg['texto.codigo']}" styleClass="alignCenter">
+			<h:outputText value="#{itemKit.produto.codigo}" />
+		</p:column>
+
+		<p:column headerText="#{msg['texto.produto']}">
+			<h:outputText value="#{itemKit.produto.descricaoVisualizacao}" />
+		</p:column>
+
+		<p:column headerText="#{msg['texto.quantidade']}"
+			style="text-align:center !important;">
+
+			<h:outputText value="#{itemKit.quantidadeVisualizacao}" />
+
+		</p:column>
+
+		<p:column headerText="#{msg['texto.precoVenda']}">
+			<center>
+				<h:outputText
+					value="#{msg['texto.R$']} #{itemKit.precoVendaVisualizacao}" />
+			</center>
+		</p:column>
+
+		<p:column headerText="#{msg['texto.precoTotal']}">
+			<center>
+				<h:outputText
+					value="#{msg['texto.R$']} #{itemKit.precoTotalVisualizacao}" />
+			</center>
+		</p:column>
+
+	</p:dataTable>
+</h:panelGrid>

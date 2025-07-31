@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui" contentType="text/html">
+	<html>
+
+<h:head>
+	<title><ui:insert name="title">#{parametros.parametroWeb.siteTitulo}</ui:insert></title>
+
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+	<h:outputStylesheet library="css" name="componentes.css" />
+	<h:outputStylesheet library="css/pages" name="itemPedido.css" />
+	<h:outputStylesheet library="css/pages" name="produtos.css" />
+	<h:outputStylesheet library="css/pages" name="templateGeral.css" />
+	<h:outputStylesheet library="css" name="geral.css" />
+
+	<h:outputStylesheet library="css/esquemaDeCores"
+		name="#{escolhaTemaMB.arquivoCssCores}" />
+
+	<h:outputScript library="js" name="funcoes.js" />
+
+
+
+	<link rel="shortcut icon" href="#{imageApplicationLogo}favicon.ico" />
+
+	<ui:param name="perfilCliente"
+		value="#{gerenteLogin.isPerfilCliente()}" />
+	<ui:param name="perfilColaborador"
+		value="#{gerenteLogin.isPerfilColaborador()}" />
+
+	<ui:insert name="header" />
+</h:head>
+
+<h:body onload="#{aoCarregar}">
+
+	<script type="text/javascript">
+	
+	<!-- history.forward(1); -->
+		
+	</script>
+
+	<ui:include src="/pieces/geral/configuracaoSocial.xhtml" />
+
+	<p:ajaxStatus onstart="dialogCarregando.show();"
+		onsuccess="dialogCarregando.hide();" />
+
+	<p:dialog modal="true" widgetVar="dialogCarregando" draggable="true"
+		closable="false" showHeader="false" resizable="false">
+		<center>
+			<p:graphicImage value="#{imagePath}carregandoImagem.gif" />
+			<br />
+			<p:graphicImage value="#{imagePath}carregandoTexto.gif" />
+		</center>
+	</p:dialog>
+
+	<p:dialog modal="true" widgetVar="dialogPesquisando" draggable="false"
+		closable="false" showHeader="false" resizable="false">
+		<center>
+			<p:graphicImage value="#{imagePath}lupa.gif" />
+			<br />
+			<p:graphicImage value="#{imagePath}pesquisando.gif" />
+		</center>
+	</p:dialog>
+
+	<ui:include src="/pieces/geral/popupFilial.xhtml" />
+	<ui:include src="/pieces/geral/popupAutorizacao.xhtml" />
+
+	<ui:include src="/pieces/cabecalho/headerLojaVirtual.xhtml" />
+
+	<p:panel id="panelSpacer1" styleClass="panelTransparente panelSpacer"></p:panel>
+
+	<p:panel id="panelContainer"
+		styleClass="panelTransparente panelContainer">
+		<ui:include src="/pieces/pesquisa/pesquisaPessoa.xhtml" />
+
+		<p:growl autoUpdate="true" life="18000" showDetail="true"
+			showSummary="true" escape="false" />
+
+		<div class="panelContainerInterno zoomOut">
+			<p:idleMonitor timeout="1800000" onidle="idleDialog.show()"
+				onactive="idleDialog.hide()" />
+			<p:dialog header="#{msg['titulo.timeout']}" resizable="false"
+				widgetVar="idleDialog" modal="true" width="400"
+				onHide="location.href='#{rootPath}/login/'">
+				<h:outputText value="#{msg['alerta.timeout']}" />
+				<br />
+				<h:outputText value="#{msg['alerta.redirecionarLogin']}" />
+			</p:dialog>
+
+			<!--  on hidden apagar mensagem -->
+			<center>
+				<ui:insert name="content" />
+			</center>
+		</div>
+	</p:panel>
+
+	<p:panel id="panelSpacer2" styleClass="panelTransparente panelSpacer"></p:panel>
+
+	<p:panel id="footer" styleClass="panelTransparente footer">
+		<ui:include src="/pieces/rodape/rodape.xhtml"></ui:include>
+	</p:panel>
+</h:body>
+
+	</html>
+</f:view>

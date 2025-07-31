@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+<ui:composition template="/templates/layoutBasico.xhtml">
+
+	<ui:param name="aoCarregar" value="#{historicoPedidosMB.aoCarregar()}"></ui:param>
+
+	<ui:define name="content">
+		<ui:param name="pedido" value="#{gerentePedidoMB.pedido}" />
+		<h:outputStylesheet library="css/pages" name="pedido.css" />
+
+		<h:form id="meusPedidos">
+
+			<h:outputText value="#{msg['titulo.meusPedidos']}"
+				style="font-size:30px; font-weight:bolder; text-align:left !important" />
+			<p:panel style="text-align:left">
+				<h:panelGrid columns="2">
+					<h:column>
+						<h:outputText value="#{msg['texto.dataEmissao']}"
+							styleClass="bold" />
+						<h:panelGrid columns="4">
+							<h:outputText value="#{msg['texto.de']}" />
+							<p:calendar value="#{historicoPedidosMB.dataMin}" locale="pt"
+								yearRange="c-23:c+2" navigator="true" id="ptCal"
+								showButtonPanel="true" pattern="dd/MM/yyyy" />
+							<h:outputText value="#{msg['texto.a']}" />
+							<p:calendar mindate="#{historicoPedidosMB.dataMin}"
+								value="#{historicoPedidosMB.dataMax}" locale="pt"
+								navigator="true" yearRange="c-23:c+2" pattern="dd/MM/yyyy" />
+						</h:panelGrid>
+					</h:column>
+
+					<h:column>
+						<h:outputText value="#{msg['texto.situacao']}" styleClass="bold"
+							style="margin-left:40px !important"
+							rendered="#{historicoPedidosMB.exibeFiltroSituacao}" />
+
+						<p:selectManyCheckbox layout="pageDirection"
+							styleClass="capitalize" style="margin-left:45px !important"
+							value="#{historicoPedidosMB.statusPedidoCodigoSelecionados}"
+							rendered="#{historicoPedidosMB.exibeFiltroSituacao}">
+
+							<f:selectItems value="#{historicoPedidosMB.logStatus}"
+								var="status" itemLabel="#{status.descricao.toLowerCase()}"
+								itemValue="#{status.codigoString}" />
+
+						</p:selectManyCheckbox>
+					</h:column>
+				</h:panelGrid>
+				<p:commandButton value="#{msg['acao.pesquisar']}"
+					icon="ui-icon-search"
+					action="#{historicoPedidosMB.pesquisarPedidosComFiltros}"
+					update="@form" />
+			</p:panel>
+
+			<p:panel>
+				<ui:include src="/pieces/meusPedidos/listaPedidos2.xhtml" />
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

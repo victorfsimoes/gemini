@@ -1,0 +1,16 @@
+<h:panelGrid xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" rendered="#{not permiteVenda}"
+	styleClass="panelItemBottom"
+	style="color: red; text-align:center; display:inline-block;"
+	columns="1">
+
+	<h:outputText value="#{msg['texto.indisponivel']}!"
+		style="text-align:center !important;font-weight:bold" />
+	<p:commandLink value="#{msg['acao.avisemeQuandoChegar']}"
+		style="text-align:left !important;font-size:17px; color: red"
+		rendered="#{identity.loggedIn and perfilCliente}"
+		action="#{avisoEstoqueMB.gravarAvisoEstoque(produto)}" />
+</h:panelGrid>

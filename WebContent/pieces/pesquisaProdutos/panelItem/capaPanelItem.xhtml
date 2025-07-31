@@ -1,0 +1,10 @@
+<div xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	class="#{panelTipoGrade?'panelCapaPanelItemGrade':'panelCapaPanelItemLista'}">
+
+	<h:graphicImage
+		styleClass="#{panelTipoGrade?'imagemCapaPanelItemGrade':'imagemCapaPanelItemLista bordaSombreada'}"
+		alt="#{formatacaoMB.formataDescricao(produto.descricaoVisualizacao)}"
+		value="#{formatacaoMB.isURLValida(produto.imagemCapa.enderecoMidia)?produto.imagemCapa.enderecoMidia:'/resources/img/semfoto.jpg'}" />
+</div>

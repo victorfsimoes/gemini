@@ -1,0 +1,49 @@
+<p:tab xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	title="#{msg['titulo.colaboradores']}" id="tabPedido5">
+
+	<div class="divCadastro">
+		<h:panelGrid columns="2" styleClass="gridCadastro">
+
+			<comp:inputCodNome valueCodigo="#{gerentePedidoMB.colaboradorCodigo}"
+				valueNome="#{gerentePedidoMB.colaboradorSelecionado.razaoSocial}"
+				titulo="#{msg['texto.colaborador']}" id="pesquisaColaborador"
+				tamNome="55" metodoPesquisa="#{pesquisaMB.pesquisa('colaborador', gerentePedidoMB.urlView)}" />
+
+			<p:commandButton icon="ui-icon-plusthick"
+				value="#{msg['acao.adicionarColaborador']}"
+				action="#{gerentePedidoMB.adicionarColaborador()}"
+				update="colaboradoresSelecionados" immediate="true" ajax="false">
+			</p:commandButton>
+
+		</h:panelGrid>
+
+		<p:dataTable id="colaboradoresSelecionados"
+			value="#{gerentePedidoMB.colaboradores}" var="col"
+			style="vertical-align:top !important;"
+			emptyMessage="#{msg['mensagem.nenhumColaboradorAdicionado']}">
+
+			<f:facet name="header">
+				<h:outputText value="#{msg['titulo.colaboradores']}" />
+			</f:facet>
+
+			<p:column headerText="#{msg['texto.nome']}"
+				sortBy="#{col.razaoSocial}">
+				<h:outputText value="#{col.razaoSocial}" />
+			</p:column>
+
+			<p:column headerText="#{msg['acao.excluir']}" styleClass="colAcao">
+
+				<p:commandLink action="#{gerentePedidoMB.excluirColaborador(col)}"
+					update="colaboradoresSelecionados" immediate="true">
+					<img src="#{rootPath}/resources/img/x.png" />
+				</p:commandLink>
+
+			</p:column>
+		</p:dataTable>
+	</div>
+</p:tab>

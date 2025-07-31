@@ -1,0 +1,35 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	class="footerSeguranca lateraisVazias">
+
+	<h:outputText class="footerTituloSeguranca"
+		value="#{msg['titulo.seguranca']}" />
+
+	<h:panelGrid columns="4" style="padding-bottom:10px; padding-top:10px;">
+
+		<h:panelGrid columns="2" style="text-align:left; font-size:16px;">
+			<h:column>
+				<a href="http://www.spaceinformatica.com.br" target="_blank"
+					style="text-decoration: none"> <h:graphicImage
+						style="padding-right:15px;"
+						value="/resources/img/logo_spaceAzul.png" width="90" height="45"
+						title="#{msg['texto.grupoSpace']}" />
+				</a>
+			</h:column>
+
+			<h:column>
+				<a href="http://www.spaceinformatica.com.br" target="_blank"
+					style="text-decoration: none; font-size: 0.8em !important;"> <h:outputText
+						value="#{msg['texto.desenvolvidoPor']}" /> <br /> <h:outputText
+						value="#{msg['texto.grupoSpace']}" />
+				</a>
+			</h:column>
+
+		</h:panelGrid>
+
+	</h:panelGrid>
+
+</div>

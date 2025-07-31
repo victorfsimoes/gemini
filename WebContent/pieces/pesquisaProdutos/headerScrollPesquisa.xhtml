@@ -1,0 +1,76 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui" contentType="text/html">
+
+
+	<script type="text/javascript">
+	
+	<!-- history.forward(1); -->
+
+		$(document).scroll(function(){
+			posicaoScroll = $(document).scrollTop();
+			var div = $("#barraPesquisaFlutuante");
+			if (posicaoScroll >= 300){
+				div.addClass("fixar");
+				$(".headerBackgroundCarrinho").addClass("minimizar");
+				//$(".panelHeaderCarrinho").addClass("carrinhoAlterado");
+				$(".elementosHidden").css("display", "inline-block");
+
+				if(posicaoScroll > 300){
+					$("#barraPesquisaFlutuante").animate({
+			    			height:'show'},"fast");
+			  	}
+
+				
+			}
+			else {
+				
+					$("#barraPesquisaFlutuante").animate({
+			    			height:'hide'},"fast");
+
+					//$(".panelHeaderCarrinho").removeClass("carrinhoAlterado");
+					$(".headerBackgroundCarrinho").removeClass("minimizar");
+			}
+		});
+
+		$('.ui-paginator-page').click(function() {
+			  $("html").animate({ top: $(window).scrollTop() }, "fast");
+			 
+			});
+	</script>
+
+
+
+	<div id="barraPesquisaFlutuante">
+
+		<p:commandLink
+			actionListener="#{produtoPesquisaMB.montarVisualizacaoHome()}"
+			onsuccess="redirecionar('#{rootPath}#{produtoPesquisaMB.urlView}')"
+			global="false" style="width:15%" styleClass="elementosHidden">
+			<h:graphicImage alt="logotipo"
+				value="#{imageApplicationLogo}#{escolhaTemaMB.temaEscolhido.imagemLogo}"
+				style="border:none; width: 90%; height: 60px" />
+		</p:commandLink>
+
+		<p:panel styleClass="panelSearchBox elementosHidden"
+			id="panelSearchBoxScroll"
+			style="margin-top:10px;padding:0;width:60% !important">
+
+			<h:form>
+				<ui:include src="/pieces/cabecalho/conteudo/searchBox.xhtml" />
+			</h:form>
+
+		</p:panel>
+
+		<div class="elementosHidden" id="panelCar"
+			style="font-size: 0.8em !important; width: 20%; float: left !important; margin-left: -3%; margin-top: -1%">
+			<h:form id="headerScroll">
+				<ui:include src="/pieces/cabecalho/resumoHeader.xhtml" />
+			</h:form>
+		</div>
+	</div>
+
+</f:view>

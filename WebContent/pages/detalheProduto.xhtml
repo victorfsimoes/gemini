@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+<ui:composition template="/templates/layoutProdutoItem.xhtml">
+
+	<ui:param name="aoCarregar" value="#{produtoDetalheMB.aoCarregar()}" />
+
+	<ui:param name="MBProdutoDetalhe" value="#{produtoDetalheMB}"></ui:param>
+
+	<ui:define name="informacaoDireita">
+
+		<h:panelGrid columns="1" style="margin-top:15px;"
+			rendered="#{produtoDetalheMB.exibePrecoVisitante}">
+			<h:outputText rendered="#{produto.emOferta}"
+				value="#{msg['texto.de']} #{msg['texto.R$']}#{produto.precoTabelaVisualizacao}"
+				styleClass="textoCinzaEscuro" />
+			<h:outputText
+				value="#{msg['texto.por']} #{msg['texto.R$']} #{produto.precoVendaVisualizacao}"
+				styleClass="precoDestaque" />
+		</h:panelGrid>
+
+	</ui:define>
+</ui:composition>
+</html>

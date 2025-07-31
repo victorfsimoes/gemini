@@ -1,0 +1,83 @@
+<p:outputPanel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<h2>#{msg['titulo.catalogoEnderecos']}</h2>
+
+	<p:accordionPanel multiple="false"
+		rendered="#{not empty gerenteClienteMB.enderecos}"
+		value="#{gerenteClienteMB.enderecos}" var="end">
+
+		<p:tab>
+
+			<f:facet name="title">
+				<h:outputText value="#{end.logradouro}, #{end.numero}" />
+			</f:facet>
+
+			<h:panelGrid columns="3">
+				<p:outputLabel value="#{msg['texto.cep']}" styleClass="textCadastro" />
+				<h:outputText value=": " styleClass="doisPontos" />
+				<p:inplace editor="true">
+					<p:inputMask mask="99.999-999" value="#{end.cep}" size="20"
+						title="#{msg['alerta.atencao.apagarDadosCep']}">
+						<p:ajax event="blur" listener="#{gerenteClienteMB.pesquisarCep}"
+							update="@form" />
+					</p:inputMask>
+				</p:inplace>
+			</h:panelGrid>
+
+			<comp:confirmaInputText id="cLogradouro"
+				titulo="#{msg['texto.logradouro']}" value="#{end.logradouro}"
+				tamCampo="80" maxCaracteres="125" />
+
+			<comp:confirmaInputText id="cNumero" titulo="#{msg['texto.numero']}"
+				value="#{end.numero}" tamCampo="20" maxCaracteres="10" />
+
+			<comp:confirmaInputText titulo="#{msg['texto.complemento']}"
+				value="#{end.complemento}" id="cComplemento" tamCampo="30"
+				maxCaracteres="20" />
+
+			<comp:confirmaInputText titulo="#{msg['texto.bairro']}"
+				value="#{end.bairro.descricaoBairro}" id="cBairro" tamCampo="30"
+				maxCaracteres="30" visualizacao="true" />
+
+			<comp:confirmaInputText titulo="#{msg['texto.cidade']}"
+				value="#{end.cidade.descricaoCidade}" id="cCidade" tamCampo="30"
+				maxCaracteres="30" visualizacao="true" />
+
+			<h:panelGrid columns="3">
+				<p:outputLabel for="cUf" styleClass="textCadastro"
+					value="#{msg['texto.uf']}" />
+				<h:outputText value=":" styleClass="doisPontos" />
+				<p:inplace editor="true"
+					label="#{empty end.ufsigla?msg['mensagem.naoInformado']:end.ufsigla}"
+					styleClass="#{empty end.ufsigla?'watermark':''}">
+					<p:autoComplete id="cUf" forceSelection="true"
+						completeMethod="#{gerenteClienteMB.pesquisarInscricaoEstadual}"
+						value="#{end.ufsigla}"
+						style="text-transform: uppercase !important" var="i"
+						itemValue="#{i.ufSigla}" itemLabel="#{i}"
+						panelStyle="overflow-x: hidden" size="10">
+						<p:column style="border:none !important">  
+                    #{i.ufSigla} (#{i.ufNome})  
+               		</p:column>
+					</p:autoComplete>
+				</p:inplace>
+			</h:panelGrid>
+
+
+			<comp:confirmaInputText  titulo="#{msg['texto.telefone']}"
+				value="#{end.telefone1}" id="cFone1" tamCampo="15" />
+
+			<comp:confirmaInputText titulo="#{msg['texto.pontoReferencia']}"
+				value="#{end.pontoReferencia}" id="cPtoRef" tamCampo="80" />
+
+
+		</p:tab>
+
+	</p:accordionPanel>
+
+</p:outputPanel>

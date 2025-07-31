@@ -1,0 +1,11 @@
+
+<!-- Mapeamento de: D:\Projetos\javaspace\CFSw\SpaceWebII\src\br\com\space\spacewebII\modelo\dominio -->
+
+<!-- Mapeamento de: D:\Projetos\javaspace\CFSw\SpaceWebII\src\br\com\space\spacewebII\modelo\dominio\chavecomposta -->
+
+<!-- Mapeamento de: D:\Projetos\javaspace\CFSw\SpaceWebII\src\br\com\space\spacewebII\modelo\dominio\cliente -->
+<mapping class="br.com.space.spacewebII.modelo.dominio.cliente.Atividade" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.cliente.Cliente" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.cliente.ClienteImp" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.cliente.LimiteAdicional" />
+<mapping class="br.com.space.spacewebII.modelo.dominio.cliente.SocioCliente" />

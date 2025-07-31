@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+<ui:composition template="/templates/layoutBasico.xhtml">
+
+	<ui:param name="pessoa" value="#{gerenteClienteMB.pessoa}" />
+	<ui:param name="cliente" value="#{gerenteClienteMB.cliente}" />
+	<ui:param name="enderecos" value="#{gerenteClienteMB.enderecos}" />
+
+	<ui:define name="content">
+		<h:outputStylesheet library="css/pages" name="pedido.css" />
+
+		<h1>Meu Perfil</h1>
+		<h:form>
+
+		<ui:include src="/pieces/cadastro/visualizacaoDadosPerfil.xhtml" />
+
+		<div>
+			<h:graphicImage value="/resources/img/key.png"
+				style="display:inline-block; margin-bottom:-3px" />
+
+			
+				<p:commandLink onclick="alterarSenha.show();">
+					Alterar senha
+				</p:commandLink>
+
+				<ui:include src="/pieces/senha/meuCadastro.xhtml" />
+			
+		</div>
+		
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

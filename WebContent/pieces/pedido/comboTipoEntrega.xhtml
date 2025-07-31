@@ -1,0 +1,16 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+	<comp:comboBox titulo="#{msg['texto.tipoEntrega']}"
+		value="#{gerentePedidoMB.tipoEntregaSelecionado}" id="tipoEntrega"
+		var="tipoEntrega" itemLabel="#{tipoEntrega}"
+		itemValue="#{tipoEntrega}" lista="#{gerentePedidoMB.tiposEntrega}"
+		valueChangeListener="#{gerentePedidoMB.tipoEntregaChange}"
+		update="@form, :header"
+		rendered="#{not empty gerentePedidoMB.tiposEntrega}" global="true" />
+
+</f:view>

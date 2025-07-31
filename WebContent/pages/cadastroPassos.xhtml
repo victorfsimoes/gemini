@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/layoutBasico.xhtml">
+
+	<ui:define name="content">
+		<ui:param name="cliente" value="#{gerenteClienteMB.cliente}" />
+		<ui:param name="pessoa" value="#{gerenteClienteMB.pessoa}" />
+		<ui:param name="visualizacao" value="false" />
+		<ui:param name="pessoaJuridica" value="#{'J'==pessoa.tipoPessoa}" />
+
+		<p:dialog id="idDialogSituacaoCadastro" modal="true" widgetVar="dialogSituacaoCadastro"
+			draggable="true" closable="false" resizable="false">
+			<h2>
+				<h:outputLabel value="#{gerenteClienteMB.msgSituacaoCadastro}" />
+			</h2>
+
+			<div style="text-align: left; font-weight: bold;">
+				#{msg['texto.outras.consideracoes']}:</div>
+
+			<ul>
+				<li><h:outputLabel
+						value="#{gerenteClienteMB.msgSituacaoEnvioConfirmacao}" /></li>
+			</ul>
+			<p:commandButton
+				onclick="redirecionar('#{rootPath}#{gerenteLogin.urlView}')"
+				value="#{msg['texto.ok']}" icon="ui-icon-check" />
+		</p:dialog>
+		<!-- 
+		<p:breadCrumb>
+			<p:menuitem value="Pagina inicial" url="/pages/home.xhtml" />
+			<p:menuitem value="Cadastro em passos" url="#" />
+		</p:breadCrumb>
+		
+ -->
+		<p:panel header="#{msg['titulo.cadastro']}" styleClass="panelCadastro">
+
+
+			<h:form acceptcharset="ISO-8859-1">
+				<p:wizard nextLabel="#{msg['acao.proximo']}"
+					backLabel="#{msg['acao.anterior']}"
+					flowListener="#{gerenteClienteMB.handleFlow}">
+
+					<p:tab id="tab_login" title="Login" rendered="#{not visualizacao}">
+						<ui:include src="/pieces/cadastro/autenticacao.xhtml" />
+					</p:tab>
+
+					<p:tab id="tab_dados" title="#{msg['titulo.dadosPessoais']}"
+						rendered="#{not visualizacao}">
+						<ui:include src="/pieces/cadastro/dadosPessoais.xhtml" />
+					</p:tab>
+
+					<p:tab id="tab_endereco" title="#{msg['titulo.endereco']}"
+						rendered="#{not visualizacao}">
+						<ui:include src="/pieces/cadastro/endereco.xhtml" />
+					</p:tab>
+
+					<p:tab id="tab_confirmacao"
+						title="#{visualizacao?msg['titulo.visualizacao']:msg['acao.confirmar']}">
+
+						<ui:include src="/pieces/cadastro/visualizacaoDadosPerfil.xhtml" />
+
+						<p:commandButton icon="#{msg['figura.check']}"
+							value="#{msg['acao.confirmar']}"
+							action="#{gerenteClienteMB.cadastrar()}"
+							style="margin-top:4px; position:absolute;" update=":idDialogSituacaoCadastro"
+							oncomplete="if (args.validationFailed) {window.alert('Houve uma falha')} else {dialogSituacaoCadastro.show()}">
+						</p:commandButton>
+					</p:tab>
+				</p:wizard>
+
+			</h:form>
+
+		</p:panel>
+
+	</ui:define>
+
+</ui:composition>
+</html>

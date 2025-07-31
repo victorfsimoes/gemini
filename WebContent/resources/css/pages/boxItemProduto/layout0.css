@@ -1,0 +1,23 @@
+@CHARSET "ISO-8859-1";
+
+/**
+* Layout do panel item na tela pesquisa produtos (tela principal)
+*
+* Layout baseado no panel do PrimeFaces
+*/
+
+.tituloPanelItem {
+	color: white;
+}
+
+.containerPanelItemLista {
+	height: 100px;
+}
+
+.containerTituloPanelItemGrade{
+	min-height:50px;
+}
+
+.textoCodigoEmLista{
+	color: rgb(250, 250 , 250);
+}

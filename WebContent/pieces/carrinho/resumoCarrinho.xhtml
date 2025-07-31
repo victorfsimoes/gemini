@@ -1,0 +1,41 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+	<p:dataTable var="item" scrollHeight="160" scrollable="true"
+		value="#{gerentePedidoMB.itensPedido}"
+		styleClass="itensResumoCarrinhoHeader">
+
+
+		<p:column width="40">
+			<h:graphicImage styleClass="imagemItem bordaSombreada" width="40"
+				height="40"
+				value="#{formatacaoMB.isURLValida(item.produto.imagemCapa.enderecoMidia)?item.produto.imagemCapa.enderecoMidia:'/resources/img/semfoto.jpg'}" />
+		</p:column>
+		<p:column>
+			<h:outputText
+				value="#{item.produto.descricaoVisualizacao.toLowerCase()}"
+				title="#{msg['texto.codigo']} #{item.produto.codigo}"
+				style="font-size:0.9em; padding-left:2px; display:inline-block; vertical-align:top"
+				styleClass="capitalize" id="produto">
+			</h:outputText>
+		</p:column>
+		<f:facet name="footer">
+
+			<p:outputPanel
+				rendered="#{gerentePedidoMB.exibeLimiteCreditoCliente}">
+				<h:outputLabel style="font-size:small;"
+					value="#{gerenteLogin.perfilCliente?msg[
+					'texto.compreAte']:msg['texto.vendaParaClienteAte']} #{formatacaoMB.formataDouble(gerentePedidoMB.saldoCreditoCliente, 2)}" />
+			</p:outputPanel>
+
+
+
+		</f:facet>
+	</p:dataTable>
+
+
+</f:view>

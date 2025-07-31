@@ -1,0 +1,132 @@
+<p:panel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:f="http://java.sun.com/jsf/core" styleClass="left wizardCadastro"
+	id="totalEnd">
+
+	<ui:param name="endereco" value="#{gerenteClienteMB.endereco}" />
+
+	<p:outputPanel
+		style="width: 50%; display:inline-block; vertical-align: top; border-right: silver dashed 1px">
+		<h2>Cadastro</h2>
+
+		<h:panelGrid columns="2">
+			<h:panelGrid columns="1" style="text-align:left !important"
+				rendered="#{gerenteClienteMB.classificacoesEndereco.size() > 0}">
+
+				<p:outputLabel value="Tipo" styleClass="textCadastro" />
+
+				<p:selectOneMenu value="#{endereco.classificacaoEnderecoCodigo}"
+					disabled="#{gerenteClienteMB.enderecos.size() == 0}">
+
+					<f:selectItems value="#{gerenteClienteMB.classificacoesEndereco}"
+						var="ce" itemValue="#{ce.codigo}" itemLabel="#{ce.descricao}" />
+
+				</p:selectOneMenu>
+			</h:panelGrid>
+		</h:panelGrid>
+
+		<h:panelGrid columns="3">
+
+			<h:panelGrid columns="1" style="vertical-align:bottom">
+
+				<p:outputLabel value="* #{msg['texto.cep']}"
+					styleClass="textCadastro" />
+				<h:panelGrid columns="2" style="margin-top:-5px">
+					<p:inputMask value="#{endereco.cep}" mask="99.999-999" id="cep"
+						size="14" />
+					<p:commandButton action="#{gerenteClienteMB.pesquisarCep()}"
+						ajax="false" id="pesquisaCep" icon="ui-icon-search"
+						update="totalEnd" title="#{msg['alerta.atencao.apagarDadosCep']}" />
+				</h:panelGrid>
+			</h:panelGrid>
+
+
+
+			<comp:inputText titulo="* #{msg['texto.numero']}"
+				value="#{endereco.numero}" id="numero" tamCampo="10"
+				maxCaracteres="10" />
+
+			<comp:inputText titulo="#{msg['texto.complemento']}"
+				value="#{endereco.complemento}" id="complemento" tamCampo="10"
+				maxCaracteres="20" />
+		</h:panelGrid>
+
+		<comp:inputText titulo="* #{msg['texto.logradouro']}"
+			value="#{endereco.logradouro}" id="logradouro" tamCampo="60"
+			maxCaracteres="90" eventoChange="panelWait.hide()" />
+
+		<h:panelGrid columns="1">
+			<p:outputLabel value="* #{msg['texto.bairro']}"
+				styleClass="textCadastro" for="bairro" />
+			<p:autoComplete id="bairro" value="#{gerenteClienteMB.bairro}"
+				completeMethod="#{enderecoMB.pesquisarBairro}"
+				itemValue="#{formatacaoMB.retirarAcento(bairro)}" var="bairro"
+				itemLabel="#{bairro}" scrollHeight="260" size="60" maxlength="72" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="2">
+
+
+			<h:panelGrid columns="1">
+				<p:outputLabel value="* #{msg['texto.cidade']}"
+					styleClass="textCadastro" for="cidade" />
+				<p:autoComplete id="cidade" value="#{gerenteClienteMB.cidade}"
+					itemValue="#{formatacaoMB.retirarAcento(cidade)}" var="cidade"
+					itemLabel="#{cidade}"
+					completeMethod="#{enderecoMB.pesquisarCidade}" scrollHeight="260"
+					size="41" maxlength="60" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="1">
+				<p:outputLabel for="uf" styleClass="textCadastro"
+					value="* #{msg['texto.uf']}" />
+				<p:autoComplete id="uf" forceSelection="true"
+					completeMethod="#{gerenteClienteMB.pesquisarInscricaoEstadual}"
+					value="#{endereco.ufsigla}"
+					style="text-transform: uppercase !important" var="i"
+					itemValue="#{i.ufSigla}" itemLabel="#{i}"
+					panelStyle="overflow-x: hidden" size="10">
+					<p:column style="border:none !important">  
+                    #{i.ufSigla} (#{i.ufNome})  
+               	</p:column>
+				</p:autoComplete>
+			</h:panelGrid>
+		</h:panelGrid>
+
+		<h:panelGrid columns="2">
+
+			<comp:inputMask titulo="#{msg['texto.telefone']}"
+				value="#{endereco.telefone1}" id="fone1"
+				mask="#{gerenteClienteMB.dicionarioCamposTelefone1.mascara}" />
+
+			<comp:inputMask titulo="#{msg['texto.celular']}"
+				value="#{endereco.telefoneCelular}" id="telefoneCelular"
+				mask="#{gerenteClienteMB.dicionarioCamposCelular.mascara}" />
+
+		</h:panelGrid>
+
+		<comp:inputText titulo="#{msg['texto.pontoReferencia']}"
+			maxCaracteres="40" value="#{endereco.pontoReferencia}" id="ptoRef"
+			tamCampo="60" />
+
+		<p:commandButton value="#{msg['texto.adicionarEndereco']}"
+			ajax="false" process="@this"
+			disabled="#{gerenteClienteMB.classificacoesEndereco.size() == 0}"
+			action="#{gerenteClienteMB.adicionarEndereco()}" update="totalEnd"
+			icon="ui-icon-plus" />
+	</p:outputPanel>
+
+	<p:outputPanel
+		style="display:inline-block; width:40%; vertical-align:top; padding: 0 0 5% 5%;">
+
+		<ui:include src="/pieces/cadastro/dadosEndereco.xhtml" />
+
+	</p:outputPanel>
+
+
+
+
+</p:panel>

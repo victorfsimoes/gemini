@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+<ui:composition template="/templates/layoutBasicoSemPanel.xhtml">
+	<ui:define name="content">
+		<p:dialog modal="true" widgetVar="dialogPesquisando" draggable="false"
+			closable="false" showHeader="false" resizable="false">
+			<center>
+				<p:graphicImage value="#{imagePath}lupa.gif" />
+				<br />
+				<p:graphicImage value="#{imagePath}pesquisando.gif" />
+			</center>
+		</p:dialog>
+
+		<p:panel id="panelPesquisaPadrao"
+			header="Pesquisar #{pesquisaMB.tabela.dtbDescricao}"
+			widgetVar="pPesquisa"
+			styleClass="left panelPesquisaPadrao panelPesquisaPadraoCor"
+			position="center">
+
+			<h:form>
+
+				<p:panel header="Filtros" styleClass="panelFiltros" id="filtro"
+					toggleable="true" rendered="#{pesquisaMB.filtros.size() > 0}">
+
+					<h:panelGrid columns="1" style="margin-bottom:5px"
+						rendered="#{pesquisaMB.exibirAtivo}">
+						<h:outputText value="Exibir" styleClass="textCadastro" />
+						<p:selectOneButton value="#{pesquisaMB.statusSelecionado}">
+							<f:selectItem itemLabel="Ativos" itemValue="1" />
+							<f:selectItem itemLabel="Inativos" itemValue="0" />
+							<f:selectItem itemLabel="Todos" itemValue="-1" />
+							<p:ajax event="change" />
+						</p:selectOneButton>
+					</h:panelGrid>
+					<p:dataGrid columns="4" var="filtro" value="#{pesquisaMB.filtros}"
+						emptyMessage="">
+						<h:panelGrid columns="1">
+							<h:outputText value="#{filtro.titulo}"
+								styleClass="capitalize textCadastro" />
+							<p:inputText value="#{filtro.value}"
+								size="#{filtro.tamanhoCampo}"
+								valueChangeListener="#{filtro.valueChangeListener}">
+								<p:ajax event="change" />
+							</p:inputText>
+						</h:panelGrid>
+					</p:dataGrid>
+
+					<center>
+						<h:panelGrid columns="2">
+							<p:commandButton value="#{msg['acao.pesquisar']}"
+								icon="ui-icon-search" immediate="true"
+								action="#{pesquisaMB.pesquisar()}"
+								onstart="dialogPesquisando.show()"
+								oncomplete="dialogPesquisando.hide()"
+								update="dataTableResultado, filtro" />
+							<p:commandButton value="#{msg['acao.apagar']}" update="filtro"
+								process="@this">
+								<p:resetInput target="filtro" />
+							</p:commandButton>
+						</h:panelGrid>
+					</center>
+				</p:panel>
+
+				<p:dataTable id="dataTableResultado" styleClass="tabelaPromocao"
+					paginator="true" paginatorPosition="bottom"
+					paginatorAlwaysVisible="true"
+					rows="#{pesquisaMB.linhasPaginacaoGrid}" var="resultados"
+					rowIndexVar="z" value="#{pesquisaMB.resultadosString}"
+					emptyMessage="#{msg['mensagem.nenhumDadoEncontrado']}">
+
+					<f:facet name="header">#{msg['titulo.resultados']}</f:facet>
+
+					<p:column>
+						<p:commandButton icon="ui-icon-check" immediate="true"
+							oncomplete="if (args.validationFailed) {} else {redirecionar('#{rootPath}#{pesquisaMB.urlVoltar}')}"
+							actionListener="#{pesquisaMB.selecionar(resultados.id)}" />
+					</p:column>
+
+					<p:columns var="titulo" value="#{pesquisaMB.titulosColunas}"
+						columnIndexVar="i">
+
+						<f:facet name="header">
+							<h:outputText value="#{titulo}" escape="false"
+								styleClass="capitalize" />
+						</f:facet>
+						<h:outputText value="#{resultados.valor(i).toLowerCase()}"
+							styleClass="capitalize" />
+					</p:columns>
+
+				</p:dataTable>
+
+
+
+
+			</h:form>
+
+			<p:commandButton icon="ui-icon-cancel"
+				onstart="redirecionar('#{rootPath}#{pesquisaMB.urlVoltar}');"
+				value="#{msg['acao.cancelar']}" style="margin-top:10px" />
+
+
+		</p:panel>
+
+	</ui:define>
+</ui:composition>
+</html>

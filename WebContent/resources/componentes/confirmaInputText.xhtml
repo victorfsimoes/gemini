@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+
+	<composite:interface>
+		<composite:attribute name="titulo" required="true" />
+		<composite:attribute name="value" required="true" />
+		<composite:attribute name="requerido" required="false" default="false" />
+		<composite:attribute name="tamCampo" required="false" />
+		<composite:attribute name="maxCaracteres" required="false" />
+		<composite:attribute name="toolTip" required="false" />
+		<composite:attribute name="visualizacao" required="false"
+			default="false" />
+	</composite:interface>
+
+
+	<composite:implementation>
+
+		<h:panelGrid columns="3">
+			<p:outputLabel value=" #{cc.attrs.titulo}" for="inputText"
+				styleClass="textCadastro" />
+			<h:outputText value=":" styleClass="doisPontos" />
+
+			<p:inplace editor="true"
+				label="#{empty cc.attrs.value?msg['mensagem.naoInformado']:cc.attrs.value}"
+				disabled="#{cc.attrs.visualizacao}"
+				styleClass="#{empty cc.attrs.value?'watermark':''}">
+				<p:inputText id="inputText" value="#{cc.attrs.value}"
+					size="#{cc.attrs.tamCampo}" maxlength="#{cc.attrs.maxCaracteres}"
+					title="#{cc.attrs.toolTip}" required="#{cc.attrs.requerido}"
+					alt="Campo #{cc.attrs.titulo}"
+					requiredMessage="#{msg['alerta.campoObrigatorio']}" />
+			</p:inplace>
+		</h:panelGrid>
+
+	</composite:implementation>
+
+</h:body>
+</html>

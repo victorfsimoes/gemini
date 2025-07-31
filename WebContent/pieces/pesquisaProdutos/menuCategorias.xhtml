@@ -1,0 +1,75 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml" id="coluna"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:commandLink
+		actionListener="#{produtoPesquisaMB.montarVisualizacaoHome()}"
+		onsuccess="redirecionar('#{rootPath}#{produtoPesquisaMB.urlView}')"
+		global="false" style="text-decoration: none">
+		<p:panel header="#{msg['titulo.categorias']}"
+			styleClass="textoCategorias menusLateraisComMiniBanner" />
+	</p:commandLink>
+
+	<p:accordionPanel id="acordionGrupos" var="grupo"
+		activeIndex="#{produtoPesquisaMB.indiceDoGrupoSelecionado}"
+		value="#{produtoPesquisaMB.grupoClassificacaoResultado}"
+		multiple="#{produtoPesquisaMB.eMultiplo()}"
+		rendered="#{produtoPesquisaMB.grupoClassificacaoResultado.size() > 0}"
+		dynamic="#{produtoPesquisaMB.grupoClassificacaoResultado.size() != produtoPesquisaMB.grupoClassificacaoTodos.size()}"
+		cache="#{produtoPesquisaMB.grupoClassificacaoResultado.size() != produtoPesquisaMB.grupoClassificacaoTodos.size()}"
+		styleClass="menuCategorias menusLateraisComMiniBanner"
+		widgetVar="acordionGrupos"
+		onTabChange="acordionGrupos.unselect(#{produtoPesquisaMB.indiceDoGrupoSelecionado});">
+
+		<p:ajax event="tabChange" global="false"
+			listener="#{produtoPesquisaMB.tabChange}"
+			oncomplete="resetTabIndex();updateBanners();" process="@form"
+			update=":produtoPesquisa:dataGridProdutos,:menuLateralEsquerdo:acordionGrupos,:produtoPesquisa:panelBannerCentral,:formBannerMaxi">
+		</p:ajax>
+
+		<p:tab titleStyle="padding:0px;">
+
+			<f:facet name="title">
+				<h:outputText value="&#10025;" rendered="false" />
+				<h:outputText styleClass="capitalize"
+					value="#{formatacaoMB.formataDescricao(grupo.descricao.toLowerCase())} " />
+			</f:facet>
+
+			<ui:repeat var="subGrupo" value="#{grupo.subGrupos}">
+
+				<h:panelGrid columns="1" columnClasses="capitalize"
+					style="width: 100%">
+
+					<p:panel
+						styleClass="subcategoriaProdutos menusLateraisComMiniBanner"
+						id="panelMenuProdutos">
+
+
+
+						<p:commandLink
+							styleClass="linkSubCategoria #{subGrupo.selecionado?'subcategoriaProdutosSelecionada':'subcategoriaProdutosTexto'}"
+							update=":produtoPesquisa:dataGridProdutos,:menuLateralEsquerdo:acordionGrupos"
+							onsuccess="resetTabIndex();"
+							actionListener="#{produtoPesquisaMB.informarSubGrupoSelecionado(subGrupo.grupoCodigo,subGrupo.codigo)}">
+
+							<p:outputPanel rendered="#{subGrupo.exibeEstrela}">
+								<span class="ui-button-icon-left ui-icon ui-c ui-icon-star"
+									style="display: inline-block"></span>
+							</p:outputPanel>
+
+							<h:outputText
+								value="#{formatacaoMB.formataDescricao(subGrupo.descricaoVisualizacao.toLowerCase())} " />
+
+						</p:commandLink>
+
+					</p:panel>
+
+				</h:panelGrid>
+
+			</ui:repeat>
+		</p:tab>
+	</p:accordionPanel>
+</f:view>

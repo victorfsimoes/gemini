@@ -1,0 +1,89 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:outputPanel style="width: 100% !important; height:100%"
+		rendered="#{perfilColaborador and permiteVenda}">
+
+		<p:panel styleClass="center" id="panelQuantidade"
+			style="display:inline-block; width:40%;height: 100%;">
+
+			<div
+				style="display: inline-block; width: 47%; padding-right: 5%; text-align: left !important;">
+				<h:outputText value="#{msg['texto.quantidade']}"
+					styleClass="textCadastro" style="display:block; width:95%;" />
+				<p:inputText value="#{itemPedidoMB.quantidade}" style="width:95%"
+					immediate="true" disabled="#{itemPedidoMB.desabilitarCampos}"
+					onkeypress="return isNumero(event);">
+					<p:ajax immediate="true" event="change" global="false"
+						update=":promocoes, labelAlertaPromocao, :panelItensKit, panelDescAcresc, panelPrecos, precoFinal" />
+				</p:inputText>
+			</div>
+
+			<div
+				style="display: inline-block; width: 45%; text-align: right !important;">
+				<h:outputText value="#{msg['texto.volumeItem']}"
+					styleClass="textCadastro" />
+				<p:inputText value="#{itemPedidoMB.quantidadeVolumes}"
+					style="width:95%" immediate="true"
+					disabled="#{itemPedidoMB.desabilitarCampos or itemPedidoMB.desabilitarDigitacaoVolumeItens()}"
+					onkeypress="return isNumero(event);">
+					<p:ajax immediate="true" event="change" global="false"
+						update="panelPrecos, precoFinal, :promocoes, labelAlertaPromocao, :panelItensKit" />
+				</p:inputText>
+			</div>
+		</p:panel>
+
+		<p:panel styleClass="center" id="panelDescAcresc"
+			style="display:inline-block; width:55%; vertical-align:top; padding: 0.2em">
+
+			<p:selectOneButton value="#{itemPedidoMB.flagAcrescDesc}"
+				id="descAcresc" required="true"
+				disabled="#{itemPedidoMB.desabilitarCampos}"
+				valueChangeListener="#{itemPedidoMB.acrescDescFlagChangeListener}"
+				style="margin-bottom:10px !important; text-align:center; margin:0;">
+
+				<f:selectItem itemLabel="#{msg['texto.desconto']}" itemValue="D" />
+				<f:selectItem itemLabel="#{msg['texto.acrescimo']}" itemValue="A" />
+				<p:ajax immediate="true" event="change" global="false"
+					update="panelPrecos, panelDescAcresc" />
+			</p:selectOneButton>
+
+			<div style="display: block; width: 100%">
+
+				<h:panelGrid columns="2"
+					style="width:30%; padding-right: 5%; display: inline-block">
+					<p:inputText value="#{itemPedidoMB.descontoAcrescimoPorcentagem}"
+						onkeypress="return isNumero(event);" style="width:90%"
+						disabled="#{itemPedidoMB.desabilitarCampos}"
+						valueChangeListener="#{itemPedidoMB.acrescDescPercentualChange}">
+						<p:ajax immediate="true" event="change" global="false"
+							update=":formItemPedido:panelPrecos, :formItemPedido:panelGridPrecos, panelDescAcresc, :panelItensKit" />
+					</p:inputText>
+					<h:outputText value="#{msg['texto.%']}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" style="width:60%; display: inline-block">
+					<h:outputText value="#{msg['texto.R$']}" />
+					<p:inputText value="#{itemPedidoMB.descontoAcrescimoValor}"
+						style="width:90%" onkeypress="return isNumero(event);"
+						disabled="#{itemPedidoMB.desabilitarCampos}"
+						valueChangeListener="#{itemPedidoMB.acrescDescValorChange}">
+						<p:ajax immediate="true" event="change" global="false"
+							update="panelPrecos, panelDescAcresc, precoFinal" />
+					</p:inputText>
+				</h:panelGrid>
+
+			</div>
+
+			<comp:outputInfoLinha titulo="#{msg['texto.precoOriginal']}"
+				info="#{msg['texto.R$']} #{formatacaoMB.formataPreco(itemPedidoMB.precoSugeridoValor,2)}"
+				rendered="#{itemPedidoMB.descontoAcrescimoPorcentagem  > 0 or itemPedidoMB.descontoAcrescimoValor > 0 }" />
+		</p:panel>
+
+	</p:outputPanel>
+
+</f:view>

@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<p:outputPanel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui" id="panelBannerMaxi"
+	rendered="#{produtoPesquisaMB.exibeMaxiBanner}">
+
+	<style>
+.panelContainer {
+	margin-top: 0px !important;
+}
+</style>
+	<div id="wrapperBannerMaxi" class="containerMaxiBanner">
+		<div id="bannerMaxi" class="carrossel"
+			style="width: 100% !important; text-align: center !important;">
+
+			<ui:repeat var="imagem"
+				value="#{produtoPesquisaMB.imagensBannerMaxi}">
+				<div
+					style="background-image: url('#{formatacaoMB.formatarEnderecoImagemSemPasta(imagem.galeria.imagemBackground)}'); text-align: center">
+					<p:commandLink
+						oncomplete="redirecionar('#{rootPath}#{imagem.url}')"
+						styleClass="linkBanners"
+						disabled="#{imagem.produtoCodigo == 0 and imagem.grupoProdutoCodigo == 0}">
+						<img src="#{imagem.nomeImagem}" alt="#{imagem.descricaoImagem}"
+							height="#{(imagem.galeria.altura>0?imagem.galeria.altura:500)}"
+							border="0" style="z-index: 1; max-width: 100%" />
+					</p:commandLink>
+				</div>
+
+			</ui:repeat>
+		</div>
+		<div id="pagerMaxi" class="paginadorCarrossel" />
+	</div>
+</p:outputPanel>

@@ -1,0 +1,63 @@
+<h:panelGrid xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui" columns="1"
+	style="width:100%; padding-right:10px;" columnClasses="top"
+	id="panelMultimidia" rendered="#{temMultimidia}">
+	
+	<p:tabView styleClass="multimidiaItemProduto"
+		style="border:none; width:400px; ">
+
+		<p:tab id="tabSemFoto" title="Imagens"
+			rendered="#{empty MBProdutoDetalhe.produtoImagens and perfilCliente}">
+
+			<center>
+				<p:panel>
+					<p:graphicImage value="#{imagePath}semfoto.jpg"
+						style="max-width:350px; max-height:290px" />
+
+				</p:panel>
+			</center>
+		</p:tab>
+		
+		
+
+		<p:tab id="galeriaImagens" title="Imagens"
+			rendered="#{not empty MBProdutoDetalhe.produtoImagens}">
+			<center>
+
+				<p:galleria var="imgProduto" transitionInterval="0"
+					panelHeight="290" panelWidth="350"
+					value="#{MBProdutoDetalhe.produtoImagens}"
+					style="magin-right:60px; border:none;">
+
+					<p:graphicImage value="#{formatacaoMB.isURLValida(imgProduto.enderecoMidia)?imgProduto.enderecoMidia:'/resources/img/semfoto.jpg'}"
+						style="max-width:350px; max-height:350px" />
+				</p:galleria>
+
+			</center>
+		</p:tab>
+
+		<p:tab id="galeriaVideos" title="Videos"
+			rendered="#{not empty MBProdutoDetalhe.produtoVideos}">
+
+			<p:galleria value="#{MBProdutoDetalhe.produtoVideos}" var="video"
+				autoPlay="false" panelHeight="356" panelWidth="350">
+
+				<f:facet name="content">
+					<iframe width="350" height="315" src="#{video.enderecoMidia}"
+						frameborder="0" allowfullscreen="1" />
+				</f:facet>
+
+				<p:graphicImage style="display:hidden !important"
+					value="http://t0.gstatic.com/images?q=tbn:ANd9GcQdJYOsazN6ASsTWlk0gMlmvEwCWP2Im9nwULarFFN-zsGwCjOh9g" />
+
+			</p:galleria>
+
+		</p:tab>
+
+	</p:tabView>
+
+</h:panelGrid>

@@ -1,0 +1,178 @@
+<p:panel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" styleClass="panelPromocao">
+
+	<h:form id="formPromocoes">
+
+		<h:panelGrid columns="2" id="descricaoPromocao">
+			<img src="#{rootPath}/resources/img/promocao.png" />
+			<h:column>
+				<h:outputText value="#{msg['texto.itemPromocao']}!"
+					styleClass="bold" />
+				<br />
+				<h:outputText value="#{msg['texto.promocaoSelecionada']}"
+					styleClass="bold textoCinzaEscuro"
+					rendered="#{itemPedidoMB.promocaoSelecionada != null}" />
+				<h:outputText value="#{itemPedidoMB.descricaoPromocaoSelecionada}" />
+				<br />
+				<h:outputText value="#{itemPedidoMB.promocaoSelecionada.descricao}" />
+			</h:column>
+		</h:panelGrid>
+
+		<p:dataTable var="promocao"
+			value="#{itemPedidoMB.listasPromocoes.get(0)}"
+			styleClass="tabelaPromocao" paginator="true" paginatorPosition="top"
+			style="padding: 20px 0px 20px 0px" paginatorAlwaysVisible="false"
+			rows="5" rowKey="#{promocao.promocaoPK.numero}"
+			rendered="#{not empty itemPedidoMB.listasPromocoes.get(0)}"
+			selection="#{itemPedidoMB.promocaoSelecionada}"
+			widgetVar="tabelaPromoDesc" id="dtPromocao">
+
+			<p:ajax event="rowSelectRadio" global="false"
+				update=":formPromocoes:dtPromocao, :formPromocoes:descricaoPromocao, :formItemPedido:labelAlertaPromocao, :formItemPedido:panelDescAcresc, :formItemPedido:panelPrecos, :formItemPedido:panelQuantidade" />
+
+			<f:facet name="header">#{msg['titulo.promocaoPor']} #{msg['titulo.desconto']}</f:facet>
+
+			<p:column selectionMode="single"
+				disabledSelection="#{item.quantidade lt promocao.quantidadeInicio}" />
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText
+						value="#{msg['texto.abreviacao.quebra.quantPromocao']}"
+						escape="false" />
+				</f:facet>
+				<h:outputText value="#{promocao.quantidadeInicio}" />
+			</p:column>
+
+			<p:column headerText="#{msg['texto.desconto']}">
+				<h:outputText
+					value="#{produto.emOferta?formatacaoMB.convertePorcentagem(promocao.indiceOferta):formatacaoMB.convertePorcentagem(promocao.indiceNormal)} #{msg['texto.%']}" />
+			</p:column>
+
+			<p:column rendered="#{produtoDetalheMB.exibePrecoVisitante}">
+				<f:facet name="header">
+					<h:outputText value="#{msg['texto.quebra.precoFinalUnitario']}"
+						escape="false" />
+				</f:facet>
+				#{msg['texto.R$']}#{formatacaoMB.formataPreco(itemPedidoMB.calcularPrecoPromocao(promocao),2)}
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="#{msg['texto.abreviacao.quebra.quantMaxima']}"
+						escape="false" />
+				</f:facet>
+				#{promocao.quantidadeMaxima}
+			</p:column>
+
+		</p:dataTable>
+
+		<p:dataTable var="promocao"
+			value="#{itemPedidoMB.listasPromocoes.get(1)}"
+			styleClass="tabelaPromocao" paginator="true" paginatorPosition="top"
+			paginatorAlwaysVisible="false" rows="3"
+			rowStyleClass="#{item.quantidade le promocao.quantidadeMaxima and item.quantidade ge promocao.quantidadeInicio ? 'rowPromocaoDisponivel' : null}"
+			rowKey="#{promocao.promocaoPK.numero}"
+			selection="#{itemPedidoMB.promocaoSelecionada}"
+			rendered="#{not empty itemPedidoMB.listasPromocoes.get(1) and false}">
+			<f:facet name="header">#{msg['titulo.promocaoPor']} #{msg['titulo.produtoBonificado']}</f:facet>
+
+			<p:columnGroup type="header">
+				<p:row>
+					<p:column style="width:4%" rowspan="2" />
+
+					<p:column rowspan="2">
+						<f:facet name="header">
+							<h:outputText
+								value="#{msg['texto.abreviacao.quebra.quantPromocao']}"
+								escape="false" />
+						</f:facet>
+					</p:column>
+
+					<p:column headerText="#{msg['titulo.produtoBonificado']}"
+						colspan="3" />
+
+					<p:column rowspan="2">
+						<f:facet name="header">
+							<h:outputText
+								value="#{msg['texto.abreviacao.quebra.quantMaxima']}"
+								escape="false" />
+						</f:facet>
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column headerText="#{msg['texto.produto']}" />
+					<p:column headerText="#{msg['texto.abreviacao.quant']}" />
+					<p:column headerText="#{msg['texto.abreviacao.unid']}" />
+				</p:row>
+
+			</p:columnGroup>
+
+			<p:ajax event="rowSelectRadio" global="false"
+				update=":formPromocoes:descricaoPromocao, :formCliente:labelAlertaPromocao, :formItemPedidoVendedor:labelAlertaPromocao, :formItemPedidoVendedor:panelDescAcresc, :formItemPedidoVendedor:panelPrecos, :formCliente:panelPrecos"
+				oncomplete="#{itemPedidoMB.selecionarPromocao(promocao)}" />
+
+			<p:column>
+				<h:outputText value="#{promocao.quantidadeInicio}" />
+			</p:column>
+
+			<p:column>
+			#{promocao.produtoBonificado.codigo} -
+			#{promocao.produtoBonificado.descricaoResumida}
+			</p:column>
+
+			<p:column>
+			#{promocao.quantidadeBonificada}
+			</p:column>
+
+			<p:column>
+			#{promocao.produtoBonificado.unidadeDescricao}
+			</p:column>
+
+			<p:column>
+			#{promocao.quantidadeMaxima}
+			</p:column>
+
+		</p:dataTable>
+
+
+		<p:dataTable var="promocao"
+			rendered="#{not empty itemPedidoMB.listasPromocoes.get(2) and false}"
+			value="#{itemPedidoMB.listasPromocoes.get(2)}"
+			styleClass="tabelaPromocao" paginator="true" paginatorPosition="top"
+			paginatorAlwaysVisible="false" rows="5"
+			rowKey="#{promocao.promocaoPK.numero}"
+			selection="#{itemPedidoMB.promocaoSelecionada}"
+			rowStyleClass="#{item.quantidade le promocao.quantidadeMaxima and item.quantidade ge promocao.quantidadeInicio ? 'rowPromocaoDisponivel' : null}">
+			<f:facet name="header">#{msg['titulo.promocaoPor']} #{msg['titulo.linha']}</f:facet>
+
+			<p:ajax event="rowSelectRadio" global="false"
+				update=":formPromocoes:descricaoPromocao, :formCliente:labelAlertaPromocao, :formItemPedidoVendedor:labelAlertaPromocao, :formItemPedidoVendedor:panelDescAcresc, :formItemPedidoVendedor:panelPrecos, :formCliente:panelPrecos"
+				oncomplete="#{itemPedidoMB.selecionarPromocao(promocao)}" />
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText
+						value="#{msg['texto.abreviacao.quebra.quantPromocao']}"
+						escape="false" />
+				</f:facet>
+				#{promocao.quantidadeInicio}
+			</p:column>
+			<p:column headerText="Linha cod">#{promocao.linhaProdutoCodigo}</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="#{msg['texto.abreviacao.quebra.quantMaxima']}"
+						escape="false" />
+				</f:facet>
+				#{promocao.quantidadeMaxima}
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+
+</p:panel>

@@ -1,0 +1,109 @@
+<f:facet xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	name="footer">
+
+	<h:panelGrid columns="1"
+		rendered="#{not empty gerentePedidoMB.itensPedido}">
+
+		<p:column style="text-align:center !important;" columns="3">
+			<h:outputText
+				style="text-align:center !important; padding-left:35% !important"
+				value="#{gerentePedidoMB.itensPedido.size()} #{msg['texto.produto']}"
+				rendered="#{gerentePedidoMB.itensPedido.size() == 1}" />
+
+			<h:outputText
+				style="text-align:center !important; padding-left:35% !important"
+				value="#{gerentePedidoMB.itensPedido.size()} #{msg['texto.produtos']}"
+				rendered="#{gerentePedidoMB.itensPedido.size() > 1}" />
+
+			<h:outputText value=" #{msg['texto.comSubtotalDe']}" />
+
+			<h:outputText rendered="#{not empty gerentePedidoMB.itensPedido}"
+				id="precoTotal" styleClass="precoTotalCarrinho"
+				value="#{msg['texto.R$']} #{formatacaoMB.formataPreco(gerentePedidoMB.valorTotalItens,2)}" />
+		</p:column>
+
+		<h:panelGrid
+			rendered="#{gerentePedidoMB.listasPromocoes.size() > 0 and gerentePedidoMB.listasPromocoes != null}"
+			id="promocoesCarrinho" styleClass="footerCarrinhoFrete"
+			style="padding-left:20px !important">
+			<h:outputText value="#{msg['titulo.promocoes']}" />
+			<ui:include src="/pieces/pedido/promocao.xhtml" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="5" styleClass="footerCarrinhoFrete"
+			rendered="#{gerentePedidoMB.clienteSelecionado != null}"
+			style="background:#f8f8ff; padding: 20px !important;border-top:solid 1px gray; width:100% !important; font-weight: normal !important"
+			columnClasses="colDivisoria0 , colDivisoria, colDivisoria, colDivisoria, colDivisoria">
+
+			<ui:include src="/pieces/pedido/comboTipoEntrega.xhtml" />
+
+
+			<ui:include src="/pieces/pedido/comboEnderecoEntrega.xhtml" />
+
+			<comp:outputInfo titulo="#{msg['texto.peso']}"
+				info="#{formatacaoMB.formataPreco(pedido.pesoBruto,3)} #{msg['texto.kg']}"
+				rendered="#{not empty pedido.pesoBruto and parametroWebMB.flagExibePesoProdutoCliente}" />
+
+			<comp:outputInfo titulo="#{msg['texto.volume']}"
+				info="#{pedido.metrosCubicos}#{msg['texto.m3']}"
+				rendered="#{not empty pedido.metrosCubicos}" />
+
+			<comp:outputInfo titulo="#{msg['texto.frete']}"
+				info="#{msg['texto.R$']} #{formatacaoMB.formataPreco(pedido.frete,2)}" />
+
+			<comp:inputCalendar titulo="#{msg['texto.dataEmissao']}"
+				disabled="false" value="#{pedido.dataEmissao}" id="dataEmissao"
+				update="@form, :header" var="dataEmissao" dataMinima="#{dataHoje}"
+				global="true" renderAsPopup="false" immediate="true"
+				rendered="#{gerentePedidoMB.parametros.parametroWeb.flagPermiteAlterarDataEmissaoModalidadeCliente}" />
+
+		</h:panelGrid>
+
+
+		<h:panelGrid columns="1" styleClass="footerCarrinhoFrete"
+			rendered="#{not empty gerentePedidoMB.locaisRetirada}"
+			style="background:#f8f8ff; padding: 20px !important;border-top:solid 1px gray; width:100% !important; font-weight: normal !important">
+			<ui:include src="/pieces/pedido/comboLocalRetira.xhtml" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="1" styleClass="footerCarrinhoFrete"
+			rendered="#{gerentePedidoMB.requerIdentificacaoCliente}"
+			style="background:#f8f8ff; padding: 20px !important;border-top:solid 1px gray; width:100% !important; font-weight: normal !important">
+
+			<comp:inputText titulo="#{msg['texto.idetificacao.cliente']}" requerFoco="true"
+				requerido="true" styleInput="width:75% !important"
+				value="#{gerentePedidoMB.pedido.clienteIdentificacao}"
+				maxCaracteres="200" />
+
+		</h:panelGrid>
+
+		<h:panelGrid id="panelFormas" styleClass="footerCarrinhoFrete"
+			style="padding-left:20px !important" rendered="false">
+			<p:selectOneRadio id="cr123" layout="custom"
+				value="#{gerentePedidoMB.formaPagamentoCodigo}">
+				<f:selectItems value="#{itemPedidoMB.formasPagamentoPermitidas}"
+					var="forma" itemLabel="#{forma.descricao}"
+					itemValue="#{forma.codigo}" />
+				<p:ajax />
+			</p:selectOneRadio>
+
+			<p:dataGrid value="#{itemPedidoMB.formasPagamentoPermitidas}"
+				var="forma" columns="4">
+				<h:panelGrid columns="1" styleClass="center">
+					<h:graphicImage width="70" height="70"
+						value="#{arquivo.getImageFormaPagamento(forma)}" />
+					<h:outputLabel value="#{forma.descricao}" />
+					<p:radioButton for=":formCarrinho:itens:cr123"
+						itemIndex="#{itemPedidoMB.formasPagamentoPermitidas.indexOf(forma)}" />
+				</h:panelGrid>
+			</p:dataGrid>
+		</h:panelGrid>
+
+	</h:panelGrid>
+
+</f:facet>

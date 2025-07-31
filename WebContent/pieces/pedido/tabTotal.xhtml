@@ -1,0 +1,99 @@
+<p:tab xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	title="#{msg['titulo.total']}" id="tabPedido6">
+
+	<div id="divTabPedido" style="width: 100%;">
+
+		<div id="tabPedidoCol1" style="display: inline-block; width: 50%;">
+			<p:panel id="panelAcDec" style="width:360px;">
+				<p:selectOneButton value="#{gerentePedidoMB.flagAcrescDesc}"
+					id="descAcresc"
+					valueChangeListener="#{gerentePedidoMB.acrescDescFlagChangeListener}"
+					style="margin-bottom:10px !important; text-align:center; margin:0;">
+
+					<f:selectItem itemLabel="#{msg['texto.desconto']}" itemValue="D" />
+					<f:selectItem itemLabel="#{msg['texto.acrescimo']}" itemValue="A" />
+
+					<p:ajax immediate="true" event="change" global="false"
+						update=":header, totais, panelAcDec" />
+				</p:selectOneButton>
+
+
+				<h:panelGrid columns="3" id="valoresAcrescDesc">
+
+					<h:panelGrid columns="2">
+						<p:inputText
+							value="#{gerentePedidoMB.descontoAcrescimoPercentual}" size="8"
+							id="descontoAcrescimoPercentual"
+							disabled="#{gerentePedidoMB.desabilitarDigitacaoAcrescimoDescontoPedido()}"
+							onkeypress="return isNumero(event);">
+							<p:ajax immediate="true" event="change" global="false"
+								update=":header, totais, panelAcDec" />
+						</p:inputText>
+						<h:outputText value="#{msg['texto.%']}" />
+						<h:column>
+							<h:outputText value="#{msg['texto.R$']}" rendered="false" />
+						</h:column>
+					</h:panelGrid>
+
+					<p:spacer width="20px" />
+
+					<h:panelGrid columns="2">
+						<h:outputText value="#{msg['texto.R$']}" />
+						<p:inputText value="#{gerentePedidoMB.descontoAcrescimoValor}"
+							size="8" id="descontoAcrescimoValor"
+							disabled="#{gerentePedidoMB.desabilitarDigitacaoAcrescimoDescontoPedido()}"
+							onkeypress="return isNumero(event);">
+							<p:ajax immediate="true" event="change" global="false"
+								update=":header, totais, panelAcDec" />
+						</p:inputText>
+						<h:column>
+							<h:outputText value="%" rendered="false" />
+						</h:column>
+					</h:panelGrid>
+				</h:panelGrid>
+
+				<div style="display: table">
+					<h:outputLabel
+						value="#{msg['alerta.pedido.desconto.pedido.itemofera']}"
+						style="color:red !important"
+						rendered="#{gerentePedidoMB.exibeInformacaoDescontoOferta}" />
+				</div>
+			</p:panel>
+
+			<h:panelGrid columns="5" styleClass="gridCadastro" id="resultados"
+				rendered="#{gerentePedidoMB.habilitarExibicaoComissaoPedido()}">
+
+				<comp:outputInfo titulo="#{msg['texto.comissao']}"
+					info="#{msg['texto.R$']} #{formatacaoMB.formataPreco2(pedido.valorComissao)}" />
+			</h:panelGrid>
+		</div>
+
+
+		<p:dataTable id="totais" var="preco"
+			value="#{gerentePedidoMB.precosFinal}"
+			style="width:50% !important; display:inline-block"
+			emptyMessage="#{msg['mensagem.naoHaInformacoes']}">
+			<f:facet name="header">#{msg['titulo.composicaoPedido']}</f:facet>
+
+			<p:column>
+				<f:facet name="header">
+							#{msg['texto.descricao']}
+						</f:facet>
+				<h:outputText value="#{preco.descricao}" />
+			</p:column>
+
+			<p:column style="text-align:right">
+				<f:facet name="header">
+							#{msg['texto.R$']}
+						</f:facet>
+				<h:outputText value="#{formatacaoMB.formataPreco2(preco.valor)}" />
+			</p:column>
+		</p:dataTable>
+
+	</div>
+</p:tab>

@@ -1,0 +1,27 @@
+<p:tab xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	title="#{msg['titulo.observacao']}" id="tabPedido5">
+
+	<div style="display: block; text-align: left">
+
+		<comp:inputTextArea titulo="#{msg['texto.observacao1']}"
+			value="#{pedido.observacao}" id="obs1" rows="2" cols="70"
+			maxCaracteres="60" eventoChange="#{pedido.observacao}">
+		</comp:inputTextArea>
+
+		<comp:inputTextArea titulo="#{msg['texto.observacao2']}"
+			value="#{pedido.observacao1}" id="obs2" rows="2" cols="70"
+			maxCaracteres="60" eventoChange="#{pedido.observacao1}">
+		</comp:inputTextArea>
+
+		<comp:inputTextArea titulo="#{msg['texto.observacao3']}"
+			value="#{pedido.observacao2}" id="obs3" rows="2" cols="70"
+			maxCaracteres="60" eventoChange="#{pedido.observacao2}">
+		</comp:inputTextArea>
+
+	</div>
+</p:tab>

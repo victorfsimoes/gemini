@@ -1,0 +1,12 @@
+<p:outputPanel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<div class="#{panelTipoGrade?'containerTituloPanelItemGrade':NULL}">
+			<h:outputText styleClass="tituloPanelItem capitalize"
+				value="#{formatacaoMB.formataDescricao(produto.descricaoVisualizacao.toLowerCase())}" />
+			<h:outputText value=" - #{msg['texto.codigo']} #{produto.codigo}"
+				rendered="#{panelTipoLista}" styleClass="textoCodigoEmLista" />
+		
+	</div>
+</p:outputPanel>

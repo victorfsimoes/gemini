@@ -1,0 +1,24 @@
+<p:fieldset xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	legend="#{msg['titulo.contato']}" styleClass="fieldsetConfirmaCadastro">
+
+	<comp:confirmaInputText titulo="#{msg['texto.nomeContato']}"
+		value="#{clienteImp.contato}" id="cNomeTel" requerido="true"
+		tamCampo="20" maxCaracteres="30" visualizacao="#{visualizacao}" />
+
+	<comp:confirmaInputMask titulo="#{msg['texto.telefone']} 1"
+		value="#{clienteImp.fone1}" mask="(99) 9999-9999" id="cFone1"
+		requerido="true" tamCampo="20" visualizacao="#{visualizacao}" />
+
+	<comp:confirmaInputMask titulo="#{msg['texto.telefone']} 2"
+		value="#{clienteImp.fone2}" mask="(99) 9999-9999" id="cFone2"
+		tamCampo="20" visualizacao="#{visualizacao}" />
+
+	<comp:confirmaInputText titulo="#{msg['texto.email']}"
+		value="#{clienteImp.email}" id="cEmail" requerido="true" tamCampo="20"
+		maxCaracteres="100" visualizacao="#{visualizacao}" />
+
+</p:fieldset>

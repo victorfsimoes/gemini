@@ -1,0 +1,43 @@
+<h:panelGrid xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	columns="#{panelTipoGrade?'1':'4'}" rendered="true"
+	styleClass="#{panelTipoGrade?'labelInfoPanelItemGrade':'labelInfoPanelItemLista'}">
+
+	<comp:outputInfo titulo="#{msg['texto.unidade']}:"
+		colunas="#{panelTipoGrade?'2':'1'}" styleClass="floatLeft"
+		rendered="#{produto.eProduto() and produtoDetalheMB.exibeUnidadeProdutoLista and not produtoDetalheMB.permiteSelecionarUnidadeCompraRapida}"
+		info="#{produto.unidadeDescricao.toLowerCase()}" />
+
+	<comp:comboBox titulo="#{msg['texto.unidade']}" requerido="true"
+		lista="#{produto.unidades}" var="unid"
+		itemLabel="#{unid.unidadeDescricao}"
+		itemValue="#{unid.produtoUnidadePK.ID}"
+		value="#{produto.unidadeSelecionadaID}"
+		rendered="#{produto.eProduto() and produtoDetalheMB.exibeUnidadeProdutoLista and produtoDetalheMB.permiteSelecionarUnidadeCompraRapida}"
+		valueChangeListener="#{produtoPesquisaMB.unidadeChangeListener}"
+		update=":produtoPesquisa:dataGridProdutos" />
+
+	<comp:outputInfo titulo="#{msg['texto.peso']}:"
+		colunas="#{panelTipoGrade?'2':'1'}"
+		styleClass="floatLeft #{panelTipoGrade?'':'paddingLeft15px'}"
+		info="#{formatacaoMB.formataDouble(produto.peso, 3)}#{msg['texto.kg']}"
+		rendered="#{produtoDetalheMB.exibeUnidadeProdutoLista and parametroWebMB.flagExibePesoProdutoCliente}" />
+
+	<comp:outputInfo titulo="#{msg['texto.estoque']}:"
+		colunas="#{panelTipoGrade?'2':'1'}"
+		styleClass="floatLeft #{panelTipoGrade?'':'paddingLeft15px'}"
+		info="#{formatacaoMB.formatarQuantidadeEstoque(produto.estoqueVisualizacao)}"
+		rendered="#{produtoDetalheMB.exibeEstoque and produto.estoque > 0 and not produto.emBalanco}" />
+
+
+	<p:outputPanel rendered="#{panelTipoLista}"
+		styleClass="floatLeft paddingLeft15px">
+		<ui:include
+			src="/pieces/pesquisaProdutos/panelItem/labelPromocao.xhtml" />
+	</p:outputPanel>
+
+</h:panelGrid>

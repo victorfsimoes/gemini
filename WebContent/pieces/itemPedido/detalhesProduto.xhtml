@@ -1,0 +1,53 @@
+<h:panelGrid xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui" contentType="text/html" columns="1"
+	style="width:350px; margin-top:20px">
+
+	<p:commandLink rendered="#{perfilColaborador and false}"
+		value="#{msg['texto.mais']} #{msg['acao.consultarCondicoesPagamento']}"
+		style="margin-top:30px; margin-bottom:30px" id="botaoTabelaPrecos" />
+
+	<p:overlayPanel rendered="#{perfilColaborador}" id="tabelaPrecos"
+		for="botaoTabelaPrecos" hideEffect="fade" styleClass="popupTabPrecos">
+		<ui:include src="/pieces/produto/condicaoPreco.xhtml" />
+	</p:overlayPanel>
+
+	<p:fieldset legend="#{msg['titulo.dadosProduto']}"
+		styleClass="fieldsetDetalhes">
+
+		<h:panelGrid columns="3" columnClasses="top, top, top">
+			<comp:outputInfo titulo="#{msg['texto.peso']}"
+				info="#{formatacaoMB.formataDouble(produto.peso,3)} #{msg['texto.kg']}" 
+				rendered=#{parametroWebMB.flagExibePesoProdutoCliente}/>
+			<p:spacer width="20" height="5" />
+			<comp:outputInfo titulo="#{msg['texto.unidadeEmbarque']}"
+				info="#{itemPedidoMB.unidadeEmbarque.unidadeDescricao}" />
+		</h:panelGrid>
+
+		<p:panel header="#{msg['titulo.detalhes']}"
+			toggleable="#{layoutPromocao}" collapsed="#{layoutPromocao}"
+			styleClass="panelDetalhes">
+			<h:panelGrid columns="2" styleClass="capitalize" cellspacing="10"
+				columnClasses="top,top divisaoDetalheProduto">
+				<comp:outputInfo titulo="#{msg['texto.marca']}"
+					info="#{itemPedidoMB.marca.descricao.toLowerCase()}"
+					rendered="#{not empty itemPedidoMB.marca}" />
+				<comp:outputInfo titulo="#{msg['texto.fabricante']}"
+					info="#{itemPedidoMB.fabricante.razao.toLowerCase()}"
+					rendered="#{not empty itemPedidoMB.fabricante}" />
+				<comp:outputInfo titulo="#{msg['texto.grupo']}"
+					info="#{produto.grupoWidget.descricao.toLowerCase()}"
+					rendered="#{not empty produto.grupoWidget}" />
+				<comp:outputInfo titulo="#{msg['texto.subgrupo']}"
+					info="#{produto.subGrupoWidget.descricao.toLowerCase()}"
+					rendered="#{not empty produto.subGrupoWidget}" />
+			</h:panelGrid>
+		</p:panel>
+
+	</p:fieldset>
+
+
+</h:panelGrid>

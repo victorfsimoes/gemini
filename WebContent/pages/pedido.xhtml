@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/layoutBasico.xhtml">
+
+	<ui:define name="header">
+		<h:outputStylesheet name="pedido.css" library="css/pages" />
+	</ui:define>
+
+	<ui:param name="aoCarregar" value="#{gerentePedidoMB.aoCarregar()}" />
+
+	<ui:define name="content">
+		<ui:param name="pedido" value="#{gerentePedidoMB.pedido}" />
+
+		<h:form id="formPedido">
+			<h1 class="tituloPags1">#{msg['titulo.pedido']}</h1>
+
+			<p:tabView
+				style="margin:0 !important; padding:0; width:100% !important"
+				dynamic="true" activeIndex="#{gerentePedidoMB.tabAtual}"
+				id="tabsPedido" widgetVar="tabPanelPedido">
+
+				<ui:include src="/pieces/pedido/tabPedido.xhtml" />
+				<ui:include src="/pieces/pedido/tabNegociacao.xhtml" />
+				<ui:include src="/pieces/pedido/tabItens.xhtml" />
+				<ui:include src="/pieces/pedido/tabPromocao.xhtml" />
+				<ui:include src="/pieces/pedido/tabEntrega.xhtml" />
+				<ui:include src="/pieces/pedido/tabObservacao.xhtml" />
+				<ui:include src="/pieces/pedido/tabTotal.xhtml" />
+			</p:tabView>
+
+
+
+			<p:commandButton escape="false" value="#{msg['acao.adicionarProdutos']}"
+				immediate="true" icon="ui-icon-cart"
+				oncomplete="document.location.href='#{rootPath}#{produtoPesquisaMB.urlView}'">
+			</p:commandButton>
+
+			<ui:include src="/pieces/carrinho/botao_finalizarCompra.xhtml" />
+
+			<p:commandButton escape="false" value="#{msg['acao.novoPedido']}" immediate="true"
+				styleClass="botaoNovoPedido" oncomplete="esvaziar.show()">
+			</p:commandButton>
+
+			<ui:include src="/pieces/pedido/dialogoNovoPedido.html" />
+		</h:form>
+
+
+	</ui:define>
+
+</ui:composition>
+</html>

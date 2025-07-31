@@ -1,0 +1,141 @@
+<p:tab xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	title="#{msg['titulo.itens']}" id="tabPedido2">
+
+	<div class="divCadastro">
+
+		<p:dataTable id="itens" var="item"
+			value="#{gerentePedidoMB.itensPedido}"
+			style="vertical-align:top !important;"
+			emptyMessage="#{msg['mensagem.nenhumProdutoAdicionado']}">
+
+			<f:facet name="header">#{msg['titulo.itensPedido']}</f:facet>
+
+			<p:column width="3%">
+				<p:rowToggler rendered="#{not empty item.promocao}" />
+			</p:column>
+
+			<!--  produtos -->
+			<p:column width="3%" headerText="#{msg['acao.excluir']}"
+				styleClass="colAcao">
+				<p:commandLink update="itens" process="@this"
+					action="#{itemPedidoMB.excluirItem(item)}"
+					onsuccess="redirecionar('#{rootPath}#{itemPedidoMB.urlView}')">
+					<h:graphicImage url="#{imagePath}x.png" />
+				</p:commandLink>
+			</p:column>
+
+			<p:column width="3%" headerText="#{msg['acao.editar']}"
+				styleClass="colAcao">
+				<p:commandLink update="itens" process="@this"
+					action="#{itemPedidoMB.alterarItem(item)}"
+					onsuccess="redirecionar('#{rootPath}#{itemPedidoMB.urlView}')">
+					<h:graphicImage url="#{imagePath}edit.png" />
+				</p:commandLink>
+			</p:column>
+
+			<p:column width="3%" headerText="#{msg['texto.codigo']}"
+				sortBy="#{item.produtoCodigo}">
+				#{item.produtoCodigo}
+				</p:column>
+
+			<p:column width="35%" headerText="#{msg['texto.produto']}"
+				styleClass="capitalize"
+				sortBy="#{item.produto.descricaoVisualizacao}">
+					#{item.produto.descricaoVisualizacao.toLowerCase()}
+				</p:column>
+
+			<p:column width="25%" headerText="#{msg['texto.quantidade']}"
+				styleClass="capitalize">
+
+				<p:spinner id="quantidade" value="#{item.quantidadeCarrinho}"
+					converterMessage="#{msg['alerta.valor.numerico.invalido']}"
+					min="1" max="#{item.produto.estoque}" size="5" style="height:30px"
+					disabled="#{not item.permiteAlterarQuantidadeNoList}">
+					<p:ajax immediate="true" event="change" global="false" />
+					<p:ajax immediate="true" event="keyup" global="false" />
+				</p:spinner>
+
+				<p:commandButton escape="false" value="#{msg['acao.alterar']}"
+					rendered="#{item.permiteAlterarQuantidadeNoList}" immediate="true"
+					update="itens, :header"
+					actionListener="#{itemPedidoMB.alterarQuantidadeCarrinho(item)}" />
+
+				<p:commandButton escape="false" value="#{msg['acao.alterar']}"
+					rendered="#{not item.permiteAlterarQuantidadeNoList}"
+					action="#{itemPedidoMB.alterarItem(item)}"
+					onsuccess="redirecionar('#{rootPath}#{itemPedidoMB.urlView}')" />
+			</p:column>
+
+			<p:column width="10%" headerText="#{msg['texto.unidade']}"
+				styleClass="alignCenter" sortBy="#{item.unidade}">
+				#{item.unidade}
+				</p:column>
+
+			<p:column id="precoUnitario" width="10%"
+				headerText="#{msg['texto.precoUnitario']}"
+				sortBy="#{item.precoVenda}">
+				<h:outputText
+					value="#{msg['texto.R$']} #{formatacaoMB.formataPreco(item.precoVenda, 2)}" />
+
+			</p:column>
+
+			<p:column id="precoTotal" width="10%"
+				headerText="#{msg['texto.valorTotal']}" sortBy="#{item.precoTotal}">
+				<h:outputText style="font-weight: bold" id="precoFinal"
+					value="#{msg['texto.R$']} #{formatacaoMB.formataPreco(item.precoTotal, 2)}" />
+			</p:column>
+
+			<!-- 
+			<p:column width="10%"
+				headerText="Peso bruto" sortBy="#{item.pesoBrutoProduto}">
+				<h:outputText style="font-weight: bold" 
+					value="#{item.pesoBrutoProduto}" />
+			</p:column>
+ 			-->
+			<p:rowExpansion>
+				<h:outputText rendered="#{not empty item.promocao}"
+					styleClass="bold" value="#{msg['texto.promocaoSelecionada']}" />
+				<p:spacer width="2px" />
+
+				<h:outputText rendered="#{not empty item.promocao}"
+					value="#{itemPedidoMB.obterDescricaoPromocao(item.produto, item.promocao)}" />
+			</p:rowExpansion>
+
+			<f:facet name="footer">
+				<h:outputText rendered="#{gerentePedidoMB.itensPedido.size() == 1}"
+					value="#{gerentePedidoMB.itensPedido.size()} #{msg['texto.produto']}" />
+				<h:outputText rendered="#{gerentePedidoMB.itensPedido.size() > 1}"
+					value="#{gerentePedidoMB.itensPedido.size()} #{msg['texto.produtos']}" />
+				<h:outputText rendered="#{not empty gerentePedidoMB.itensPedido}"
+					value=" #{msg['texto.comSubtotalDe']} #{msg['texto.R$']} #{formatacaoMB.formataPreco(gerentePedidoMB.valorTotalItens,2)}" />
+			</f:facet>
+
+		</p:dataTable>
+
+
+		<p:dataTable id="itensBonificados" var="tab" value="0"
+			style="vertical-align:top !important; margin-top:30px;"
+			rendered="false">
+			<f:facet name="header">#{msg['titulo.itensBonificados']}</f:facet>
+
+			<p:column headerText="#{msg['texto.produto']}">
+				-
+			</p:column>
+
+			<p:column headerText="#{msg['texto.quantidade']}" style="width:20%">
+				-
+			</p:column>
+
+			<p:column headerText="#{msg['texto.unidade']}" style="width:20%">
+				-
+			</p:column>
+
+		</p:dataTable>
+
+	</div>
+</p:tab>

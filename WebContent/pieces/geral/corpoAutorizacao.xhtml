@@ -1,0 +1,40 @@
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	id="panelAutorizacao" class="panelInternoLogin">
+
+	<h:outputText value="#{gerenteAutorizacaoMB.descricao}"
+		style="font-weight: bold; width:100%" id="descricao" />
+	<br />
+
+	<h:outputText value="#{gerenteAutorizacaoMB.observacao}" id="obs"
+		escape="false" style="width:100% !important; color:black" />
+
+	<p:inputTextarea rows="4" id="obsSolicitacao"
+		value="#{gerenteAutorizacaoMB.observacaoSolicitacao}"
+		style="width: 95%;" />
+	<p:watermark value="#{msg['texto.digiteObservacoes']}"
+		for="obsSolicitacao" />
+
+	<div style="display: inline-block">
+		<p:commandButton icon="ui-icon-cancel" value="#{msg['acao.cancelar']}"
+			action="#{gerenteAutorizacaoMB.cancelar()}"
+			oncomplete="#{sessaoMB.comandoVoltarErro}">
+		</p:commandButton>
+		<p:commandButton icon="ui-icon-transferthick-e-w"
+			value="#{msg['acao.solicitar']}"
+			disabled="#{not gerenteAutorizacaoMB.flagPermiteSolicitar}"
+			action="#{gerenteAutorizacaoMB.solicitar()}"
+			oncomplete="#{sessaoMB.comandoVoltarErro}">
+		</p:commandButton>
+		<p:commandButton icon="#{msg['figura.check']}"
+			value="#{msg['acao.autorizar']}"
+			rendered="#{gerenteAutorizacaoMB.permiteAutorizar}"
+			disabled="#{not gerenteAutorizacaoMB.flagPermiteAutorizar}"
+			action="#{gerenteAutorizacaoMB.autorizar()}"
+			oncomplete="#{sessaoMB.comandoVoltarErro}">
+		</p:commandButton>
+	</div>
+</div>

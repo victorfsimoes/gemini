@@ -1,0 +1,28 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:outputPanel
+		rendered="#{not empty gerentePedidoMB.colaboradores and historicoPedidosMB.exibirColaboradores}">
+
+		<h3 class="tituloBoxImpressao">#{msg['titulo.colaboradores']}</h3>
+		<h:dataTable frame="above" value="" style="width:100%">
+
+			<h:column>
+
+				<ul style="margin: 0">
+					<ui:repeat var="colaborador"
+						value="#{gerentePedidoMB.colaboradores}">
+						<li>#{colaborador.razaoSocial.toLowerCase()}</li>
+					</ui:repeat>
+				</ul>
+
+			</h:column>
+
+		</h:dataTable>
+
+	</p:outputPanel>
+
+</f:view>

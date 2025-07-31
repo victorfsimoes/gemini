@@ -1,0 +1,28 @@
+<h:panelGrid xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui" columns="2"
+	style="width: 100% !important;">
+
+	<p:column style="width: 100%;">
+		<h:panelGrid columns="2">
+			<h:outputText value="#{msg['texto.unidadeEmbarque']}: "
+				styleClass="textCadastro" />
+			<h:outputText
+				value="#{MBProdutoDetalhe.unidadeEmbarque.unidadeDescricao}" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="2" rendered="#{MBProdutoDetalhe.exibePesoProduto}">
+			<h:outputText value="#{msg['texto.peso']}: "
+				styleClass="textCadastro" />
+			<h:outputText id="labelPeso"
+				value="#{formatacaoMB.formataDouble(MBProdutoDetalhe.peso,3)}#{msg['texto.kg']}" />
+		</h:panelGrid>
+	</p:column>
+
+	<p:column style="float:right;">
+		<ui:include src="/pieces/itemPedido/labelEstoque.xhtml" />
+	</p:column>
+</h:panelGrid>

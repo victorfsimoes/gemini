@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/templates/layoutBasico.xhtml">
+
+	<ui:define name="headerMetatags">
+		<meta property="og:title"
+			content="#{msg['titulo.produtos']} #{parametros.parametroWeb.siteTitulo}" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="http://#{rootURL}#{rootPath}/produtos/" />
+		<meta property="og:image"
+			content="#{imageApplicationLogo}#{escolhaTemaMB.temaEscolhido.imagemLogo}" />
+		<meta property="og:description"
+			content="Space Venda Web - Demonstração de loja virtual do Grupo Space Informática" />
+	</ui:define>
+
+	<ui:define name="header">
+		<h:outputStylesheet library="css/pages" name="produtos.css" />
+		<h:outputStylesheet library="css/pages/boxItemProduto"
+			name="#{produtoPesquisaMB.layoutListaProduto == 0?'layout0.css':'layout1.css'}" />
+
+		<ui:param name="tagCloud" value="false" />
+		<ui:param name="categoriaSelecionada" value="true" />
+
+		<ui:include src="/pieces/pesquisaProdutos/headerBanner.xhtml" />
+
+		<script type="text/javascript">
+	         function resetTabIndex(){
+	        	 dataGridProduto.getPaginator().setPage(0);
+	        	 irParaTopoDaTela();
+			}
+		</script>
+
+	</ui:define>
+
+	<ui:define name="topBody">
+		<ui:include src="/pieces/pesquisaProdutos/headerScrollPesquisa.xhtml" />
+	</ui:define>
+
+	<ui:define name="contentLeft">
+		<div class="panelContainerLeft">
+			<h:form id="menuLateralEsquerdo">
+				<ui:include src="/pieces/pesquisaProdutos/menuCategorias.xhtml" />
+			</h:form>
+		</div>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="produtoPesquisa">
+			<ui:insert name="pesquisaProdutos" />
+		</h:form>
+	</ui:define>
+
+	<ui:define name="contentRight">
+		<div class="panelContainerRight">
+			<h:form id="barraLateralDireita">
+				<ui:include src="/pieces/pesquisaProdutos/lateralDireita.xhtml" />
+			</h:form>
+		</div>
+	</ui:define>
+
+</ui:composition>
+
+</html>

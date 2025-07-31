@@ -1,0 +1,28 @@
+<p:panel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	styleClass="left wizardCadastro">
+
+	<comp:inputText titulo="#{msg['texto.nomeContato']}"
+		value="#{clienteImp.contato}" id="nomeTel" tamCampo="40"
+		requerido="true" maxCaracteres="30" />
+		
+	<h:panelGrid columns="2">
+
+		<comp:inputMask titulo="#{msg['texto.telefone']} 1"
+			value="#{clienteImp.fone1}" mask="(99) 9999-9999" id="fone1"
+			tamCampo="40" requerido="true" />
+
+		<comp:inputMask titulo="#{msg['texto.telefone']} 2"
+			value="#{clienteImp.fone2}" mask="(99) 9999-9999" id="fone2"
+			tamCampo="40" />
+
+	</h:panelGrid>
+
+	<comp:inputMask titulo="#{msg['texto.email']}"
+		value="#{clienteImp.email}" idCampo="email" tamCampo="92"
+		requerido="true" maxCaracteres="100" />
+
+</p:panel>

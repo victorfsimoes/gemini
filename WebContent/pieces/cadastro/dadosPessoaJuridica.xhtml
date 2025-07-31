@@ -1,0 +1,90 @@
+<p:outputPanel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	styleClass="left wizardCadastro" rendered="#{pessoaJuridica}">
+
+	<comp:inputText titulo="#{msg['texto.fantasia']}"
+		value="#{pessoa.fantasia}" id="fantasia" maxCaracteres="45"
+		tamCampo="80" />
+
+	<p:panel style="margin-bottom:10px;" id="panelInscricaoEstadual">
+		<h:outputText value="#{msg['texto.inscricaoEstadual']}"
+			style="text-transform: uppercase; font-weight:bold" />
+		<p:separator />
+		<h:panelGrid columns="2" style="padding-top:10px;padding-bottom:10px;">
+			<p:selectBooleanCheckbox
+				value="#{gerenteClienteMB.inscricaoEstadualIsenta}">
+				<p:ajax event="change" update="panelInscricaoEstadual" />
+			</p:selectBooleanCheckbox>
+			<h:outputText value="#{msg['texto.isento']}"
+				styleClass="#{gerenteClienteMB.inscricaoEstadualIsenta?'textCadastro':''}" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="2">
+
+			<h:panelGrid columns="1"
+				rendered="#{not gerenteClienteMB.inscricaoEstadualIsenta}">
+				<p:outputLabel for="ufInscricaoEstadual" styleClass="textCadastro"
+					value="#{msg['texto.uf']}" />
+				<p:autoComplete id="ufInscricaoEstadual" forceSelection="true"
+					completeMethod="#{gerenteClienteMB.pesquisarInscricaoEstadual}"
+					value="#{gerenteClienteMB.ufInscricaoEstadual}"
+					style="text-transform: uppercase !important" var="i"
+					itemValue="#{i.ufSigla}" itemLabel="#{i}"
+					panelStyle="overflow-x: hidden" size="26" required="true">
+					<p:column style="border:none !important">  
+                    #{i.ufSigla} (#{i.ufNome})  
+               		</p:column>
+
+					<f:facet name="itemtip">
+						<h:outputText value="Formato:" />
+						<br />
+						<h:outputText value="#{i.mascara}" />
+					</f:facet>
+
+					<p:ajax event="itemSelect" update="panelInscricaoEstadual" />
+				</p:autoComplete>
+			</h:panelGrid>
+
+
+			<comp:inputMask titulo="#{msg['texto.numero']}"
+				value="#{pessoa.inscricaoEstadual}" id="inscricaoEstadual"
+				requerido="true"
+				rendered="#{not empty gerenteClienteMB.ufInscricaoEstadual and not gerenteClienteMB.inscricaoEstadualIsenta}"
+				mask="#{gerenteClienteMB.recuperaInscricaoPorUf(gerenteClienteMB.ufInscricaoEstadual).mascara}" />
+		</h:panelGrid>
+
+	</p:panel>
+
+	<p:panel style="margin-bottom:10px;" id="panelInscricaoMunicipal">
+		<h:outputText value="#{msg['titulo.inscricaoMunicipal']}"
+			style="text-transform: uppercase; font-weight:bold" />
+		<p:separator />
+		<h:panelGrid columns="2" style="padding-top:10px;padding-bottom:10px;">
+			<p:selectBooleanCheckbox
+				value="#{gerenteClienteMB.inscricaoMunicipalIsenta}">
+				<p:ajax event="change" update="panelInscricaoMunicipal" />
+			</p:selectBooleanCheckbox>
+			<h:outputText value="#{msg['texto.isento']}"
+				styleClass="#{gerenteClienteMB.inscricaoMunicipalIsenta?'textCadastro':''}" />
+		</h:panelGrid>
+
+		<comp:inputText titulo="#{msg['texto.numero']}"
+			value="#{pessoa.inscricaoMunicipal}" id="inscricaoMunicipal"
+			requerido="true"
+			rendered="#{not gerenteClienteMB.inscricaoMunicipalIsenta}" />
+
+
+	</p:panel>
+
+	<comp:comboBox titulo="#{msg['texto.atividade']}"
+		value="#{pessoa.atividadeCodigo}" id="atividade"
+		var="atividade"
+		itemLabel="#{atividade.descricaoAtividade}" itemValue="#{atividade.codigoAtividade}"
+		rendered="#{not empty gerenteClienteMB.todasAtividades}" filter="true"
+		lista="#{gerenteClienteMB.todasAtividades}" />
+
+</p:outputPanel>

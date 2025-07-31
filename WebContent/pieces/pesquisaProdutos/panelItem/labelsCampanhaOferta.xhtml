@@ -1,0 +1,19 @@
+<p:outputPanel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	rendered="#{(produto.emCampanha or produto.emOferta and permiteVenda)}">
+
+	<h:panelGrid columns="1" style="width:40px !important">
+
+		<p:graphicImage rendered="#{produto.emOferta}"
+			value="#{imagePath}sale.png" width="40" height="40"
+			title="#{msg['texto.oferta']}" />
+
+		<p:graphicImage
+			rendered="#{produto.emCampanha and gerenteLogin.perfilColaborador}"
+			url="#{imagePath}campanha.png" width="40" height="40"
+			title="#{msg['texto.itemEmCampanha']}" />
+	</h:panelGrid>
+</p:outputPanel>

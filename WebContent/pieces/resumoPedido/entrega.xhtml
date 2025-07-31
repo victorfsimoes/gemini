@@ -1,0 +1,95 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<style type="">
+.tabelaResumoEntrega .theader {
+	font-weight: normal !important;
+}
+</style>
+
+	<h3 class="tituloBoxImpressao">#{msg['titulo.entrega']}</h3>
+
+	<h:dataTable style="width: 100%; text-align:center;" border="0"
+		frame="above" value="none">
+
+		<h:column rendered="#{false and pedido.dataEntrega != null}">
+			<h:outputText styleClass="tituloResumo"
+				value="#{msg['texto.dataEntrega']}" />
+			<h:outputText styleClass="campoResumo"
+				value="#{formatacaoMB.formataData(pedido.dataEntrega)}" />
+		</h:column>
+
+		<h:column
+			rendered="#{parametroWebMB.flagExibePesoProdutoCliente}">
+			<h:outputText styleClass="tituloResumo" value="#{msg['texto.peso']}" />
+			<h:outputText styleClass="campoResumo"
+				value="#{pedido.pesoBruto}#{msg['texto.kg']}" />
+		</h:column>
+
+		<h:column>
+			<h:outputText styleClass="tituloResumo"
+				value="#{msg['texto.volume']}" />
+			<h:outputText styleClass="campoResumo"
+				value="#{pedido.metrosCubicos}#{msg['texto.m3']}" />
+		</h:column>
+
+		<h:column>
+			<h:outputText styleClass="tituloResumo"
+				value="#{msg['texto.transportador']}" />
+			<h:outputText styleClass="campoResumo"
+				value="#{historicoPedidosMB.transportadoraSelecionada.pessoa.codigo} - #{historicoPedidosMB.transportadoraSelecionada.pessoa.razao}" />
+		</h:column>
+
+		<h:column>
+
+			<fieldset style="text-align: left; text-transform: capitalize">
+				<legend>#{msg['texto.enderecoEntrega']}</legend>
+
+				<p>
+					#{historicoPedidosMB.enderecoEntregaSelecionado.toString().toLowerCase()}
+				</p>
+
+			</fieldset>
+
+		</h:column>
+		
+			<h:column rendered="#{historicoPedidosMB.localRetiraSelecionada != null}">
+
+			<fieldset style="text-align: left; text-transform: capitalize">
+				<legend>#{msg['texto.localRetira']}</legend>
+
+				<p>
+					#{historicoPedidosMB.localRetiraSelecionada.toString().toLowerCase()}
+				</p>
+
+			</fieldset>
+		</h:column>
+	</h:dataTable>
+
+	<h:dataTable value="" rendered="false">
+		<h:column
+			rendered="#{historicoPedidosMB.gerentePedido.pedido.tipoSeparacao != null and not empty historicoPedidosMB.gerentePedido.pedido.tipoSeparacao}">
+			<strong>#{msg['texto.tipoEntrega']}</strong>
+			<br />
+					#{historicoPedidosMB.gerentePedido.pedido.tipoSeparacao}
+				
+		</h:column>
+
+		<h:column rendered="false">
+			<strong>#{msg['texto.ordemEntrega']}</strong>
+			<br />#{pedido.ordemEntrega}
+					</h:column>
+
+		<h:column
+			rendered="#{historicoPedidosMB.gerentePedido.pedido.turnoEntregaCodigo > 0}">
+			<strong>#{msg['texto.turnoEntrega']}</strong>
+			<br />#{historicoPedidosMB.gerentePedido.pedido.turnoEntregaCodigo}
+				
+		</h:column>
+	</h:dataTable>
+
+
+
+</f:view>

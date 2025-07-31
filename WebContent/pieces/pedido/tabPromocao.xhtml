@@ -1,0 +1,146 @@
+<p:tab xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	title="#{msg['titulo.promocoes']}" id="tabPedido3"
+	rendered="#{not empty gerentePedidoMB.listasPromocoes and gerentePedidoMB.listasPromocoes != null}">
+
+	<p:dataTable var="promo" id="promosAdicionaPrazo"
+		value="#{gerentePedidoMB.listasPromocoes.get(0)}"
+		rendered="#{not empty gerentePedidoMB.listasPromocoes.get(0)}"
+		selection="#{gerentePedidoMB.promocaoSelecionada}"
+		rowKey="#{promo.promocaoPK.numero}">
+
+		<f:facet name="header">#{msg['titulo.promocaoPor']} #{msg['titulo.adicaoPrazo']}</f:facet>
+
+		<p:column selectionMode="single"
+			disabledSelection="#{gerentePedidoMB.valorTotalItens lt promo.faixaValorInicio}" />
+
+		<p:ajax event="rowSelectRadio" global="false"
+			update=":formPedido:tabsPedido:promosVencimentoFixo, :formPedido:tabsPedido:promosPrazoFinal, :formPedido:tabsPedido:promosDescontoMaximo, :formPedido:tabsPedido:prazoEspecial:inputText" />
+
+		<p:column headerText="#{msg['texto.valorMinimo']}">
+			<h:outputText
+				value="#{msg['texto.R$']} #{formatacaoMB.formataPreco(promo.faixaValorInicio,2)}"
+				styleClass="#{gerentePedidoMB.valorTotalItens lt promo.faixaValorInicio?'error':NULL}" />
+			<h:outputText
+				value=", compre mais #{msg['texto.R$']} #{formatacaoMB.formataPreco(promo.faixaValorInicio - gerentePedidoMB.valorTotalItens,2)}"
+				rendered="#{gerentePedidoMB.valorTotalItens lt promo.faixaValorInicio}" />
+		</p:column>
+
+		<p:column headerText="#{msg['titulo.adicaoPrazo']}">
+			+ #{promo.prazoPromocao} #{msg['texto.dias']}
+		
+		</p:column>
+
+		<p:column headerText="#{msg['texto.periodoPromocao']}">
+			#{formatacaoMB.formataData(promo.dataInicio)} #{msg['texto.a']} #{formatacaoMB.formataData(promo.dataFim)}
+		</p:column>
+
+	</p:dataTable>
+
+	<p:dataTable var="promo" id="promosPrazoFinal"
+		rendered="#{not empty gerentePedidoMB.listasPromocoes.get(1)}"
+		value="#{gerentePedidoMB.listasPromocoes.get(1)}"
+		selection="#{gerentePedidoMB.promocaoSelecionada}"
+		rowKey="#{promo.promocaoPK.numero}">
+
+		<f:facet name="header">#{msg['titulo.promocaoPor']} #{msg['titulo.prazoTotal']}</f:facet>
+
+		<p:column selectionMode="single"
+			disabledSelection="#{gerentePedidoMB.valorTotalItens lt promo.faixaValorInicio}" />
+
+		<p:ajax event="rowSelectRadio" global="false"
+			update=":formPedido:tabsPedido:promosAdicionaPrazo, :formPedido:tabsPedido:promosVencimentoFixo, :formPedido:tabsPedido:promosDescontoMaximo, @form" />
+
+		<p:column headerText="#{msg['texto.valorMinimo']}"
+			rendered="#{perfilColaborador}">
+			<h:outputText
+				value="#{msg['texto.R$']} #{formatacaoMB.formataPreco(promo.faixaValorInicio,2)}"
+				styleClass="#{gerentePedidoMB.valorTotalItens lt promo.faixaValorInicio?'error':NULL}" />
+			<h:outputText
+				value=", compre mais #{msg['texto.R$']} #{formatacaoMB.formataPreco(promo.faixaValorInicio - gerentePedidoMB.valorTotalItens,2)}"
+				rendered="#{gerentePedidoMB.valorTotalItens lt promo.faixaValorInicio}" />
+		</p:column>
+
+		<p:column headerText="#{msg['titulo.prazoTotal']}"
+			rendered="#{perfilColaborador}">
+			#{promo.prazoPromocao} #{msg['texto.dias']}
+		</p:column>
+
+		<p:column headerText="#{msg['texto.periodoPromocao']}"
+			rendered="#{perfilColaborador}">
+			#{formatacaoMB.formataData(promo.dataInicio)} #{msg['texto.a']} #{formatacaoMB.formataData(promo.dataFim)}
+		</p:column>
+
+	</p:dataTable>
+
+	<p:dataTable var="promo" id="promosVencimentoFixo"
+		rendered="#{not empty gerentePedidoMB.listasPromocoes.get(2)}"
+		value="#{gerentePedidoMB.listasPromocoes.get(2)}"
+		selection="#{gerentePedidoMB.promocaoSelecionada}"
+		rowKey="#{promo.promocaoPK.numero}">
+
+		<f:facet name="header">#{msg['titulo.promocaoPor']} #{msg['titulo.vencimentoFixo']}</f:facet>
+
+		<p:column selectionMode="single"
+			disabledSelection="#{gerentePedidoMB.valorTotalItens lt promo.faixaValorInicio}" />
+
+		<p:ajax event="rowSelectRadio" global="false"
+			update=":formPedido:tabsPedido:promosPrazoFinal, :formPedido:tabsPedido:promosAdicionaPrazo, :formPedido:tabsPedido:promosDescontoMaximo, @form" />
+
+		<p:column headerText="#{msg['texto.valorMinimo']}">
+			<h:outputText
+				value="#{msg['texto.R$']} #{formatacaoMB.formataPreco(promo.faixaValorInicio,2)}"
+				styleClass="#{gerentePedidoMB.valorTotalItens lt promo.faixaValorInicio?'error':NULL}" />
+			<h:outputText
+				value=", compre mais #{msg['texto.R$']} #{formatacaoMB.formataPreco(promo.faixaValorInicio - gerentePedidoMB.valorTotalItens,2)}"
+				rendered="#{gerentePedidoMB.valorTotalItens lt promo.faixaValorInicio}" />
+		</p:column>
+
+		<p:column headerText="#{msg['titulo.vencimentoFixo']}">
+			#{formatacaoMB.formataData(promo.dataVencimentoFixo)}
+		</p:column>
+
+		<p:column headerText="#{msg['texto.periodoPromocao']}">
+			#{formatacaoMB.formataData(promo.dataInicio)} #{msg['texto.a']} #{formatacaoMB.formataData(promo.dataFim)}
+		</p:column>
+
+	</p:dataTable>
+
+	<p:dataTable var="promo" id="promosDescontoMaximo"
+		rendered="#{not empty gerentePedidoMB.listasPromocoes.get(3) and gerenteLogin.perfilColaborador}"
+		value="#{gerentePedidoMB.listasPromocoes.get(3)}"
+		selection="#{gerentePedidoMB.promocaoSelecionada}"
+		rowKey="#{promo.promocaoPK.numero}">
+
+		<f:facet name="header">#{msg['titulo.promocaoPor']} #{msg['titulo.descontoMaximo']}</f:facet>
+
+		<p:column selectionMode="single"
+			disabledSelection="#{gerentePedidoMB.valorTotalItens lt promo.faixaValorInicio}" />
+
+		<p:ajax event="rowSelectRadio" global="false"
+			update=":formPedido:tabsPedido:promosVencimentoFixo, :formPedido:tabsPedido:promosAdicionaPrazo, :formPedido:tabsPedido:promosPrazoFinal, @form" />
+
+		<p:column headerText="#{msg['texto.valorMinimo']}">
+			<h:outputText
+				value="#{msg['texto.R$']} #{formatacaoMB.formataPreco(promo.faixaValorInicio,2)}"
+				styleClass="#{gerentePedidoMB.valorTotalItens lt promo.faixaValorInicio?'error':NULL}" />
+			<h:outputText
+				value=", compre mais #{msg['texto.R$']} #{formatacaoMB.formataPreco(promo.faixaValorInicio - gerentePedidoMB.valorTotalItens,2)}"
+				rendered="#{gerentePedidoMB.valorTotalItens lt promo.faixaValorInicio}" />
+		</p:column>
+
+		<p:column headerText="#{msg['titulo.descontoMaximo']}">
+			#{promo.percentualDescontoItem} %
+		</p:column>
+
+		<p:column headerText="#{msg['texto.periodoPromocao']}">
+			#{formatacaoMB.formataData(promo.dataInicio)} #{msg['texto.a']} #{formatacaoMB.formataData(promo.dataFim)}
+		</p:column>
+
+	</p:dataTable>
+
+</p:tab>

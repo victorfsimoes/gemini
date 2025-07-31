@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+<ui:composition template="/templates/layoutBasico.xhtml">
+
+	<ui:param name="aoCarregar" value="#{gerentePedidoMB.aoCarregar()}" />
+
+	<ui:define name="header">
+		<h:outputStylesheet library="css/pages" name="carrinho.css" />
+	</ui:define>
+
+	<ui:define name="content">
+		<ui:param name="pedido" value="#{gerentePedidoMB.pedido}" />
+
+		<p:panel styleClass="panelTransparente" id="panelContainerCheckout"
+			style="width: 100% !important;">
+
+			<h1 class="tituloPags1">#{msg['titulo.pagamento']}</h1>
+			<ui:param name="pagNumCrono" value="2" />
+			<ui:include src="/pieces/carrinho/passos.xhtml"/>
+
+			<h:form id="formPagamentoCarrinho">
+			
+				<ui:include src="/pieces/carrinho/pagamento.xhtml" />
+
+				<h:panelGrid columns="1" style="width:100%; text-align:center">
+					<ui:include src="/pieces/carrinho/botao_finalizarCompra.xhtml" />
+				</h:panelGrid>
+
+			</h:form>
+		</p:panel>
+	</ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,32 @@
+<h:panelGrid xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui" columns="2"
+	style="margin: 20px 0px 0px 0px; padding:5px; text-align: left; width:70%; float:left; "
+	styleClass="corLabelPromocao" rendered="#{produto.emPromocao}"
+	id="labelAlertaPromocao">
+
+	<img src="#{rootPath}/resources/img/promocao.png" />
+
+	<h:column rendered="#{itemPedidoMB.promocaoSelecionada == null}">
+		<h:outputText value="#{msg['texto.maisVantagens']}" styleClass="bold" />
+		<br />
+		<h:outputText value="#{msg['texto.itemPromocao']},"
+			styleClass="textoCinzaEscuro" />
+		<a href="#promocoes">#{msg['acao.escolhaUma']}</a>
+		<h:outputText value="!" styleClass="textoCinzaEscuro" />
+	</h:column>
+
+
+	<h:column rendered="#{itemPedidoMB.promocaoSelecionada != null}">
+		<h:outputText value="#{msg['texto.maisVantagens']}" styleClass="bold" />
+		<br/>
+		<h:outputText
+			value="#{msg['texto.voceGanhou']} #{itemPedidoMB.descricaoPromocaoSelecionada}!" />
+		<br/>
+		<a href="#promocoes">#{msg['texto.querOutra']}</a>
+	</h:column>
+
+</h:panelGrid>

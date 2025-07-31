@@ -1,0 +1,23 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<div class="panelFooterSpace">
+		<a href="#{rodapeMB.siteInstitucional}" target="_blank"
+			title="#{msg['acao.visitarInstitucional']}"
+			class="linkSpace">#{rodapeMB.siteInstitucionalTitulo}</a>
+	</div>
+
+	<div class="panelFooter">
+		<div class="divFooterEndereco">
+			<h:outputText styleClass="capitalize center" escape="false"
+				value="#{rodapeMB.montarEndereco()}" />
+			<h:outputText value="#{rodapeMB.parametroWeb.siteRodapeTitulo}"
+				styleClass="bold" rendered="false" />
+		</div>
+		<ui:include src="/pieces/rodape/rodapeExtendido.xhtml" />
+	</div>
+
+</f:view>

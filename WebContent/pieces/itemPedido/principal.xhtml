@@ -1,0 +1,68 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="formItemPedido">
+
+		<h:panelGrid columns="1"
+			style="#{temMultimidia?'width:100%':'width:80%;padding-left:10%'}; margin-left:0; text-align:center;"
+			columnClasses="top, middle">
+
+			<p:column>
+
+				<h:panelGrid columns="3" style="width: 100% !important;">
+					<comp:comboBox titulo="#{msg['texto.unidade']}" requerido="true"
+						lista="#{itemPedidoMB.unidades}" var="unid"
+						itemLabel="#{unid.unidadeDescricao}"
+						itemValue="#{unid.produtoUnidadePK.ID}"
+						value="#{itemPedidoMB.unidadeSelecionadaID}" id="unidade"
+						disabled="#{itemPedidoMB.desabilitarCampos or not itemPedidoMB.incluindoItem}"
+						update=":formItemPedido:labelEstoque, :promocoes, :formItemPedido:labelAlertaPromocao, :panelItensKit, :formItemPedido:panelDescAcresc, :formItemPedido:panelPrecos, :formItemPedido:precoFinal, :formItemPedido:labelPeso" />
+
+					<comp:comboBox titulo="#{msg['texto.localEstoque']}"
+						requerido="true" lista="#{itemPedidoMB.locaisEstoque}" var="local"
+						itemLabel="#{local.descricao}" itemValue="#{local.codigo}"
+						value="#{itemPedidoMB.localEstoqueSelecionadoID}"
+						id="localEstoque"
+						disabled="#{itemPedidoMB.desabilitarCampos or not itemPedidoMB.incluindoItem}"
+						rendered="#{not empty itemPedidoMB.locaisEstoque and perfilColaborador}" />
+
+					<comp:comboBox titulo="#{msg['texto.lote']}" requerido="true"
+						lista="#{itemPedidoMB.lotes}" var="lote"
+						itemLabel="#{lote.produtoLotePK.pleLote}"
+						itemValue="#{lote.produtoLotePK.ID}"
+						value="#{itemPedidoMB.loteSelecionadoID}" id="lote"
+						disabled="#{itemPedidoMB.desabilitarCampos or not itemPedidoMB.incluindoItem}"
+						rendered="#{not empty itemPedidoMB.lotes and perfilColaborador}" />
+				</h:panelGrid>
+
+				<ui:include src="/pieces/itemPedido/labelInformacao.xhtml" />
+
+				<ui:include
+					src="/pieces/pesquisaProdutos/panelItem/panelEsgotado.xhtml" />
+
+				<ui:include src="/pieces/itemPedido/controleColaborador.xhtml" />
+
+				<!-- 
+			<ui:include src="/pieces/itemPedido/labelEstoque.xhtml" />
+			 -->
+			</p:column>
+
+			<ui:include src="/pieces/itemPedido/panelPrecos.xhtml" />
+
+			<p:outputPanel
+				style="margin-top:10px; width: 100%; display: inline-block;">
+
+				<ui:include src="/pieces/itemPedido/labelPromocao.xhtml" />
+
+				<ui:include src="/pieces/itemPedido/botoes.xhtml" />
+			</p:outputPanel>
+
+
+		</h:panelGrid>
+
+	</h:form>
+</f:view>

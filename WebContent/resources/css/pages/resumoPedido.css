@@ -1,0 +1,249 @@
+@CHARSET "ISO-8859-1";
+
+p {
+	padding: 5px;
+	margin: 0;
+	font-size: x-small !important;
+}
+
+hr { /*margin: 5px !important;*/
+	
+}
+
+legend {
+	background: white !important;
+	font-size: x-small !important;
+	margin-bottom: -2px !important;
+}
+
+fieldset {
+	padding: 0 0 0 1px !important;
+	font-size: x-small !important;
+}
+
+.grid {
+	width: 100%;
+	vertical-align: top;
+}
+
+.panelPreviewImpressaoPedido {
+	display: inline-block;
+	box-shadow: -1px 0px 4px 0px rgba(0, 0, 0, 0.7);
+	font-size: x-small !important;
+	width: 80%;
+	border: 2px #6fbadc solid;
+}
+
+.panelPreviewImpressaoPedidoCliente {
+	display: block;
+	font-size: x-small !important;
+	width: 99.5%;
+}
+
+.panelPreviewImpressaoPedidoCliente .ui-panel-title,
+	.panelPreviewImpressaoPedido .ui-panel-title {
+	font-size: small;
+}
+
+.painelGeral {
+	text-align: left;
+	padding: 5px;
+	margin: 5px;
+	vertical-align: top;
+	font-family: sans-serif;
+	text-transform: capitalize;
+	font-size: x-small !important;
+}
+
+.painelPrecoTotal {
+	border: solid 2px black;
+}
+
+.precoTotalDestaque {
+	font-weight: bold;
+	color: rgb(211, 58, 55);
+	text-align: center;
+}
+
+.tabelaDados {
+	border: none;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	padding: 0;
+}
+
+.tabelaDados td {
+	border: none;
+	border-right: 1px solid black !important;
+	border-top: 1px solid black !important;
+}
+
+.tabelaDados thead td {
+	font-weight: bold;
+}
+
+.tituloResumo {
+	font-weight: bold;
+	display: block;
+	font-size: x-small !important;
+	/*font-size: 0.89em !important;*/
+}
+
+.campoResumo {
+	display: block;
+	text-transform: capitalize;
+}
+
+.fonteImpressao {
+	font-size: x-small !important;
+}
+
+.col15 {
+	width: 15% !important;
+}
+
+.tabI {
+	width: 100%;
+	display: block;
+	font-size: x-small;
+}
+
+.tabIColCod {
+	width: 5%;
+	text-align: left;
+}
+
+.tabIColDesc {
+	width: 55%;
+	text-align: left;
+}
+
+.tabIColDescRevenda {
+	width: 45%;
+	text-align: left;
+}
+
+.tabIColQnt {
+	width: 7%;
+	text-align: left;
+}
+
+.tabIColUni {
+	width: 8%;
+	text-align: left;
+}
+
+.tabIColPrecoUni {
+	width: 11%;
+	text-align: right;
+}
+
+.tabIColPrecoTotal {
+	width: 13%;
+	text-align: right;
+}
+
+.tabIColPrecoRevenda {
+	width: 11%;
+	text-align: right;
+}
+
+h3 {
+	text-align: left !important;
+	margin-bottom: -3px;
+	margin-top: 0 !important;
+	display: block;
+	font-size: small !important;
+}
+
+table td {
+	font-size: x-small !important;
+}
+
+table thead {
+	font-size: x-small !important;
+	text-align: left;
+}
+
+.notaRodapeImpressao {
+	text-align: center;
+	font-style: italic;
+	display: block;
+	font-size: x-small;
+}
+
+/* PANEL CONFIGURACAO DE IMPRESSAO */
+.panelConfig {
+	background: rgb(245, 245, 245);
+	font-size: 0.9em;
+	vertical-align: top;
+	margin-top: 4px;
+	padding-bottom: 5px !important;
+	display: inline-block;
+	width: 18%;
+	text-align: left;
+}
+
+.tituloPanelConfig {
+	text-align: center;
+}
+
+.tituloConfig {
+	display: block;
+	font-weight: bold;
+	border-bottom: gray 1px inset;
+	text-align: left;
+	margin: 0 10px 5px 0;
+	padding-top: 15px !important;
+	padding-left: 3px;
+}
+
+.checkConfig {
+	margin-left: 5px;
+}
+
+.checkConfig .ui-chkbox-label {
+	float: none !important;
+	display: inline-block;
+	vertical-align: bottom;
+	margin-bottom: 5px;
+}
+
+/* CONFIRMACAO PEDIDO*/
+.panelPedidoConfirmado {
+	background: #d9f7e3;
+	border: solid 1px green;
+	padding: 2%;
+	margin: 2% 0 2% 0;
+}
+
+/* AGUARDANDO CONFIRMACAO PEDIDO */
+.panelPedidoEspera {
+	background: #fcfca4;
+	border: solid 1px #ffb327;
+	padding: 2%;
+	margin: 2% 0 2% 0;
+}
+
+.panelPedidoInformacoesConfirmado {
+	border: solid 1px #ffb327;
+	padding: 1%;
+	margin: 2% 0 2% 0;
+}
+
+.panelPedidoInformacoesEspera {
+	border: solid 1px #ffb327;
+	padding: 2%;
+	margin: 2% 0 2% 0;
+}
+
+.panelPedidoInformacoesInterno {
+	font-size: small !important;
+}
+
+.panelPedidoInformacoesInternoLink {
+	font-weight: bold;
+	color: black;
+	margin-right: 3px;
+	margin-left: 3px;
+}

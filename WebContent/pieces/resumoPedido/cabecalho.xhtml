@@ -1,0 +1,60 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<div>
+		<div style="width: 100%; text-align: left">
+			<h:graphicImage alt="logo" width="15%"
+				style="padding-right: 10px; display: inline"
+				value="#{imageApplicationLogo}#{escolhaTemaMB.temaEscolhido.imagemLogo}" />
+			<p
+				style="text-align: left; display: inline-block; width: 80%; vertical-align: top">
+				<strong>#{historicoPedidosMB.filial.razaoSocial}</strong>
+				<h:outputText value=" - CNPJ #{historicoPedidosMB.filial.cnpj}" />
+				<br />
+				<h:outputText
+					value="#{historicoPedidosMB.filial.logradouro.toLowerCase()}" />
+				<h:outputText
+					value=", #{historicoPedidosMB.filial.numeroLogradouro}" />
+				<h:outputText
+					value=" - Bairro #{historicoPedidosMB.filial.bairro.descricaoBairro.toLowerCase()}" />
+				<h:outputText
+					value=" - #{historicoPedidosMB.filial.cidade.descricaoCidade.toLowerCase()}" />
+				<h:outputText value=" / #{historicoPedidosMB.filial.uf.sigla}" />
+				<h:outputText value=" - Brasil" />
+				<h:outputText value=" - CEP #{historicoPedidosMB.filial.cep}" />
+				<h:outputText value=" - Contato: "
+					rendered="#{not empty historicoPedidosMB.filial.telefone1 or not empty historicoPedidosMB.filial.email}" />
+				<h:outputText value="#{historicoPedidosMB.filial.telefone1}" />
+				<h:outputText value="#{historicoPedidosMB.filial.email}" />
+			</p>
+		</div>
+
+		<h:dataTable style="width: 100%; text-align: center" value=""
+			frame="hsides">
+			<h:column>
+				<strong>#{msg['texto.serie']}/#{msg['texto.numero']}</strong>
+				<br />
+				<h:outputText value="#{pedido.serieCodigo}/#{pedido.numero}" />
+			</h:column>
+
+			<h:column>
+				<strong>#{msg['texto.dataInclusao']}</strong>
+				<br />
+				<h:outputText
+					value="#{formatacaoMB.formataData(pedido.dataCadastro)}" />
+			</h:column>
+
+			<h:column>
+				<strong>#{msg['texto.dataEmissao']}</strong>
+				<br />
+				<h:outputText
+					value="#{formatacaoMB.formataData(pedido.dataEmissao)}" />
+			</h:column>
+		</h:dataTable>
+
+		
+	</div>
+
+</f:view>

@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+<ui:composition template="/templates/layoutBasico.xhtml">
+	<ui:param name="html"
+		value="#{document.getElementById(':formResumoPed:teste').innerHTML}" />
+	<ui:param name="aoCarregar"
+		value="#{gerentePedidoMB.receberHtmlPedido(html)}, #{gerentePedidoMB.aoCarregar()}" />
+	<ui:param name="pedidoHistorico"
+		value="#{historicoPedidosMB.ePedidoHistorico}" />
+
+	<ui:define name="header">
+		<h:outputStylesheet library="css/pages" name="resumoPedido.css" />
+
+
+		<script type="text/javascript">
+			function recuperarHtml() {
+				return document.getElementById('teste').innerHTML;
+			}
+		</script>
+	</ui:define>
+
+	<ui:define name="content">
+
+
+		<h:form>
+			<p:poll
+				rendered="#{historicoPedidosMB.redirecionaAutomaticamenteHome}"
+				interval="#{historicoPedidosMB.intervaloRedirecionamentoAutomaticamenteHome}"
+				onsuccess="redirecionar('#{rootPath}#{produtoPesquisaMB.urlView}')"
+				global="false" />
+		</h:form>
+
+
+		<p:breadCrumb rendered="#{pedidoHistorico}">
+			<p:menuitem value="#{msg['titulo.paginaInicial']}"
+				url="#{produtoPesquisaMB.urlView}" />
+
+			<p:menuitem value="#{msg['titulo.meusPedidos']}"
+				url="#{historicoPedidosMB.urlView}" />
+		</p:breadCrumb>
+
+		<ui:param name="pedidoConfirmado"
+			value="#{historicoPedidosMB.pedidoConfirmado}" />
+
+		<h1 class="tituloPags1" style="pedidoHistorico ?'display: none ':''">#{msg['texto.confirmacao']}</h1>
+		<ui:param name="pagNumCrono" value="3" />
+		<ui:include src="/pieces/carrinho/passos.xhtml" />
+
+		<div
+			style="perfilCliente ?'width: 80%; margin-left: 10%; ':' width: 100%'">
+
+			<div style="pedidoHistorico ?'display: none ':''"
+				class="#{pedidoConfirmado?'panelPedidoConfirmado':'panelPedidoEspera'}">
+
+
+				<h:graphicImage
+					value="#{pedidoConfirmado?'/resources/img/shopping-ok.png':'/resources/img/shopping-clock.png'}"
+					height="45" width="45" style="float:left; margin-top:-1.5%;" />
+				<h:outputText styleClass="bold"
+					value="#{pedidoConfirmado?parametros.parametroWeb.mensagemConfirmacaoPedido:parametros.parametroWeb.mensagemAguardandoCartaoPedido}" />
+			</div>
+
+
+			<div style="pedidoHistorico ?'display: none ':''"
+				class="#{pedidoConfirmado?'panelPedidoInformacoesConfirmado':'panelPedidoInformacoesEspera'}">
+
+				<p:outputPanel
+					rendered="#{perfilCliente and historicoPedidosMB.pedidoComPagamentoProcessamentoAutomatico}">
+					<div class="panelPedidoInformacoesInterno"
+						style="font-weight: bold;">
+
+						<h:outputText
+							value="#{msg['mensagem.informacao.resumopedido.emailnotificacao1']}" />
+
+						<h:outputText styleClass="panelPedidoInformacoesInternoLink"
+							value="#{historicoPedidosMB.clientePedidoSelecionado.emailLoginWeb}" />
+
+						<h:outputText
+							value="#{msg['mensagem.informacao.resumopedido.emailnotificacao2']}" />
+					</div>
+				</p:outputPanel>
+
+				<div class="panelPedidoInformacoesInterno">
+
+					<h:outputText
+						value="#{msg['mensagem.informacao.resumopedido.meuspedidos1']}" />
+
+					<h:outputLink styleClass="panelPedidoInformacoesInternoLink"
+						value="#{rootPath}#{historicoPedidosMB.urlView}">#{msg['texto.aqui']}</h:outputLink>
+
+					<h:outputText
+						value="#{msg['mensagem.informacao.resumopedido.meuspedidos2']}" />
+
+					<h:outputLink styleClass="panelPedidoInformacoesInternoLink"
+						value="#{rootPath}#{historicoPedidosMB.urlView}">#{msg['titulo.meusPedidos']}</h:outputLink>
+				</div>
+
+
+
+				<p:outputPanel rendered="#{perfilCliente}">
+					<div class="panelPedidoInformacoesInterno">
+
+						<h:outputText
+							value="#{msg['mensagem.informacao.resumopedido.atendimento1']}" />
+
+						<h:outputLink styleClass="panelPedidoInformacoesInternoLink"
+							value="#{rootPath}/atendimento/">#{msg['texto.aqui']}</h:outputLink>
+
+						<h:outputText
+							value="#{msg['mensagem.informacao.resumopedido.atendimento2']}" />
+
+						<h:outputLink styleClass="panelPedidoInformacoesInternoLink"
+							value="#{rootPath}/atendimento/">#{msg['titulo.atendimento']}</h:outputLink>
+					</div>
+				</p:outputPanel>
+			</div>
+
+			<h:form id="formResumoPed">
+				<div style="display: block; width: 100%; height: 100%;">
+					<ui:include src="/pieces/resumoPedido/configImpressao.xhtml" />
+
+					<p:panel id="teste"
+						header="#{msg['titulo.resumoPedido']} #{msg['titulo.impressao']}"
+						styleClass="#{perfilColaborador?'panelPreviewImpressaoPedido':'panelPreviewImpressaoPedidoCliente'}">
+						<ui:include src="/pieces/resumoPedido/resumoPedido.xhtml" />
+					</p:panel>
+				</div>
+
+				<!-- 
+			<p:commandButton icon="ui-icon-arrowreturnthick-1-w"
+				value="Voltar ao Pedido"
+				oncomplete="if (args.validationFailed) {} else {redirecionar('#{rootPath}#{gerentePedidoMB.urlView}')}" />
+						
+			<p:commandButton icon="ui-icon-check" value="Novo Pedido"
+				ajax="false" actionListener="historicoPedidosMB.paginaPedido()"
+				oncomplete="" />
+						-->
+
+
+				<p:commandButton value="Imprimir" icon="ui-icon-print" ajax="false"
+					action="#{historicoPedidosMB.incrementarQuantidadeImpressao(pedido)}">
+					<p:printer target="resumoPedidoImpressao" />
+				</p:commandButton>
+
+			</h:form>
+
+		</div>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

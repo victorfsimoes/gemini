@@ -1,0 +1,27 @@
+<p:dataGrid xmlns="http://www.w3.org/1999/xhtml" id="colunaDireita"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui" columns="1" var="miniBanner"
+	rowIndexVar="i" value="#{produtoPesquisaMB.listaMiniBanners}"
+	rendered="#{produtoPesquisaMB.exibeMiniBanner}">
+
+	<p:imageSwitch effect="turnDown" slideshowAuto="true"
+		slideshowSpeed="6000">
+		<ui:repeat value="#{miniBanner}" var="imagem">
+
+			<p:commandLink oncomplete="redirecionar('#{rootPath}#{imagem.url}')"
+				styleClass="linkBanners"
+				style="width:100%;"
+				disabled="#{imagem.produtoCodigo == 0 and imagem.grupoProdutoCodigo == 0}">
+				<p:graphicImage
+					value="#{formatacaoMB.formatarEnderecoImagemSemPasta(imagem.nomeImagem)}"
+					alt="#{imagem.descricaoImagem}" styleClass="miniBanner"
+					style="background-image: url('#{formatacaoMB.formatarEnderecoImagemSemPasta(imagem.galeria.imagemBackground)}'); text-align: center"/>
+			</p:commandLink>
+
+		</ui:repeat>
+	</p:imageSwitch>
+
+</p:dataGrid>

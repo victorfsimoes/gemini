@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+	<composite:interface>
+		<composite:attribute name="idImg" required="true" />
+		<composite:attribute name="tooltip" required="true" />
+		<composite:attribute name="url" required="true" />
+		<composite:attribute name="width" required="false" />
+		<composite:attribute name="height" required="false" />
+		<composite:attribute name="rendered" required="false" />
+	</composite:interface>
+
+
+	<composite:implementation>
+		<p:graphicImage id="#{cc.attrs.idImg}" width="#{cc.attrs.width}"
+			height="#{cc.attrs.height}" url="#{cc.attrs.url}"
+			rendered="#{cc.attrs.rendered}" />
+
+		<p:overlayPanel for="#{cc.attrs.idImg}">
+			<h:outputText value="#{cc.attrs.tooltip}" escape="false"/>
+		</p:overlayPanel>
+	</composite:implementation>
+
+</h:body>
+</html>

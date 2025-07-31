@@ -1,0 +1,65 @@
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	style="text-align: left">
+
+	<h:outputText value="#{msg['mensagem.nenhumPedidoEncontrado']}"
+		rendered="#{empty historicoPedidosMB.historicoPedidos}" />
+
+	<p:outputPanel
+		rendered="#{not empty historicoPedidosMB.historicoPedidos}">
+		<div style="width: 97%; padding-left: 3%; font-weight: bold"
+			class="titulosMeusPedidos">
+			<h:outputText value="#{msg['texto.serie']}/#{msg['texto.numero']}"
+				style="display:inline-block; width:10%;" />
+			<h:outputText value="#{msg['texto.dataEmissao']}"
+				style="display:inline-block; width:11%;" />
+			<h:outputText value="#{msg['texto.valorTotal']}"
+				style="display:inline-block; width:14%;" />
+			<h:outputText value="Status" style="display:inline-block; width:23%;" />
+			<h:outputText value="Cliente"
+				style="display:inline-block; width:42%;" />
+		</div>
+	</p:outputPanel>
+
+	<p:accordionPanel value="#{historicoPedidosMB.historicoPedidos}"
+		styleClass="accordionMeusPedidos" var="ped" id="accordionPedidos"
+		dynamic="true">
+
+		<p:ajax event="tabChange" global="false"
+			listener="#{historicoPedidosMB.pedidosTabChange}" />
+
+		<p:tab id="tab">
+			<f:facet name="title">
+				<div style="width: 100%; height: 25px; display: block">
+					<h:outputText value="#{ped.serieCodigo}/#{ped.numero}"
+						style="display:inline-block; width:10%;" />
+					<h:outputText style="display:inline-block; width:11%;"
+						value="#{formatacaoMB.formataData(ped.dataEmissao)}" />
+					<h:outputText style="display:inline-block; width:14%;"
+						value="#{msg['texto.R$']} #{formatacaoMB.formataPreco(ped.valor,2)}" />
+					<h:outputText value="#{ped.statusPedido.descricao.toLowerCase()}"
+						style="display:inline-block; width:23%;" styleClass="capitalize" />
+					<h:outputText
+						value="#{historicoPedidosMB.getRazaoCliente(ped.pessoaCodigo)}"
+						style="display:inline-block; width:42%;" styleClass="capitalize" />
+				</div>
+			</f:facet>
+
+			<ui:include src="/pieces/meusPedidos/detalhesPedido.xhtml" />
+
+			<p:commandButton value="#{msg['acao.editarPedido']}"
+				rendered="#{ped.statusPedidoCodigo == 2 and historicoPedidosMB.verificarPermissaoEditarPedido()}"
+				ajax="false" action="#{gerentePedidoMB.editarPedido(ped)}"
+				immediate="true" />
+			<p:commandButton value="#{msg['acao.imprimirPedido']}"
+				rendered="true"
+				actionListener="#{historicoPedidosMB.imprimirPedido(ped, false)}"
+				oncomplete="redirecionar('#{rootPath}#{historicoPedidosMB.urlViewResumo}')" />
+
+		</p:tab>
+
+	</p:accordionPanel>
+</div>

@@ -1,0 +1,16 @@
+<f:view contentType="text/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+	
+	<ui:param name="exibePrecoVisitante"
+		value="#{produtoDetalheMB.exibePrecoVisitante or produto.exibePrecoVisitante}"/>
+
+	<p:commandButton styleClass="buttonFacaLoginPreco"
+		style="text-align:center; vertical-align: top; display: inline-block"
+		value="#{msg['texto.facaloginverpreco']}"
+		rendered="#{!identity.loggedIn and !exibePrecoVisitante}"
+		oncomplete="redirecionar('#{rootPath}#{gerenteLogin.urlView}')">
+	</p:commandButton>
+
+</f:view>

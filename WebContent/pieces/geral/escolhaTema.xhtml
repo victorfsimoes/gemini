@@ -1,0 +1,35 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="panelHeaderBackground">
+		<div id="barraCores" class="panelHeaderBarraCores">
+			<p:commandButton action="#{escolhaTemaMB.escolherTema(0)}"
+				oncomplete="window.location.reload()" value=""
+				styleClass="botaoBarraCores" style="background: #6FA8DC;" />
+			<p:commandButton action="#{escolhaTemaMB.escolherTema(6)}"
+				oncomplete="window.location.reload()" value=""
+				styleClass="botaoBarraCores" style="background: red;" />
+			<p:commandButton action="#{escolhaTemaMB.escolherTema(4)}"
+				oncomplete="window.location.reload()" value=""
+				styleClass="botaoBarraCores" style="background: black;" />
+			<p:commandButton action="#{escolhaTemaMB.escolherTema(1)}"
+				oncomplete="window.location.reload()" value=""
+				styleClass="botaoBarraCores" style="background: gray;" />
+			<p:commandButton action="#{escolhaTemaMB.escolherTema(5)}"
+				styleClass="botaoBarraCores" oncomplete="window.location.reload()"
+				value="" style="background: green;" />
+			<p:commandButton action="#{escolhaTemaMB.escolherTema(3)}"
+				styleClass="botaoBarraCores" oncomplete="window.location.reload()"
+				value="" style="background: orange;" />
+			<p:commandButton action="#{escolhaTemaMB.escolherTema(2)}"
+				oncomplete="window.location.reload()" value=""
+				styleClass="botaoBarraCores" style="background: pink;" />
+		</div>
+
+	</div>
+
+</f:view>

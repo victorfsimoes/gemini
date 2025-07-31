@@ -1,0 +1,15 @@
+<h:panelGrid xmlns:h="http://java.sun.com/jsf/html" columns="2"
+	style="margin-right: 30px; color: rgb(69,200,244); text-align:left">
+
+	<h:graphicImage url="/resources/img/social/twitter.png" width="48"
+		height="48" />
+
+	<h:column>
+		<h:outputText value="#{msg['texto.twitter']}" styleClass="bold" style="font-size:0.8em;" />
+		<br/>
+		<a
+			href="#{rootPath}#{itemPedidoMB.getUrlView(itemPedidoMB.caixaProdutoSelecionado)}"
+			class="twitter-share-button" data-lang="pt"
+			data-hashtags="#{parametroWebMB.parametroWeb.siteTitulo}">#{msg['acao.twittar']}</a>
+	</h:column>
+</h:panelGrid>

@@ -1,0 +1,229 @@
+@CHARSET "ISO-8859-1";
+
+/* PANEL PREÇOS */
+.panelPrecoTotalItemPedido {
+	/*width: 180px;*/
+	text-align: left !important;
+	/*margin-right: 20px;*/
+}
+
+.panelPrecoTotalItemPedido .ui-fieldset-legend {
+	background: transparent !important;
+	height: 15px;
+}
+
+.panelPrecoDestaqueItemPedido {
+	width: 180px;
+	margin: 0;
+}
+
+
+.precoTotalItemPedido {
+	font-size: 1.312em;
+	font-weight: bold;
+}
+
+
+/* BOTÕES */
+.botaoAdicionarItem {
+	width: 100%;
+	height: 100px;
+	text-align: left !important;
+}
+
+.imagemCarrinho {
+	background-image: url("../resources/img/carrinho.png")
+		!important;
+	width: 50px;
+	height: 50px;
+}
+
+.botaoCancelar {
+	margin-top: 30px;
+	width: 100%;
+	height: 60px;
+}
+
+/* MULTIMÍDIA */
+.multimidiaItemProduto {
+	padding: 0 !important;
+	border: 1px solid;
+	/*margin-right: 30px !important;*/
+	background: rgb(250, 252, 252);
+}
+
+.multimidiaItemProduto .ui-tabs-nav {
+	border: 1px solid;
+	border-radius: 0px 0px 0px 0px;
+}
+
+/* LABEL ESTOQUE */
+.labelEstoque {
+	margin: 20px 0px 20px 0px;
+	padding: 10px;
+	text-align: left;
+	max-width: 350px;
+}
+
+/* PANEL DETALHES ADICIONAIS */
+.boxItemTitulo {
+	width: 100.5%;
+	color: white;
+	padding: 10px;
+	margin: 0;
+	border-radius: 0px 0px 50px 0px;
+	margin-left: -13px;
+	margin-top: -12px;
+	-webkit-box-shadow:  1px 1px 2px 1px rgba(0, 0, 0, 0.3);    
+    box-shadow:  1px 1px 2px 1px rgba(0, 0, 0, 0.3);
+    text-align: left;
+}
+
+.boxItemConteudo {
+	padding: 20px;
+	text-align:left;
+}
+
+.boxItemTabTitulo {
+	border-radius: 0px 0px 0px 0px;
+	color: white !important;
+	text-align:left;
+}
+
+.boxItemTab .ui-tabs-nav {
+	width: 100%;
+	margin-left: -4px !important;
+	margin-top: -4px !important;
+	text-align:left;
+}
+
+.boxItemTab {
+	border-radius: 5px 5px 0px 0px;
+	margin: 0;
+	text-align:left;
+}
+
+.boxItem {
+	border: solid 10px;
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+/* PROMOÇÃO */
+.backgroundCinza {
+	background: silver;
+}
+
+/* ITENS SEMELHANTES */
+.sliderItensSemelhantes.ui-carousel-header {
+	background: transparent !important;
+}
+
+.sliderItensSemelhantes {
+	width: 100%;
+	border: none;
+}
+
+.itemSemelhante {
+	text-align: center;
+	width: 300px;
+	height: 230px;
+	padding: 20px;
+}
+
+.panelItemSemelhante {
+	width: 100%;
+	text-align: center;
+	padding: 5px;
+}
+
+/* PANEL DETALHES (RESUMO) - CINZA */
+.panelDetalhes {
+	margin-top: 10px;
+	border-color: gray !important;
+	background: rgb(248, 248, 255) !important;
+}
+
+.panelDetalhes .ui-panel-titlebar {
+	color: white;
+	border-color: gray;
+	background: rgb(186, 186, 186);
+	background: -moz-linear-gradient(left, rgba(186, 186, 186, 1) 50%,
+		rgba(223, 223, 223, 1) 100% );
+	background: -webkit-gradient(linear, left top, right top, color-stop(50%, rgba(186,
+		186, 186, 1) ), color-stop(100%, rgba(223, 223, 223, 1) ) );
+	background: -webkit-linear-gradient(left, rgba(186, 186, 186, 1) 50%,
+		rgba(223, 223, 223, 1) 100% );
+	background: -o-linear-gradient(left, rgba(186, 186, 186, 1) 50%,
+		rgba(223, 223, 223, 1) 100% );
+	background: -ms-linear-gradient(left, rgba(186, 186, 186, 1) 50%,
+		rgba(223, 223, 223, 1) 100% );
+	background: linear-gradient(to right, rgba(186, 186, 186, 1) 50%,
+		rgba(223, 223, 223, 1) 100% );
+	filter: progid:DXImageTransform.Microsoft.gradient(  
+		                     startColorstr='#bababa', endColorstr='#dfdfdf',
+		GradientType=1 );
+}
+
+.panelDetalhes .ui-panel-titlebar-icon {
+	border-color: silver;
+}
+
+.panelDetalhes .ui-panel-titlebar-icon:HOVER {
+	border-color: gray;
+	background: rgb(230, 230, 230);
+}
+
+/* FIELDSET DETALHES - CINZA */
+.fieldsetDetalhes {
+	text-align: left;
+	margin-bottom: 3px;
+	margin-top: 20px;
+	border-color: silver !important;
+	background: rgb(240, 240, 240) !important;
+	position: relative;
+	bottom: 0px;
+	vertical-align: bottom !important;
+}
+
+.fieldsetDetalhes .ui-fieldset-legend {
+	border-color: silver;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	color: black;
+	background: rgb(237, 237, 237);
+	background: -moz-linear-gradient(top, rgba(237, 237, 237, 1) 40%,
+		rgba(219, 219, 219, 1) 100% );
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(40%, rgba(237
+		, 237, 237, 1) ), color-stop(100%, rgba(219, 219, 219, 1) ) );
+	background: -webkit-linear-gradient(top, rgba(237, 237, 237, 1) 40%,
+		rgba(219, 219, 219, 1) 100% );
+	background: -o-linear-gradient(top, rgba(237, 237, 237, 1) 40%,
+		rgba(219, 219, 219, 1) 100% );
+	background: -ms-linear-gradient(top, rgba(237, 237, 237, 1) 40%,
+		rgba(219, 219, 219, 1) 100% );
+	background: linear-gradient(to bottom, rgba(237, 237, 237, 1) 40%,
+		rgba(219, 219, 219, 1) 100% );
+	filter: progid:DXImageTransform.Microsoft.gradient(     
+		                     startColorstr='#ededed', endColorstr='#dbdbdb',
+		GradientType=0 );
+}
+
+/**
+* LAYOUT SIMPLES
+*
+**/
+.itemPedidoCol1 {
+	max-width: 100%;
+	min-width: 40%;
+	vertical-align: top;
+	height: 100%;
+}
+
+.itemPedidoColPro {
+	max-width: 60%;
+	width: 60%;
+	overflow-x: auto;
+	background-color: rgb(245, 245, 245);
+	vertical-align: top;
+}

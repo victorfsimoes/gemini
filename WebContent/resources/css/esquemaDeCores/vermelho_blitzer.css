@@ -1,0 +1,275 @@
+@CHARSET "ISO-8859-1";
+
+/* GERAL */
+
+/* LAYOUT TOPO */
+/* Header 1*/
+.panelHeaderClientePedido {
+	background: rgb(255, 212, 169);
+	border: none;
+}
+
+.panelHeaderCarrinho {
+	color: white !important;
+	/*border-color: #ec9e9e !important;*/
+	border: 2px solid yellow;
+	background: rgb(255, 255, 220) !important;
+}
+
+.headerBackgroundCarrinho {
+	background: yellow;
+	border-color: rgb(255, 255, 220);
+}
+
+.panelHeaderCarrinho {
+	background: rgba(255, 255, 255, 0.5);
+	border-color: yellow;
+}
+
+.precoTotalPedidoResumoHeader {
+	font-weight: bold;
+	color: rgb(95, 95, 222);
+}
+
+/* Header 2 */
+.panelHeader2 {
+	background-color: rgb(201, 201, 201);
+	border-color: rgb(142, 15, 15);
+}
+/* CONTEUDO */
+
+/* LAYOUT FOOTER */
+/* Footer site */
+.panelFooterSpace {
+	background-color: rgb(250, 240, 230);
+}
+
+.linkSpace {
+	color: rgb(0, 48, 88) !important;
+}
+/* Footer Pagamento*/
+.footerFormasPagamento {
+	background: rgb(255, 170, 132);
+}
+
+.footerFormasPagamentoTitulo {
+	color: rgb(128, 0, 0);
+}
+
+#rodapeDinamico {
+	background: white !important;
+}
+/* COMPARTILHADO */
+html {
+	background: white;
+}
+
+.panelHeader,.panelFooter,.panelHeaderBarraCores {
+	background: rgb(208, 21, 21) !important;
+}
+
+.barraPesquisaFlutuante,.fixar {
+	background: rgba(208, 21, 21, 0.9) !important;
+}
+
+.colDivisoria {
+	border-left-color: silver;
+}
+
+/* PEDIDO */
+.panelDetalhesPedido {
+	background: #f9f8f0;
+}
+
+/* PESQUISA PRODUTOS */
+.dataGridProdutosGrade .ui-datagrid-column {
+	border-color: rgb(220, 220, 220);
+}
+
+.miniBanner {
+	border-color: rgb(255, 170, 132);
+}
+
+.tituloPanelItem {
+	color: hsl(221, 100%, 50%);
+}
+
+.precoDestaque {
+	color: hsl(0, 82%, 45%) !important;
+}
+
+/* footer */
+.footerSeguranca {
+	background: #fefdfb;
+}
+
+.precoTotalItemPedido { /*color: rgb(255, 69, 0);*/
+	color: blue;
+}
+
+.tituloDescricaoPromocao {
+	color: rgb(0, 66, 118);
+}
+
+.panelFooter,.headerFilial {
+	color: white;
+}
+
+.panelContainer {
+	background: white;
+}
+
+/* ITEM PEDIDO */
+#formPromocoes:dtPromocao.ui-datatable.ui-datatable-header {
+	background: hsl(0, 100%, 35%) !important;
+}
+
+.boxItemTitulo,.boxItemTab .ui-tabs-nav {
+	background: #D01515 !important;
+}
+
+.boxItem {
+	border-color: rgb(255, 218, 185) !important;
+}
+
+.multimidiaItemProduto {
+	border-color: rgb(205, 92, 92);
+}
+
+.multimidiaItemProduto .ui-tabs-nav {
+	border-color: rgb(245, 245, 245);
+}
+
+.multimidiaItemProduto .ui-tabs-panels {
+	background: hsl(30, 67%, 94%);
+}
+
+.multimidiaItemProduto .ui-galleria-filmstrip-wrapper {
+	border-top: hsl(30, 67%, 94%) 2px dashed;
+}
+
+.itemSemelhante:HOVER,.itemSemelhante:FOCUS,.linkItemSemelhante:HOVER {
+	background: rgb(250, 235, 215) !important;
+}
+
+.panelItemSemelhantePrecoVenda {
+	color: #345393;
+}
+
+.labelEstoque {
+	background: rgb(240, 240, 240);
+	color: black !important;
+}
+
+.corLabelPromocao {
+	background: rgb(250, 240, 230);
+}
+
+.fieldsetTabPrecos,.fieldsetTabPrecos .ui-fieldset-legend {
+	border-color: rgb(178, 34, 34);
+}
+
+.panelPrecoTotalItemPedido {
+	background: rgb(250, 240, 230);
+	border-color: rgb(178, 34, 34);
+}
+
+.panelItem {
+	background: rgb(250, 250, 250);
+}
+
+.panelItem1 {
+	background: none;
+	border: none;
+}
+
+.fieldsetPromocao {
+	margin-top: 30px;
+	background: rgb(250, 250, 250);
+}
+
+/* CARRINHO */
+.precoTotalCarrinho {
+	color: hsl(204, 100%, 35%);
+}
+
+.tabelaItens .ui-datatable-footer {
+	background: #FAF0E6 !important;
+	border-color: #D8DCDF;
+	color: black !important;
+}
+
+.textoPrecoTotalCarrinho {
+	color: #D01515;
+}
+
+.panelPrecoTotal {
+	background: rgb(250, 250, 250) !important;
+	border-color: #D8DCDF;
+}
+
+.botaoFinalizarCompra {
+	border: 1px solid #124d77;
+	-moz-box-shadow: inset 0px 1px 0px 0px #54a3f7;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #54a3f7;
+	box-shadow: inset 0px 1px 0px 0px #54a3f7;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #007dc1
+		), color-stop(1, #0061a7));
+	background: -moz-linear-gradient(top, #007dc1 5%, #0061a7 100%);
+	background: -webkit-linear-gradient(top, #007dc1 5%, #0061a7 100%);
+	background: -o-linear-gradient(top, #007dc1 5%, #0061a7 100%);
+	background: -ms-linear-gradient(top, #007dc1 5%, #0061a7 100%);
+	background: linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#007dc1',
+		endColorstr='#0061a7', GradientType=0);
+	background-color: #007dc1;
+}
+
+.botaoFinalizarCompra:HOVER {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #0061a7
+		), color-stop(1, #007dc1));
+	background: -moz-linear-gradient(top, #0061a7 5%, #007dc1 100%);
+	background: -webkit-linear-gradient(top, #0061a7 5%, #007dc1 100%);
+	background: -o-linear-gradient(top, #0061a7 5%, #007dc1 100%);
+	background: -ms-linear-gradient(top, #0061a7 5%, #007dc1 100%);
+	background: linear-gradient(to bottom, #0061a7 5%, #007dc1 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0061a7',
+		endColorstr='#007dc1', GradientType=0);
+	background-color: #0061a7;
+}
+
+/**/
+.subcategoriaProdutosTexto {
+	color: rgb(26, 90, 158);
+}
+
+.subcategoriaProdutos {
+	border-color: rgb(240, 128, 128);
+	border-width: 2px !important;
+}
+
+.subcategoriaProdutosSelecionada {
+	color: rgb(26, 90, 158);
+	font-weight: bold;
+}
+
+.panelInternoLogin {
+	border-color: rgb(0, 66, 118);
+	background: rgb(254, 254, 254);
+	color: rgb(0, 66, 118);
+}
+
+.panelLogin {
+	background: rgb(255, 245, 240);
+	border: none;
+}
+
+/* COR NEUTRA: TONS DE CINZA */
+.panelDetalhes .ui-panel-titlebar-icon {
+	background: rgb(240, 240, 240);
+	/*background: rgb(169,169,169);*/
+}
+
+.popupTabPrecos {
+	background: rgb(230, 230, 230);
+}

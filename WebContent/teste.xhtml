@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	template="/templates/layoutBasico.xhtml">
+
+	<ui:define name="content">
+
+		<h:form>
+			<p:panel xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+				styleClass="panelContainerInterno" header="Autorizacao">
+
+				<h:panelGrid columns="1" styleClass="panelInternoLogin"
+					id="panelLogin">
+
+					<h:outputText value="#{gerenteAutorizacaoMB.descricao}"
+						style="font-weight: bold;" />
+
+					<h:outputText value="#{gerenteAutorizacaoMB.observacao}" id="obs4"
+						rows="4" cols="70" escape="false" />
+
+					<comp:inputTextArea titulo=""
+						value="#{gerenteAutorizacaoMB.observacaoSolicitacao}" id="obs2"
+						rows="4" cols="70" />
+
+					<h:panelGrid columns="3" style="text-align:left">
+						<p:commandButton icon="#{msg['figura.check']}" ajax="false"
+							value="Cancelar" action="#{gerenteAutorizacaoMB.cancelar()}"
+							oncomplete="if (args.validationFailed) {} else {document.location.href='#{rootPagePath}#{gerenteAutorizacaoMB.urlViewVoltar}'}">
+						</p:commandButton>
+						<p:commandButton icon="#{msg['figura.check']}" ajax="false"
+							value="Autorizar" action="#{gerenteAutorizacaoMB.autorizar()}"
+							oncomplete="if (args.validationFailed) {} else {document.location.href='#{rootPagePath}#{gerenteAutorizacaoMB.urlViewVoltar}'}">
+						</p:commandButton>
+						<p:commandButton icon="#{msg['figura.check']}" ajax="false"
+							value="Solicitar" action="#{gerenteAutorizacaoMB.solicitar()}"
+							oncomplete="if (args.validationFailed) {} else {document.location.href='#{rootPagePath}#{gerenteAutorizacaoMB.urlViewVoltar}'}">
+						</p:commandButton>
+
+					</h:panelGrid>
+
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+<ui:composition template="/templates/layoutBasico.xhtml">
+
+	<ui:param name="aoCarregar" value="#{gerentePedidoMB.aoCarregar()}" />
+
+	<ui:define name="header">
+		<h:outputStylesheet library="css/pages" name="carrinho.css" />
+	</ui:define>
+
+	<!-- mensagem de estoque indisponivel, no fim da compra, se for o caso.
+permissao estoque ilimitado... -->
+
+	<ui:define name="content">
+		<ui:param name="pedido" value="#{gerentePedidoMB.pedido}" />
+
+		<p:panel styleClass="panelTransparente" id="panelContainerPedido">
+
+
+			<h1 class="tituloPags1">#{msg['titulo.meuCarrinho']}</h1>
+			<ui:param name="pagNumCrono" value="1" />
+			<ui:include src="/pieces/carrinho/passos.xhtml" />
+
+			<h:form id="formCarrinho" style="padding-top:20px;">
+
+				<h:panelGrid columns="2" columnClasses="left, floatRight"
+					style="width:100%;">
+					<ui:include src="/pieces/carrinho/botao_comprarMais.xhtml" />
+					<ui:include src="/pieces/carrinho/botao_concluirCompra.xhtml" />
+				</h:panelGrid>
+
+				<ui:include src="/pieces/carrinho/itens.xhtml" />
+
+				<h:panelGrid columns="2" style="width:100%"
+					columnClasses="top left, right containerPrecoTotal">
+
+					<h:column>
+						<p:commandLink value="#{msg['texto.esvaziarCarrinho']}"
+							oncomplete="esvaziar.show()"
+							rendered="#{gerentePedidoMB.itensPedido.size() > 0}"
+							type="button">
+						</p:commandLink>
+						<ui:include src="/pieces/carrinho/dialogoEsvaziarCarrinho.html" />
+					</h:column>
+
+					<p:panel styleClass="panelTransparente panelPrecoTotal">
+						<h:panelGrid columns="2" style="margin-top:-2px !important">
+
+
+							<h:panelGrid columns="2" style="padding-right: 10px;">
+
+								<h:outputText value="#{msg['titulo.impostos']}: "
+									styleClass="textoPrecoTotalCarrinho"
+									rendered="#{gerentePedidoMB.valorImpostos > 0}" />
+
+								<h:outputText rendered="#{gerentePedidoMB.valorImpostos > 0}"
+									value="#{msg['texto.R$']} #{formatacaoMB.formataPreco(gerentePedidoMB.valorImpostos,2)}" />
+							</h:panelGrid>
+
+							<h:panelGrid columns="2">
+								<h:outputText value="#{msg['texto.valorTotal']}: "
+									styleClass="textoPrecoTotalCarrinho" />
+
+								<h:outputText
+									value="#{msg['texto.R$']} #{formatacaoMB.formataPreco(gerentePedidoMB.valorTotalPedido,2)}" />
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:panel>
+				</h:panelGrid>
+
+				<h:panelGrid columns="1" styleClass="containerBotoesInferiores">
+					<ui:include src="/pieces/carrinho/botao_concluirCompra.xhtml" />
+				</h:panelGrid>
+
+			</h:form>
+		</p:panel>
+	</ui:define>
+
+</ui:composition>
+</html>

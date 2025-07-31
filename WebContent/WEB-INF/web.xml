@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>SpaceWebII</display-name>
+	<welcome-file-list>
+		<welcome-file>/index.xhtml</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<session-config>
+		<session-timeout>720</session-timeout>
+	</session-config>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+		<url-pattern>*.seam</url-pattern>
+		<url-pattern>*.space</url-pattern>
+	</servlet-mapping>
+	<context-param>
+		<description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>client</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Production</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+		<param-value>resources.application</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.CONFIG_FILES</param-name>
+		<param-value>/faces-config.xml</param-value>
+	</context-param>
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>#{escolhaTemaMB.IDTemaEscolhido}</param-value>
+	</context-param>
+	<listener>
+		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.jboss.solder.resourceLoader.servlet.ResourceListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>br.com.space.spacewebII.controle.ListenerSessao</listener-class>
+	</listener>
+	<resource-env-ref>
+		<resource-env-ref-name>BeanManager</resource-env-ref-name>
+		<resource-env-ref-type>javax.enterprise.inject.spi.BeanManager</resource-env-ref-type>
+	</resource-env-ref>
+	<!-- <security-constraint> <web-resource-collection> <web-resource-name>securedapp</web-resource-name> 
+		<url-pattern>/safe/*</url-pattern> <url-pattern>/pages/login.xhtml</url-pattern> 
+		<url-pattern>/pages/checkout.xhtml</url-pattern> <url-pattern>/pagamento</url-pattern> 
+		<url-pattern>/pagamento/*</url-pattern> <url-pattern>/login</url-pattern> 
+		<url-pattern>/login/*</url-pattern> <url-pattern>/pages/erroAutorizavel.xhtml</url-pattern> 
+		<url-pattern>/autorizacao</url-pattern> <url-pattern>/autorizacao/*</url-pattern> 
+		</web-resource-collection> <user-data-constraint> <transport-guarantee>CONFIDENTIAL</transport-guarantee> 
+		</user-data-constraint> </security-constraint> -->
+</web-app>

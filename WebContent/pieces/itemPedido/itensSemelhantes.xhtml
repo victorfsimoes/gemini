@@ -1,0 +1,44 @@
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+	
+	<ui:param name="exibePrecoVisitante"
+		value="#{produtoDetalheMB.exibePrecoVisitante or produtoSemelhante.exibePrecoVisitante}"/>
+
+	<p:dataGrid id="dataGridProdutosSimilar" rows="4" columns="4"
+		paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		paginator="true" paginatorPosition="bottom"
+		paginatorAlwaysVisible="false" styleClass="dataGridProdutos"
+		columnClasses="top,top,top,top" var="produtoSemelhante"
+		value="#{MBProdutoDetalhe.produtosSemelhantes}">
+
+
+		<h:outputLink
+			value="#{rootPath}#{itemPedidoMB.getUrlView(produtoSemelhante)}"
+			onclick="dialogCarregando.show();" styleClass="selecaoPanelItem"
+			style="width:100%">
+
+
+			<h:panelGrid columns="1" styleClass="panelItemSemelhante">
+				<h:graphicImage width="120" height="120" style="padding-bottom:8px"
+					value="#{formatacaoMB.isURLValida(produtoSemelhante.imagemCapa.enderecoMidia)?produtoSemelhante.imagemCapa.enderecoMidia:'/resources/img/semfoto.jpg'}" />
+				<h:outputText value="#{produtoSemelhante.descricao.toLowerCase()}"
+					styleClass="capitalize center bold" />
+				<h:outputText
+					value="#{msg['texto.R$']} #{produtoSemelhante.precoTabelaVisualizacao}"
+					rendered="#{exibePrecoVisitante and produtoSemelhante.emOferta}"
+					styleClass="precoCortadoOferta" />
+				<h:outputText
+					value="#{msg['texto.R$']} #{produtoSemelhante.precoVendaVisualizacao}"
+					rendered="#{exibePrecoVisitante}"
+					styleClass="bold panelItemSemelhantePrecoVenda" />
+
+			</h:panelGrid>
+		</h:outputLink>
+
+	</p:dataGrid>
+</f:view>

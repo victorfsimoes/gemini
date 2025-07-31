@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+	<composite:interface>
+		<composite:attribute name="titulo" required="true" />
+		<composite:attribute name="value" required="true" />
+		<composite:attribute name="mask" required="true" />
+		<composite:attribute name="requerido" required="false" default="false" />
+		<composite:attribute name="tamCampo" required="false" />
+		<composite:attribute name="maxCaracteres" required="false" />
+		<composite:attribute name="toolTip" required="false" />
+		<composite:attribute name="watermark" required="false"
+			default="#{cc.attrs.mask}" />
+		<composite:attribute name="eventoChange" required="false" />
+		<composite:attribute name="eventoBlur" required="false" />
+		<composite:attribute name="metodoValidacao" required="false" />
+		<composite:attribute name="valorChangeListener" required="false" />
+		<composite:attribute name="disabled" required="false" />
+
+	</composite:interface>
+
+
+	<composite:implementation>
+
+		<div class="divContainer">
+
+			<p:outputLabel value="#{cc.attrs.titulo}" for="inputText"
+				styleClass="textCadastro" />
+
+			<p:inputMask id="inputText" value="#{cc.attrs.value}"
+				mask="#{cc.attrs.mask}" size="#{cc.attrs.tamCampo}"
+				maxlength="#{cc.attrs.maxCaracteres}"
+				required="#{cc.attrs.requerido}" alt="Campo #{cc.attrs.titulo}"
+				requiredMessage="#{msg['alerta.campoObrigatorio']}"
+				title="#{cc.attrs.toolTip}" onblur="#{cc.attrs.eventoBlur}"
+				onchange="#{cc.attrs.eventoChange}" disabled="#{cc.attrs.disabled}"
+				validatorMessage="Invalido">
+				<p:ajax event="blur" update="inputText" />
+			</p:inputMask>
+
+			<p:message for="inputText" />
+
+			<p:watermark for="inputText" value="#{cc.attrs.watermark}" />
+		</div>
+
+	</composite:implementation>
+
+</h:body>
+</html>

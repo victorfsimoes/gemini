@@ -1,0 +1,61 @@
+<p:tab xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	title="#{msg['titulo.pedido']}" id="tabPedido0">
+
+	<div class="divCadastro">
+
+		<h:panelGrid columns="3" columnClasses="top,,top">
+			<comp:outputInfo titulo="#{msg['texto.serie']}"
+				info="#{pedido.serieCodigo}" id="serie" />
+			<h:outputText value="/" />
+
+			<comp:outputInfo titulo="#{msg['texto.numero']}"
+				info="#{pedido.numero}" id="numero" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="3"
+			columnClasses="colDivisoria0, colDivisoria, colDivisoria">
+
+			<comp:inputCalendar titulo="#{msg['texto.dataEmissao']}"
+				disabled="true" value="#{pedido.dataEmissao}" id="dataEmissao"
+				dataMinima="#{dataHoje}" />
+
+			<comp:comboBox titulo="#{msg['texto.tipoVenda']}"
+				value="#{pedido.tipoVendaCodigo}"
+				lista="#{gerentePedidoMB.tiposVenda}" var="tipoVenda" id="tipoVenda"
+				itemLabel="#{tipoVenda.descricao}" itemValue="#{tipoVenda.codigo}"
+				rendered="#{not empty gerentePedidoMB.tiposVenda}" />
+
+			<comp:inputText titulo="#{msg['texto.origem']}"
+				value="#{pedido.codigoOrigem}" id="origem"
+				disabled="#{gerentePedidoMB.desabilitarDigitacaoOrigem()}" />
+		</h:panelGrid>
+
+		<comp:inputCodNome
+			valueCodigo="#{gerentePedidoMB.naturezaOperacaoCodigo}"
+			valueNome="#{gerentePedidoMB.naturezaOperacaoSelecionada.descricao}"
+			titulo="#{msg['texto.naturezaOperacao']}" id="pesquisaNatoper"
+			tamNome="60" listaCamposAtualizacao="@form,:formPedido:tabsPedido:panelEntrega"
+			desabilitarCodigo="#{gerentePedidoMB.desabilitarDigitacaoNaturezaOperacao()}"
+			metodoPesquisa="#{pesquisaMB.pesquisa('naturezaoperacao', gerentePedidoMB.urlView)}" />
+
+		<comp:inputCodNome titulo="#{msg['texto.cliente']}"
+			valueNome="#{gerentePedidoMB.clienteNome}"
+			valueCodigo="#{gerentePedidoMB.clienteCodigo}" id="pesquisaCliente"
+			tamNome="60" metodoPesquisa="#{gerentePedidoMB.pesquisarCliente()}"
+			desabilitarCodigo="#{gerentePedidoMB.pedidoEmAlteracao()}"
+			listaCamposAtualizacao="@form, :formPedido:tabsPedido:gridNegociacao" />
+
+		<comp:inputCodNome titulo="#{msg['texto.representante']}"
+			valueNome="#{gerentePedidoMB.vendedorSelecionado.razaoSocial}"
+			valueCodigo="#{gerentePedidoMB.vendedorCodigo}" eventoBlur=""
+			id="pesquisaRepresentante" tamNome="60"
+			desabilitarCodigo="#{gerentePedidoMB.desabilitarDigitacaoVendedor()}"
+			metodoPesquisa="#{pesquisaMB.pesquisa('vendedor', gerentePedidoMB.urlView)}" />
+
+	</div>
+</p:tab>

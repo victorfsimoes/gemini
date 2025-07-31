@@ -1,0 +1,83 @@
+<p:tab xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	title="#{msg['titulo.dadosEntrega']}" id="tabPedido4">
+
+	<div style="display: block; text-align: left">
+		<h:panelGrid columns="1" id="panelEntrega">
+
+			<comp:inputText titulo="#{msg['texto.valorFrete']}"
+				labelAntes="#{msg['texto.R$']}"
+				value="#{gerentePedidoMB.freteValor}"
+				disabled="#{gerentePedidoMB.desabilitarDigitacaoFrete()}"
+				id="valorFrete" somenteDigito="true"
+				campoAtualizar=":header, :formPedido:tabsPedido:totais" />
+
+			<h:panelGrid columns="5"
+				columnClasses="colDivisoria0 , colDivisoria, colDivisoria, colDivisoria, colDivisoria">
+				<comp:outputInfo titulo="#{msg['texto.carga']}"
+					info="#{pedido.carga}" rendered="#{not empty pedido.carga}" />
+
+				<comp:outputInfo titulo="#{msg['texto.peso']}"
+					info="#{pedido.pesoBruto}#{msg['texto.kg']}"
+					rendered="#{not empty pedido.pesoBruto}" />
+
+				<comp:outputInfo titulo="#{msg['texto.volume']}"
+					info="#{pedido.metrosCubicos}#{msg['texto.m3']}"
+					rendered="#{not empty pedido.metrosCubicos}" />
+
+				<ui:include src="/pieces/pedido/comboTipoEntrega.xhtml" />
+
+				<comp:inputText titulo="#{msg['texto.numeroEntregas']}"
+					value="#{pedido.numeroEntregas}"
+					disabled="#{gerentePedidoMB.desabilitarDigitacaoNumeroEntregas()}"
+					id="numeroEntregas" />
+
+			</h:panelGrid>
+			
+			<ui:include src="/pieces/pedido/comboLocalRetira.xhtml" />
+
+			<comp:inputCodNome titulo="#{msg['texto.transportador']}"
+				valueNome="#{gerentePedidoMB.transportadora.pessoa.razao}"
+				valueCodigo="#{gerentePedidoMB.transportadoraCodigo}"
+				id="pesquisaTransportadora" tamNome="60"
+				metodoPesquisa="#{pesquisaMB.pesquisa('transportadora', gerentePedidoMB.urlView)}" />
+
+			<h:panelGrid columns="2" columnClasses="colDivisoria0, colDivisoria">
+
+				<comp:inputCalendar titulo="#{msg['texto.dataEntrega']}"
+					value="#{pedido.dataEntrega}" id="dataEntrega"
+					dataMinima="#{dataHoje}" />
+
+				<comp:comboBox titulo="#{msg['texto.turnoEntrega']}"
+					value="#{pedido.turnoEntregaCodigo}"
+					lista="#{gerentePedidoMB.turnosEntrega}" var="turnoEntrega"
+					itemLabel="#{turnoEntrega.descricao}"
+					itemValue="#{turnoEntrega.codigo}"
+					valueChangeListener="#{gerentePedidoMB.turnoEntregaChange}"
+					id="turnoEntrega"
+					rendered="#{not empty gerentePedidoMB.turnosEntrega}" />
+
+			</h:panelGrid>
+
+		</h:panelGrid>
+
+		<p:panel style="width:100%; background:rgb(250,250,250)">
+			<h:panelGrid columns="1" style="width:100%;"
+				rendered="#{gerentePedidoMB.clienteSelecionado == null}">
+				<h:outputText value="#{msg['texto.enderecoEntrega']}"
+					styleClass="textCadastro" />
+				<h:outputText value="Selecione um cliente." style="color:silver" />
+			</h:panelGrid>
+
+			<ui:include src="/pieces/pedido/comboEnderecoEntrega.xhtml" />
+
+			<ui:param name="end"
+				value="#{gerentePedidoMB.enderecoEntregaSelecionado}" />
+			<ui:include src="/pieces/pedido/detalhesEnderecoSelecionado.xhtml" />
+		</p:panel>
+	</div>
+</p:tab>

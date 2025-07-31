@@ -1,0 +1,43 @@
+<p:panel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	styleClass="left wizardCadastro" id="dados">
+
+	<h:panelGrid columns="1">
+		<p:outputLabel value="#{msg['texto.tipoDePessoa']}" for="tipoPessoa"
+			styleClass="textCadastro" />
+		<p:selectOneButton value="#{pessoa.tipoPessoa}" id="tipoPessoa"
+			required="true"
+			valueChangeListener="#{gerenteClienteMB.cpfCnpjChangeListener}">
+			<f:selectItem itemLabel="#{msg['texto.fisica']}" itemValue="F" />
+			<f:selectItem itemLabel="#{msg['texto.juridica']}" itemValue="J" />
+			<p:ajax for="tipoPessoa" event="change" update="alteraTipoPessoa"
+				immediate="true" />
+		</p:selectOneButton>
+		<p:message for="tipoPessoa" />
+	</h:panelGrid>
+
+	<h:panelGrid columns="1" id="alteraTipoPessoa" style="padding-top:5px;">
+
+		<p:tooltip id="alertaTipoPessoa" for="tipoPessoa"
+			style="max-width:400px" rendered="false"
+			value="#{pessoaJuridica?msg['alerta.atencao.apagarDadosPessoaJuridica']:msg['alerta.atencao.apagarDadosPessoaFisica']}" />
+
+		<comp:inputMask 
+			titulo="#{pessoaJuridica?msg['texto.cnpj']:msg['texto.cpf']}"
+			value="#{pessoa.cnpjCpf}" id="cnpjCpf" requerido="true"
+			mask="#{pessoaJuridica?msg['mascara.cnpf']:msg['mascara.cpf']}" />
+			
+		<comp:inputText
+			titulo="#{pessoaJuridica?msg['texto.razaoSocial']:msg['texto.nome']}"
+			value="#{pessoa.razao}" id="razaoSocial" maxCaracteres="45"
+			tamCampo="80" requerido="true" />
+
+		<ui:include src="/pieces/cadastro/dadosPessoaFisica.xhtml" />
+		<ui:include src="/pieces/cadastro/dadosPessoaJuridica.xhtml" />
+
+	</h:panelGrid>
+</p:panel>

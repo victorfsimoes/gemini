@@ -1,0 +1,264 @@
+@CHARSET "ISO-8859-1";
+
+/* GERAL */
+.panelHeader,.panelFooter,.panelHeaderBarraCores {
+	background-color: rgb(247, 182, 75) !important;
+}
+
+.barraPesquisaFlutuante,.fixar {
+	background-color: rgba(247, 182, 75, 0.9) !important;
+}
+
+.ui-tabs {
+	background: rgb(255, 255, 255);
+}
+
+.wizardCadastro {
+	background: white !important;
+}
+
+/* HEADER */
+.panelHeader2 {
+	background-color: rgb(201, 201, 201);
+	border-color: #EE9401 !important;
+}
+
+.panelHeaderClientePedido {
+	background: rgb(246, 255, 252);
+}
+
+.panelHeaderCarrinho {
+	background: hsl(213, 55%, 62%);
+	border-color: #c4d7ee;
+	color: white !important;
+}
+
+.headerBackgroundCarrinho {
+	border-color: hsl(213, 55%, 62%);
+	background: #c4d7ee;
+	color: white !important;
+}
+
+.precoTotalPedidoResumoHeader {
+	font-weight: bold;
+	color: white;
+}
+
+.qntItensCarrinhoHeader {
+	color: hsl(38, 100%, 88%);
+}
+
+/* PESQUISA PRODUTOS */
+.dataGridProdutosGrade .ui-datagrid-column {
+	border-color: silver;
+}
+
+.tituloPanelItem {
+	color: #0000b1;
+}
+
+.miniBanner {
+	border-color: #F7B64B;
+	/*border-style: dashed !important;*/
+}
+
+/* ITEM PEDIDO */
+.boxItemTitulo,.boxItemTab .ui-tabs-nav {
+	background: #F7B64D;
+}
+
+.boxItem {
+	border-color: #FFF5EE;
+}
+
+.multimidiaItemProduto {
+	border-color: #E78F08;
+	background: rgb(250, 252, 252) !important;
+}
+
+.multimidiaItemProduto .ui-tabs-nav {
+	border-color: #E78F08;
+}
+
+.multimidiaItemProduto .ui-tabs-panels {
+	background: #F8F8F8;
+}
+
+.itemSemelhante:HOVER,.itemSemelhante:FOCUS,.linkItemSemelhante:HOVER {
+	background: white !important;
+}
+
+.panelItemSemelhantePrecoVenda {
+	color: #345393;
+}
+
+.labelEstoque,.corLabelPromocao {
+	background: #EEEEEE;
+}
+
+.panelPrecoTotalItemPedido {
+	
+}
+
+/* CARRINHO */
+.precoTotalCarrinho {
+	color: #ff7a07;
+}
+
+.tabelaItens .ui-datatable-footer {
+	background: #F8F8F8 !important;
+	border-color: silver;
+	border-top: silver 1px dotted !important;
+	color: black !important;
+}
+
+.textoPrecoTotalCarrinho {
+	color: #F7B03B;
+}
+
+.panelPrecoTotal {
+	border-color: silver;
+}
+
+.botaoFinalizarCompra {
+	border: 1px solid #d02718;
+	-moz-box-shadow: inset 0px 1px 0px 0px #f2a39e;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #f2a39e;
+	box-shadow: inset 0px 1px 0px 0px #f2a39e;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f24537
+		), color-stop(1, #c62d1f));
+	background: -moz-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background: -webkit-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background: -o-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background: -ms-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background: linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24537',
+		endColorstr='#c62d1f', GradientType=0);
+	background: #f24537;
+}
+
+.botaoFinalizarCompra:HOVER {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c62d1f
+		), color-stop(1, #f24537));
+	background: -moz-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background: -webkit-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background: -o-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background: -ms-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background: linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f',
+		endColorstr='#f24537', GradientType=0);
+	background-color: #c62d1f;
+}
+
+/* MEUS PEDIDOS */
+.ui-accordion-content {
+	background: hsl(0, 0%, 99%);
+	/*border: hsl(39, 100%, 50%) 1px solid !important;
+	border-top: dashed 1px hsl(0, 0%, 75%) !important;*/
+}
+
+.panelDetalhesPedido {
+	background: rgb(250, 250, 210);
+}
+
+/* FOOTER */
+.footerRodape {
+	color: hsl(184, 22%, 29%) !important;
+}
+
+.footerFormasPagamento {
+	background: rgb(255, 245, 238);
+}
+
+.footerFormasPagamentoTitulo {
+	color: rgb(166, 111, 0);
+}
+
+.footerSeguranca {
+	background: rgb(255, 208, 115);
+}
+
+.footerTituloSeguranca {
+	color: hsl(0, 16%, 26%) !important;
+}
+
+/* OUTROS */
+.precoTotalItemPedido {
+	color: rgb(255, 69, 0);
+}
+
+.linkSpace {
+	color: rgb(28, 148, 196) !important;
+}
+
+.panelContainer,.panelSpacer {
+	background: white;
+}
+
+.subcategoriaProdutosTexto {
+	color: rgb(36, 100, 168);
+}
+
+.subcategoriaProdutos {
+	background: transparent;
+	border-color: rgb(244, 164, 96);
+	border-width: 2px !important;
+}
+
+.subcategoriaProdutosSelecionada {
+	color: rgb(36, 100, 168);
+	font-weight: bold;
+}
+
+.colDivisoria {
+	border-left-color: rgb(233, 150, 122);
+}
+
+.tituloDescricaoPromocao {
+	color: rgb(74, 110, 158);
+}
+
+.panelItem {
+	background: rgb(255, 255, 240);
+	border-color: orange;
+}
+
+.panelItem1 {
+	background: none;
+	border: none;
+}
+
+.fieldsetPromocao {
+	margin-top: 30px;
+	background: rgb(240, 255, 255);
+}
+
+.panelInternoLogin {
+	border-color: rgb(231, 143, 8);
+	background: rgb(255, 250, 250);
+	color: rgb(28, 148, 196);
+}
+
+.panelLogin {
+	color: rgb(28, 148, 196);
+	border-color: rgb(231, 143, 8);
+	background: rgb(255, 228, 181);
+}
+
+.panelHeaderBackground {
+	background-color: rgb(221, 221, 221);
+}
+
+.panelFooterSpace {
+	background-color: rgb(255, 228, 181);
+}
+
+/* COR NEUTRA: TONS DE CINZA */
+.panelDetalhes .ui-panel-titlebar-icon {
+	background: rgb(240, 240, 240);
+	/*background: rgb(169,169,169);*/
+}
+
+.popupTabPrecos {
+	background: rgb(240, 240, 240);
+}

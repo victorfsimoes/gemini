@@ -1,0 +1,37 @@
+* Módulo nativo do Space Guardian, ou seja, não necessida de integração.
+
+* Perfil Colaborador e Cliente
+
+* Permite comercialização de Kits de produtos
+
+* Estoque on-line com o sistema de Gestão Space Guardian.
+
+* Parâmetrização de Promoções de Venda
+
+* Permite exibição de imagens e vídeos de produtos.
+
+* Regras de negociação diferenciadas por cliente
+
+* Cálculo do valor do frete por região com opção de isenção apartir de um determinado valor de compra.
+
+* Acompanhamento do status dos pedidos.
+
+* Personalização do conteúdo através do Space Guardian. (Imagens, Banners, Páginas, Links, etc).
+
+* Criptografia no tráfego dos dados.
+
+* Integração segura com Administradoras de Cartão de Crédito.
+
+* Gerenciamento dos pedidos através do Space Guardian.
+
+* Indexado pelas ferramentas de busca.
+
+* Permissão de acesso de visitantes ou somente usuários cadastrados.
+
+* Parâmetrização das informações que podem ser exibidas para visitantes.
+
+* Integração com Redes Sociais.
+
+* Permite diversas formas de pagamento.
+
+* Flexibilização do tipo de entrega. (Retira, Entrega, outros)

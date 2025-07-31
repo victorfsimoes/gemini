@@ -1,0 +1,19 @@
+<h:panelGrid xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:fb="http://ogp.me/ns/fb#" columns="2"
+	style="margin-right: 30px; width:70px; text-align:left !important; color: blue;">
+
+	<h:graphicImage url="/resources/img/social/face.png" width="48"
+		height="48" />
+
+	<h:column>
+		<h:outputText value="#{msg['texto.facebook']}" styleClass="bold"
+			style="font-size:0.8em;" />
+		<br />
+		<div style="background: white !important">
+			<fb:like
+				href="http://#{rootURL}#{rootPath}#{itemPedidoMB.getUrlView(produto)}"
+				send="true" layout="button_count" width="450" show_faces="false" />
+		</div>
+	</h:column>
+</h:panelGrid>
+

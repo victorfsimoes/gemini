@@ -1,0 +1,14 @@
+<p:outputPanel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	rendered="#{produto.emPromocao}" style="text-decoration:none !important; margin-bottom:20px;">
+	<h:graphicImage value="#{imagePath}promocao.png" width="33" height="33"
+		styleClass="labelPromocaoImagem"
+		alt="#{msg['texto.icone']} #{msg['texto.itemPromocao']}" />
+	<div class="labelPromocao">
+		<h:outputText value="#{msg['titulo.promocao']}"  style="text-decoration:none !important" />
+	</div>
+</p:outputPanel>

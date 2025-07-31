@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory name="">
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://192.168.0.6:3306/cep</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">@senharootmysql123</property>
+		<property name="hibernate.show_sql">false</property>
+		<property name="hibernate.format_sql">false</property>
+
+		<!-- Propriedade de reconexao como o banco de dados -->
+		<property name="connection.autoReconnect">true</property>
+		<property name="connection.autoReconnectForPools">true</property>
+		<property name="c3p0.min_size">0</property>
+		<property name="c3p0.max_size">400</property>
+		<property name="c3p0.timeout">120</property> <!-- 2 Minutos -->
+		<property name="c3p0.max_statements">0</property> <!-- Cache desligada -->
+		<property name="c3p0.idleConnectionTestPeriod">150</property> <!-- 2:30 Minutos -->
+		<property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+
+		<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogCep" />
+		<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogBairro" />
+		<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogCpc" />
+		<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogGrandeUsuario" />
+		<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogLocalidade" />
+		<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogLogradouro" />
+		<mapping class="br.com.space.spacewebII.modelo.dominio.endereco.LogUnidOper" />
+
+	</session-factory>
+</hibernate-configuration>
